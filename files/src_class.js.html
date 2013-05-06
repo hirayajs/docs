@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/class.js - hiraya</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+        hiraya
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.1</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "modules/hiraya", "modules/hiraya-core"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+    <h3>APIs</h3>
+    <div id="sidebar">
+        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" placeholder="Type to filter APIs">
+        </div>
+
+        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+            <div class="tab-pane active" id="classes">
+                <ul id="api-classes" class="nav nav-list">
+                    
+                        <li><a href="../classes/Hiraya.Class.html">Hiraya.Class</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
+                    
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="modules">
+                <ul id="api-modules" class="nav nav-list">
+                    
+                        <li><a href="../modules/hiraya.html">hiraya</a></li>
+                    
+                        <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+    <h1>src/class.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * Copyright (c) 2012 James Florentino
+ *
+ * Distributed under the terms of the MIT license.
+ * http://www.opensource.org/licenses/mit-license.html
+ *
+ * Derived from John Resig&#x27;s Simple Prototype Inheritance http://ejohn.org/
+ * UMD compatible
+ *
+ * @example
+ *      var Class = require(&#x27;./class&#x27;);
+ *      var Human = Class.extend({
+ *          init: function(name) {
+ *              this.name = name;
+ *              this.attack = 10;
+ *              this.health = 100;
+ *          },
+ *
+ *          attack: function(enemy) {
+ *              // initial damage
+ *              enemy.health -= this.attack;
+ *          }
+ *      });
+ *      var Elf = Class.extend({
+ *          init: function(name) {
+ *              this.parent(name);
+ *              this.magic = 5;
+ *          },
+ *          attack: function(enemy) {
+ *              this.parent(enemy);
+ *              // add magic damage to attack
+ *              enemy.health -= this.magic;
+ *          }
+ *      });
+ *      var aragorn = new Human(&#x27;Aragorn&#x27;);
+ *      var legolas = new Elf(&#x27;Legolas&#x27;);
+ *      aragorn.attack(legolas); // legolas takes 10 damage
+ *      legolas.attack(aragorn); // aragorn takes 15 damage
+ **/
+
+/**
+ * Flag to prevent the Class.proto.init from being invoked during initialization
+ * @type {Boolean}
+ */
+var start = true;
+
+/**
+ * Creates a shim for invoking a this.parent() command by wrapping it inside a closure
+ * @method protoParent
+ * @private
+ * @param {object} prototype
+ * @param {string} name
+ * @param {function} method
+ * @return {Function}
+ */
+function protoParent(prototype, name, method) {
+  return function() {
+    this.parent = prototype[name];
+    return method.apply(this, arguments);
+  };
+}
+
+/**
+ * Extends an object&#x27;s properties and assign them as prototypes in a Function
+ * @protected
+ * @param {Function} BaseClass
+ * @param {object} properties
+ * @return {Function}
+ */
+function extendClass(BaseClass, properties) {
+  var parent = BaseClass.prototype;
+  start = false;
+  var prototype = new BaseClass();
+  start = true;
+  var attribute;
+  // iterate over the properties and copy them.
+  for(var name in properties) {
+    if (properties.hasOwnProperty(name)) {
+      attribute = properties[name];
+      prototype[name] = typeof parent[name] === &#x27;function&#x27; &amp;&amp; typeof properties[name] === &#x27;function&#x27; ?
+        protoParent(parent, name, attribute) :
+        attribute;
+    }
+  }
+  /**
+   * Create a fresh constructor
+   * @class Class
+   * @namespace Hiraya
+   * @constructor
+   */
+  function Class() {
+    // use the init method to define your constructor&#x27;s content.
+    if (start &amp;&amp; this.init &amp;&amp; this.init.apply) {
+      this.init.apply(this, arguments);
+    }
+  }
+
+  Class.prototype = prototype;
+  Class.prototype.constructor = Class;
+  /**
+   * Extends the base class
+   * @method extend
+   * @param {Object} attributes
+   * @static
+   * @return {Class}
+   */
+  Class.extend = function(attributes) {
+    return extendClass(Class, attributes);
+  };
+
+  /**
+   * Instatiates the class
+   * @method create
+   * @param {Object} attributes
+   * @static
+   * @return {Class}
+   */
+  Class.create = function(attributes) {
+    var ClassExtend = Class.extend(attributes);
+    return new ClassExtend();
+  }
+  return Class;
+}
+
+var Class = extendClass(function(){}, {});
+
+module.exports = Class;
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
