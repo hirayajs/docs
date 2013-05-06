@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>hiraya - hiraya</title>
+    <title>src/hiraya-game/game.js - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -107,135 +107,41 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>hiraya <small>Module</small></h1>
+    <h1>src/hiraya-game/game.js <small>File</small></h1>
 </div>
 
-<div class="clearfix well well-small">
-    
-
-    
-
-    
-        <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-game_level.js.html#l10"><code>src&#x2F;hiraya-game&#x2F;level.js:10</code></a>
-        </div>
-    
-
-    
-</div>
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * @module hiraya
+ * @submodule hiraya-game
+ */
 
 
 
-<div class="moduledesc well well-small">
-    
-</div>
+var Emitter = require(&#x27;../hiraya-core/emitter&#x27;);
 
+/**
+ * &#x60;Hiraya.Game&#x60; is the entry point of the framework. Instantiating this will serve as your namespace,
+ * as well as reference to instantiated objects that the Hiraya framework provides.
+ *
+ * @class Game
+ * @extends Hiraya.Class
+ * @namespace Hiraya
+ */
+var Game = Emitter.extend({
+  /**
+   * The &#x60;ready&#x60; event fires when the window is ready and all the assets are loaded
+   *
+   * @event ready
+   */
+  ready: function() {
+  }
+});
 
+module.exports = Game;
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-            <p>This module provides the following classes:</p>
-
-            <ul class="module-classes">
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Class.html">
-                        Hiraya.Class
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Collection.html">
-                        Hiraya.Collection
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Emitter.html">
-                        Hiraya.Emitter
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Game.html">
-                        Hiraya.Game
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Level.html">
-                        Hiraya.Level
-                    </a>
-                </li>
-            
-            </ul>
-        
-    </div>
-
-    <div class="yui3-u-1-2">
-        
-            <p>This module is a rollup of the following modules:</p>
-
-            <ul class="module-submodules">
-            
-                <li class="module-submodule">
-                    <a href="../modules/hiraya-core.html">
-                        hiraya-core
-                    </a>
-
-                    <div class="module-submodule-description">
-                        <code>Hiraya.Class</code> can be used for prototypal inheritance.
-
-    var Human = Hiraya.Class.extend({
-       baseHealth: 100,
-       baseAttack: 10,
-       health: null,
-       init: function() {
-         this.health = this.baseHealth;
-       },
-       attack: function(enemy) {
-         this.enemy.health -= this.baseAttack;
-       }
-    });
-
-    var Orc = Human.extend({
-       baseHealth: 200,
-       attack: function(enemy) {
-         // class methods have super methods
-         this.super(enemy);
-         this.shout('waaagh!');
-       },
-       shout: function(message) {
-         alert(message);
-       }
-    });
-
-    var human = Human.create();
-    var Orc = Orc.create();
-
-    // You can also override certain properties on instantiation
-    var superman = Human.create({
-       baseHealth: 10000,
-       baseAttack: 10000
-    });
-                    </div>
-                </li>
-            
-                <li class="module-submodule">
-                    <a href="../modules/hiraya-game.html">
-                        hiraya-game
-                    </a>
-
-                    <div class="module-submodule-description">
-                        <code>Hiraya.Game</code> is the entry point of the framework. Instantiating this will serve as your namespace,
-as well as reference to instantiated objects that the Hiraya framework provides.
-                    </div>
-                </li>
-            
-            </ul>
-        
-    </div>
+    </pre>
 </div>
 
                     </div>

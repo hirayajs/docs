@@ -6,9 +6,11 @@
         "url": ""
     },
     "files": {
-        "src/class.js": {
-            "name": "src/class.js",
-            "modules": {},
+        "src/hiraya-core/class.js": {
+            "name": "src/hiraya-core/class.js",
+            "modules": {
+                "hiraya-core": 1
+            },
             "classes": {
                 "Hiraya.Class": 1
             },
@@ -17,11 +19,9 @@
                 "Hiraya": 1
             }
         },
-        "src/collection.js": {
-            "name": "src/collection.js",
-            "modules": {
-                "hiraya-core": 1
-            },
+        "src/hiraya-core/collection.js": {
+            "name": "src/hiraya-core/collection.js",
+            "modules": {},
             "classes": {
                 "Hiraya.Collection": 1
             },
@@ -30,8 +30,8 @@
                 "Hiraya": 1
             }
         },
-        "src/emitter.js": {
-            "name": "src/emitter.js",
+        "src/hiraya-core/emitter.js": {
+            "name": "src/hiraya-core/emitter.js",
             "modules": {},
             "classes": {
                 "Hiraya.Emitter": 1
@@ -41,9 +41,11 @@
                 "Hiraya": 1
             }
         },
-        "src/game.js": {
-            "name": "src/game.js",
-            "modules": {},
+        "src/hiraya-game/game.js": {
+            "name": "src/hiraya-game/game.js",
+            "modules": {
+                "hiraya-game": 1
+            },
             "classes": {
                 "Hiraya.Game": 1
             },
@@ -51,35 +53,54 @@
             "namespaces": {
                 "Hiraya": 1
             }
+        },
+        "src/hiraya-game/level.js": {
+            "name": "src/hiraya-game/level.js",
+            "modules": {},
+            "classes": {
+                "Hiraya.Level": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Hiraya": 1
+            }
+        },
+        "src/index.js": {
+            "name": "src/index.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {
         "hiraya": {
             "name": "hiraya",
             "submodules": {
-                "hiraya-core": 1
+                "hiraya-core": 1,
+                "hiraya-game": 1
             },
             "classes": {
                 "Hiraya.Class": 1,
+                "Hiraya.Collection": 1,
                 "Hiraya.Emitter": 1,
-                "Hiraya.Game": 1
+                "Hiraya.Game": 1,
+                "Hiraya.Level": 1
             },
             "fors": {},
             "namespaces": {
                 "Hiraya": 1
             },
-            "file": "src/game.js",
-            "line": 11
+            "file": "src/hiraya-game/level.js",
+            "line": 10
         },
         "hiraya-core": {
             "name": "hiraya-core",
-            "submodules": {
-                "hiraya-core": 1
-            },
+            "submodules": {},
             "classes": {
+                "Hiraya.Class": 1,
                 "Hiraya.Collection": 1,
-                "Hiraya.Emitter": 1,
-                "Hiraya.Game": 1
+                "Hiraya.Emitter": 1
             },
             "fors": {},
             "is_submodule": 1,
@@ -88,10 +109,27 @@
             },
             "module": "hiraya",
             "namespace": "",
-            "file": "src/game.js",
-            "line": 11,
-            "tag": "module",
-            "description": "`Hiraya.Emitter` handles event-based callbacks.\nFor example if you wish to create an event manager that dispatches data\neverytime a certain topic is called:\n\n     Game.topicEmitter = Hiraya.Emitter.create({\n       newTopic: function(topic) {\n         this.emit('newTopic', topic);\n       }\n     });\n\n     Game.topicEmitter.on('newTopic', function(topic) {\n       console.log('Got a new topic:', topic);\n     });\n\n     Game.topicEmitter.newTopic('entityCreate');"
+            "file": "src/hiraya-core/emitter.js",
+            "line": 10,
+            "description": "`Hiraya.Class` can be used for prototypal inheritance.\n\n    var Human = Hiraya.Class.extend({\n       baseHealth: 100,\n       baseAttack: 10,\n       health: null,\n       init: function() {\n         this.health = this.baseHealth;\n       },\n       attack: function(enemy) {\n         this.enemy.health -= this.baseAttack;\n       }\n    });\n\n    var Orc = Human.extend({\n       baseHealth: 200,\n       attack: function(enemy) {\n         // class methods have super methods\n         this.super(enemy);\n         this.shout('waaagh!');\n       },\n       shout: function(message) {\n         alert(message);\n       }\n    });\n\n    var human = Human.create();\n    var Orc = Orc.create();\n\n    // You can also override certain properties on instantiation\n    var superman = Human.create({\n       baseHealth: 10000,\n       baseAttack: 10000\n    });"
+        },
+        "hiraya-game": {
+            "name": "hiraya-game",
+            "submodules": {},
+            "classes": {
+                "Hiraya.Game": 1,
+                "Hiraya.Level": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Hiraya": 1
+            },
+            "module": "hiraya",
+            "namespace": "",
+            "file": "src/hiraya-game/level.js",
+            "line": 10,
+            "description": "`Hiraya.Game` is the entry point of the framework. Instantiating this will serve as your namespace,\nas well as reference to instantiated objects that the Hiraya framework provides."
         }
     },
     "classes": {
@@ -104,11 +142,11 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "hiraya",
+            "submodule": "hiraya-core",
             "namespace": "Hiraya",
-            "file": "src/class.js",
-            "line": 85,
-            "description": "Create a fresh constructor",
-            "is_constructor": 1
+            "file": "src/hiraya-core/class.js",
+            "line": 41,
+            "description": "`Hiraya.Class` can be used for prototypal inheritance.\n\n    var Human = Hiraya.Class.extend({\n       baseHealth: 100,\n       baseAttack: 10,\n       health: null,\n       init: function() {\n         this.health = this.baseHealth;\n       },\n       attack: function(enemy) {\n         this.enemy.health -= this.baseAttack;\n       }\n    });\n\n    var Orc = Human.extend({\n       baseHealth: 200,\n       attack: function(enemy) {\n         // class methods have super methods\n         this.super(enemy);\n         this.shout('waaagh!');\n       },\n       shout: function(message) {\n         alert(message);\n       }\n    });\n\n    var human = Human.create();\n    var Orc = Orc.create();\n\n    // You can also override certain properties on instantiation\n    var superman = Human.create({\n       baseHealth: 10000,\n       baseAttack: 10000\n    });"
         },
         "Hiraya.Collection": {
             "name": "Hiraya.Collection",
@@ -118,13 +156,13 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "hiraya-core",
+            "module": "hiraya",
             "submodule": "hiraya-core",
             "namespace": "Hiraya",
-            "file": "src/collection.js",
-            "line": 9,
-            "is_constructor": 1,
-            "extends": "Hiraya.Class"
+            "file": "src/hiraya-core/collection.js",
+            "line": 10,
+            "description": "`Hiraya.Collection` handles list of objects that can be stored and retrieved.",
+            "extends": "Hiraya.Emitter"
         },
         "Hiraya.Emitter": {
             "name": "Hiraya.Emitter",
@@ -137,10 +175,9 @@
             "module": "hiraya",
             "submodule": "hiraya-core",
             "namespace": "Hiraya",
-            "file": "src/emitter.js",
+            "file": "src/hiraya-core/emitter.js",
             "line": 10,
             "description": "`Hiraya.Emitter` handles event-based callbacks.\nFor example if you wish to create an event manager that dispatches data\neverytime a certain topic is called:\n\n     Game.topicEmitter = Hiraya.Emitter.create({\n       newTopic: function(topic) {\n         this.emit('newTopic', topic);\n       }\n     });\n\n     Game.topicEmitter.on('newTopic', function(topic) {\n       console.log('Got a new topic:', topic);\n     });\n\n     Game.topicEmitter.newTopic('entityCreate');",
-            "is_constructor": 1,
             "extends": "Hiraya.Class"
         },
         "Hiraya.Game": {
@@ -152,90 +189,58 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "hiraya",
-            "submodule": "hiraya-core",
+            "submodule": "hiraya-game",
             "namespace": "Hiraya",
-            "file": "src/game.js",
-            "line": 11,
-            "description": "A game class is used for managing entities within the game. It also includes the logic of\nhow the game works.",
-            "is_constructor": 1,
+            "file": "src/hiraya-game/game.js",
+            "line": 10,
+            "description": "`Hiraya.Game` is the entry point of the framework. Instantiating this will serve as your namespace,\nas well as reference to instantiated objects that the Hiraya framework provides.",
+            "extends": "Hiraya.Class"
+        },
+        "Hiraya.Level": {
+            "name": "Hiraya.Level",
+            "shortname": "Hiraya.Level",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya",
+            "file": "src/hiraya-game/level.js",
+            "line": 10,
+            "description": "`Hiraya.Level` manages the game logic and entity interaction.",
             "extends": "Hiraya.Class"
         }
     },
     "classitems": [
         {
-            "file": "src/class.js",
-            "line": 1,
-            "description": "Copyright (c) 2012 James Florentino\n\nDistributed under the terms of the MIT license.\nhttp://www.opensource.org/licenses/mit-license.html\n\nDerived from John Resig's Simple Prototype Inheritance http://ejohn.org/\nUMD compatible",
-            "example": [
-                "\n     var Class = require('./class');\n     var Human = Class.extend({\n         init: function(name) {\n             this.name = name;\n             this.attack = 10;\n             this.health = 100;\n         },\n\n         attack: function(enemy) {\n             // initial damage\n             enemy.health -= this.attack;\n         }\n     });\n     var Elf = Class.extend({\n         init: function(name) {\n             this.parent(name);\n             this.magic = 5;\n         },\n         attack: function(enemy) {\n             this.parent(enemy);\n             // add magic damage to attack\n             enemy.health -= this.magic;\n         }\n     });\n     var aragorn = new Human('Aragorn');\n     var legolas = new Elf('Legolas');\n     aragorn.attack(legolas); // legolas takes 10 damage\n     legolas.attack(aragorn); // aragorn takes 15 damage"
-            ],
-            "class": "Hiraya.Class"
-        },
-        {
-            "file": "src/class.js",
-            "line": 41,
+            "file": "src/hiraya-core/class.js",
+            "line": 7,
             "description": "Flag to prevent the Class.proto.init from being invoked during initialization",
-            "type": "{Boolean}",
-            "class": "Hiraya.Class"
+            "class": "Hiraya.Class",
+            "module": "hiraya",
+            "submodule": "hiraya-core"
         },
         {
-            "file": "src/class.js",
-            "line": 47,
+            "file": "src/hiraya-core/class.js",
+            "line": 12,
             "description": "Creates a shim for invoking a this.parent() command by wrapping it inside a closure",
-            "itemtype": "method",
-            "name": "protoParent",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "prototype",
-                    "description": "",
-                    "type": "Object"
-                },
-                {
-                    "name": "name",
-                    "description": "",
-                    "type": "String"
-                },
-                {
-                    "name": "method",
-                    "description": "",
-                    "type": "Function"
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Function"
-            },
-            "class": "Hiraya.Class"
+            "class": "Hiraya.Class",
+            "module": "hiraya",
+            "submodule": "hiraya-core"
         },
         {
-            "file": "src/class.js",
-            "line": 63,
+            "file": "src/hiraya-core/class.js",
+            "line": 22,
             "description": "Extends an object's properties and assign them as prototypes in a Function",
-            "access": "protected",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "BaseClass",
-                    "description": "",
-                    "type": "Function"
-                },
-                {
-                    "name": "properties",
-                    "description": "",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "",
-                "type": "Function"
-            },
-            "class": "Hiraya.Class"
+            "class": "Hiraya.Class",
+            "module": "hiraya",
+            "submodule": "hiraya-core"
         },
         {
-            "file": "src/class.js",
-            "line": 100,
+            "file": "src/hiraya-core/class.js",
+            "line": 89,
             "description": "Extends the base class",
             "itemtype": "method",
             "name": "extend",
@@ -252,11 +257,13 @@
                 "type": "Class"
             },
             "class": "Hiraya.Class",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
             "namespace": "Hiraya"
         },
         {
-            "file": "src/class.js",
-            "line": 111,
+            "file": "src/hiraya-core/class.js",
+            "line": 100,
             "description": "Instatiates the class",
             "itemtype": "method",
             "name": "create",
@@ -273,22 +280,52 @@
                 "type": "Class"
             },
             "class": "Hiraya.Class",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
             "namespace": "Hiraya"
         },
         {
-            "file": "src/collection.js",
-            "line": 17,
+            "file": "src/hiraya-core/collection.js",
+            "line": 18,
             "itemtype": "property",
             "name": "_list",
             "type": "Array",
             "access": "private",
             "tagname": "",
             "class": "Hiraya.Collection",
-            "module": "hiraya-core"
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
         },
         {
-            "file": "src/collection.js",
-            "line": 23,
+            "file": "src/hiraya-core/collection.js",
+            "line": 24,
+            "description": "Total elements in the collection. This gets updated whenever a new child is added or removed\n\n    var collection = Hiraya.Collection.create();\n    collection.length; // -> 0\n    collection.add({ name: 'James' });\n    collection.length; // -> 1",
+            "itemtype": "property",
+            "name": "length",
+            "type": "{Number}",
+            "default": "0",
+            "class": "Hiraya.Collection",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/collection.js",
+            "line": 43,
+            "description": "Updates the `length` property.",
+            "itemtype": "method",
+            "name": "_updateLength",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Collection",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/collection.js",
+            "line": 53,
             "description": "Adds an element to the list",
             "itemtype": "method",
             "name": "add",
@@ -301,46 +338,196 @@
             ],
             "chainable": 1,
             "class": "Hiraya.Collection",
-            "module": "hiraya-core"
-        },
-        {
-            "file": "src/game.js",
-            "line": 20,
-            "itemtype": "property",
-            "name": "entities",
-            "type": "{Array}",
-            "class": "Hiraya.Game",
             "module": "hiraya",
             "submodule": "hiraya-core",
             "namespace": "Hiraya"
         },
         {
-            "file": "src/game.js",
-            "line": 26,
-            "description": "Called when instantiated",
+            "file": "src/hiraya-core/collection.js",
+            "line": 65,
+            "description": "Removes an element from the list",
             "itemtype": "method",
-            "name": "init",
-            "return": {
-                "description": ""
-            },
-            "class": "Hiraya.Game",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Collection",
             "module": "hiraya",
             "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/collection.js",
+            "line": 78,
+            "description": "Returns an element from the array by its index value",
+            "itemtype": "method",
+            "name": "at",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Hiraya.Collection",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/emitter.js",
+            "line": 34,
+            "description": "Adds a listener to the emitter object",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "topic",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Emitter",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/emitter.js",
+            "line": 47,
+            "description": "Removes a listener from the emitter object",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "topic",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Emitter",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/emitter.js",
+            "line": 60,
+            "description": "Emits a topic contained in the emitter object",
+            "itemtype": "method",
+            "name": "emit",
+            "params": [
+                {
+                    "name": "topic",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object|String",
+                    "multiple": true
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Emitter",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/game.js",
+            "line": 19,
+            "description": "The `ready` event fires when the window is ready and all the assets are loaded",
+            "itemtype": "event",
+            "name": "ready",
+            "class": "Hiraya.Game",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 18,
+            "itemtype": "property",
+            "name": "entities",
+            "type": "{Array}",
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/index.js",
+            "line": 2,
+            "class": "",
+            "module": "hiraya",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/index.js",
+            "line": 6,
+            "class": "",
+            "module": "hiraya",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/index.js",
+            "line": 9,
+            "class": "",
+            "module": "hiraya",
             "namespace": "Hiraya"
         }
     ],
     "warnings": [
         {
-            "message": "Missing item type\nCopyright (c) 2012 James Florentino\n\nDistributed under the terms of the MIT license.\nhttp://www.opensource.org/licenses/mit-license.html\n\nDerived from John Resig's Simple Prototype Inheritance http://ejohn.org/\nUMD compatible",
-            "line": " src/class.js:1"
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-core/collection.js:78"
         },
         {
             "message": "Missing item type\nFlag to prevent the Class.proto.init from being invoked during initialization",
-            "line": " src/class.js:41"
+            "line": " src/hiraya-core/class.js:7"
+        },
+        {
+            "message": "Missing item type\nCreates a shim for invoking a this.parent() command by wrapping it inside a closure",
+            "line": " src/hiraya-core/class.js:12"
         },
         {
             "message": "Missing item type\nExtends an object's properties and assign them as prototypes in a Function",
-            "line": " src/class.js:63"
+            "line": " src/hiraya-core/class.js:22"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/index.js:2"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/index.js:6"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/index.js:9"
         }
     ]
 }

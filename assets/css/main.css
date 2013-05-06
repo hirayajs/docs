@@ -539,6 +539,12 @@ kbd .cmd { font-family: Monaco, Helvetica; }
     column-width: 170px;
 }
 
+
+.apidocs .index-list li {
+    font-size: 14px;
+    margin: 5px;
+}
+
 .apidocs .no-columns .index-list {
     -moz-column-count: 1;
     -ms-column-count: 1;

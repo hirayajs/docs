@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "modules/hiraya", "modules/hiraya-core"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.Level", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -57,6 +57,8 @@
                     
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
+                        <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
+                    
                 </ul>
             </div>
 
@@ -66,6 +68,8 @@
                         <li><a href="../modules/hiraya.html">hiraya</a></li>
                     
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
+                    
+                        <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
                     
                 </ul>
             </div>
@@ -113,7 +117,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_game.js.html#l11"><code>src&#x2F;game.js:11</code></a>
+            Defined in: <a href="../files/src_hiraya-core_emitter.js.html#l10"><code>src&#x2F;hiraya-core&#x2F;emitter.js:10</code></a>
         </div>
     
 
@@ -123,21 +127,40 @@
 
 
 <div class="moduledesc well well-small">
-    <p><code>Hiraya.Emitter</code> handles event-based callbacks.
-For example if you wish to create an event manager that dispatches data
-everytime a certain topic is called:</p>
+    <p><code>Hiraya.Class</code> can be used for prototypal inheritance.</p>
 
-<pre class="code prettyprint"><code> Game.topicEmitter = Hiraya.Emitter.create({
-   newTopic: function(topic) {
-     this.emit('newTopic', topic);
+<pre class="code prettyprint"><code>var Human = Hiraya.Class.extend({
+   baseHealth: 100,
+   baseAttack: 10,
+   health: null,
+   init: function() {
+     this.health = this.baseHealth;
+   },
+   attack: function(enemy) {
+     this.enemy.health -= this.baseAttack;
    }
- });
+});
 
- Game.topicEmitter.on('newTopic', function(topic) {
-   console.log('Got a new topic:', topic);
- });
+var Orc = Human.extend({
+   baseHealth: 200,
+   attack: function(enemy) {
+     // class methods have super methods
+     this.super(enemy);
+     this.shout('waaagh!');
+   },
+   shout: function(message) {
+     alert(message);
+   }
+});
 
- Game.topicEmitter.newTopic('entityCreate');
+var human = Human.create();
+var Orc = Orc.create();
+
+// You can also override certain properties on instantiation
+var superman = Human.create({
+   baseHealth: 10000,
+   baseAttack: 10000
+});
 </code></pre>
 </div>
 
@@ -151,6 +174,12 @@ everytime a certain topic is called:</p>
             <ul class="module-classes">
             
                 <li class="module-class">
+                    <a href="../classes/Hiraya.Class.html">
+                        Hiraya.Class
+                    </a>
+                </li>
+            
+                <li class="module-class">
                     <a href="../classes/Hiraya.Collection.html">
                         Hiraya.Collection
                     </a>
@@ -162,47 +191,11 @@ everytime a certain topic is called:</p>
                     </a>
                 </li>
             
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Game.html">
-                        Hiraya.Game
-                    </a>
-                </li>
-            
             </ul>
         
     </div>
 
     <div class="yui3-u-1-2">
-        
-            <p>This module is a rollup of the following modules:</p>
-
-            <ul class="module-submodules">
-            
-                <li class="module-submodule">
-                    <a href="../modules/hiraya-core.html">
-                        hiraya-core
-                    </a>
-
-                    <div class="module-submodule-description">
-                        <code>Hiraya.Emitter</code> handles event-based callbacks.
-For example if you wish to create an event manager that dispatches data
-everytime a certain topic is called:
-
-     Game.topicEmitter = Hiraya.Emitter.create({
-       newTopic: function(topic) {
-         this.emit('newTopic', topic);
-       }
-     });
-
-     Game.topicEmitter.on('newTopic', function(topic) {
-       console.log('Got a new topic:', topic);
-     });
-
-     Game.topicEmitter.newTopic('entityCreate');
-                    </div>
-                </li>
-            
-            </ul>
         
     </div>
 </div>

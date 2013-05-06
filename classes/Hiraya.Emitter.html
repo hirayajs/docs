@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "modules/hiraya", "modules/hiraya-core"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.Level", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -57,6 +57,8 @@
                     
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
+                        <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
+                    
                 </ul>
             </div>
 
@@ -66,6 +68,8 @@
                         <li><a href="../modules/hiraya.html">hiraya</a></li>
                     
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
+                    
+                        <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
                     
                 </ul>
             </div>
@@ -117,7 +121,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_emitter.js.html#l10"><code>src&#x2F;emitter.js:10</code></a>
+            Defined in: <a href="../files/src_hiraya-core_emitter.js.html#l10"><code>src&#x2F;hiraya-core&#x2F;emitter.js:10</code></a>
         </div>
     
 
@@ -153,63 +157,6 @@ everytime a certain topic is called:</p>
 </div>
 
 
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_Hiraya.Emitter" class="method item">
-    <h3 class="name"><code>Hiraya.Emitter</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_emitter.js.html#l10"><code>src&#x2F;emitter.js:10</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-    </div>
-
 
 <div>
     <ul class="nav nav-tabs">
@@ -223,9 +170,8 @@ everytime a certain topic is called:</p>
         
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content no-columns">
         <div id="index" class="tab-pane active">
-            <h2 class="off-left">Item Index</h2>
 
             
                 <div class="index-section methods">
@@ -233,8 +179,22 @@ everytime a certain topic is called:</p>
 
                     <ul class="index-list methods extends">
                         
-                            <li class="index-item method private inherited">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_protoParent" data-tablink="protoParent">protoParent</a>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_emit" data-tablink="emit">emit</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_off" data-tablink="off">off</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_on" data-tablink="on">on</a>
 
                                 
                                 
@@ -253,11 +213,10 @@ everytime a certain topic is called:</p>
 
         
             <div id="methods" class="tab-pane">
-                <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_protoParent" class="method item private inherited">
-    <h3 class="name"><code>protoParent</code></h3>
+                    <div id="method_emit" class="method item">
+    <h3 class="name"><code>emit</code></h3>
 
     
         <div class="args">
@@ -265,19 +224,13 @@ everytime a certain topic is called:</p>
             
                 <li class="arg">
                     
-                        <code>prototype</code>
+                        <code>topic</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>name</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>method</code>
+                        <code>data</code>
                     
                 </li>
             
@@ -286,21 +239,17 @@ everytime a certain topic is called:</p>
     
 
     
-        <span class="returns-inline">
-            <span class="type">Function</span>
-        </span>
-    
 
     
 
-    
-        <span class="flag private">private</span>
     
 
     
 
     
 
+    
+        <span class="flag chainable">chainable</span>
     
 
     
@@ -308,12 +257,15 @@ everytime a certain topic is called:</p>
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Hiraya.Class.html#method_protoParent">Hiraya.Class</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_class.js.html#l47"><code>src&#x2F;class.js:47</code></a>
+        <a href="../files/src_hiraya-core_emitter.js.html#l60"><code>src&#x2F;hiraya-core&#x2F;emitter.js:60</code></a>
         
         </p>
 
@@ -324,7 +276,7 @@ everytime a certain topic is called:</p>
     </div>
 
     <div class="description">
-        <p>Creates a shim for invoking a this.parent() command by wrapping it inside a closure</p>
+        <p>Emits a topic contained in the emitter object</p>
     </div>
 
     
@@ -335,29 +287,14 @@ everytime a certain topic is called:</p>
             
                 <li class="param">
                     
-                        <code class="param-name">prototype</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">name</code>
+                        <code class="param-name">topic</code>
                         <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                         
+                        
                     </div>
 
                     
@@ -365,14 +302,16 @@ everytime a certain topic is called:</p>
             
                 <li class="param">
                     
-                        <code class="param-name">method</code>
-                        <span class="type">Function</span>
+                        <code class="param-name">data</code>
+                        <span class="type">Object | String</span>
                     
 
+                    
+                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
                     
 
                     <div class="param-description">
-                         
+                        
                     </div>
 
                     
@@ -383,17 +322,225 @@ everytime a certain topic is called:</p>
     
 
     
-        <div class="returns">
-            <h4>Returns:</h4>
 
-            <div class="returns-description">
+    
+</div>
+
                 
+                    <div id="method_off" class="method item">
+    <h3 class="name"><code>off</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
                     
-                        <span class="type">Function</span>:
+                        <code>topic</code>
                     
-                
-            </div>
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
         </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-core_emitter.js.html#l47"><code>src&#x2F;hiraya-core&#x2F;emitter.js:47</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes a listener from the emitter object</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">topic</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_on" class="method item">
+    <h3 class="name"><code>on</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>topic</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-core_emitter.js.html#l34"><code>src&#x2F;hiraya-core&#x2F;emitter.js:34</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds a listener to the emitter object</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">topic</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
     
 
     

@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "modules/hiraya", "modules/hiraya-core"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.Level", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -57,6 +57,8 @@
                     
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
+                        <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
+                    
                 </ul>
             </div>
 
@@ -66,6 +68,8 @@
                         <li><a href="../modules/hiraya.html">hiraya</a></li>
                     
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
+                    
+                        <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
                     
                 </ul>
             </div>
@@ -111,20 +115,20 @@
 
     
         <div class="extends">
-            Extends <a href="../classes/Hiraya.Class.html" class="crosslink">Hiraya.Class</a>
+            Extends <a href="../classes/Hiraya.Emitter.html" class="crosslink">Hiraya.Emitter</a>
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_collection.js.html#l9"><code>src&#x2F;collection.js:9</code></a>
+            Defined in: <a href="../files/src_hiraya-core_collection.js.html#l10"><code>src&#x2F;hiraya-core&#x2F;collection.js:10</code></a>
         </div>
     
 
     
         
             Module: <a href="../modules/hiraya-core.html">hiraya-core</a><br>
-            Parent Module: <a href="../modules/hiraya-core.html">hiraya-core</a>
+            Parent Module: <a href="../modules/hiraya.html">hiraya</a>
         
     
 
@@ -134,66 +138,9 @@
 
 
 <div class="well well-small">
-    
+    <p><code>Hiraya.Collection</code> handles list of objects that can be stored and retrieved.</p>
 </div>
 
-
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_Hiraya.Collection" class="method item">
-    <h3 class="name"><code>Hiraya.Collection</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_collection.js.html#l9"><code>src&#x2F;collection.js:9</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-    </div>
 
 
 <div>
@@ -210,15 +157,21 @@
         
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content no-columns">
         <div id="index" class="tab-pane active">
-            <h2 class="off-left">Item Index</h2>
 
             
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
                     <ul class="index-list methods extends">
+                        
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method__updateLength" data-tablink="_updateLength">_updateLength</a>
+
+                                
+                                
+                            </li>
                         
                             <li class="index-item method">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_add" data-tablink="add">add</a>
@@ -227,8 +180,36 @@
                                 
                             </li>
                         
-                            <li class="index-item method private inherited">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_protoParent" data-tablink="protoParent">protoParent</a>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_at" data-tablink="at">at</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_emit" data-tablink="emit">emit</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_off" data-tablink="off">off</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_on" data-tablink="on">on</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_remove" data-tablink="remove">remove</a>
 
                                 
                                 
@@ -251,6 +232,13 @@
                                 
                             </li>
                         
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_length" data-tablink="length">length</a>
+
+                                
+                                
+                            </li>
+                        
                     </ul>
                 </div>
             
@@ -262,7 +250,62 @@
 
         
             <div id="methods" class="tab-pane">
-                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__updateLength" class="method item private">
+    <h3 class="name"><code>_updateLength</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-core_collection.js.html#l43"><code>src&#x2F;hiraya-core&#x2F;collection.js:43</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Updates the <code>length</code> property.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
 
                 
                     <div id="method_add" class="method item">
@@ -309,7 +352,7 @@
             
         
         
-        <a href="../files/src_collection.js.html#l23"><code>src&#x2F;collection.js:23</code></a>
+        <a href="../files/src_hiraya-core_collection.js.html#l53"><code>src&#x2F;hiraya-core&#x2F;collection.js:53</code></a>
         
         </p>
 
@@ -354,8 +397,8 @@
 </div>
 
                 
-                    <div id="method_protoParent" class="method item private inherited">
-    <h3 class="name"><code>protoParent</code></h3>
+                    <div id="method_at" class="method item">
+    <h3 class="name"><code>at</code></h3>
 
     
         <div class="args">
@@ -363,19 +406,7 @@
             
                 <li class="arg">
                     
-                        <code>prototype</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>name</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>method</code>
+                        <code>index</code>
                     
                 </li>
             
@@ -385,14 +416,12 @@
 
     
         <span class="returns-inline">
-            <span class="type">Function</span>
+            <span class="type">Object</span>
         </span>
     
 
     
 
-    
-        <span class="flag private">private</span>
     
 
     
@@ -406,12 +435,15 @@
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Hiraya.Class.html#method_protoParent">Hiraya.Class</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_class.js.html#l47"><code>src&#x2F;class.js:47</code></a>
+        <a href="../files/src_hiraya-core_collection.js.html#l78"><code>src&#x2F;hiraya-core&#x2F;collection.js:78</code></a>
         
         </p>
 
@@ -422,7 +454,7 @@
     </div>
 
     <div class="description">
-        <p>Creates a shim for invoking a this.parent() command by wrapping it inside a closure</p>
+        <p>Returns an element from the array by its index value</p>
     </div>
 
     
@@ -433,44 +465,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">prototype</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">index</code>
+                        <span class="type">Number</span>
                     
 
                     
 
                     <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">name</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">method</code>
-                        <span class="type">Function</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -487,11 +489,423 @@
             <div class="returns-description">
                 
                     
-                        <span class="type">Function</span>:
+                        <span class="type">Object</span>:
                     
                 
             </div>
         </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_emit" class="method item inherited">
+    <h3 class="name"><code>emit</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>topic</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>data</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Emitter.html#method_emit">Hiraya.Emitter</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-core_emitter.js.html#l60"><code>src&#x2F;hiraya-core&#x2F;emitter.js:60</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Emits a topic contained in the emitter object</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">topic</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">data</code>
+                        <span class="type">Object | String</span>
+                    
+
+                    
+                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_off" class="method item inherited">
+    <h3 class="name"><code>off</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>topic</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Emitter.html#method_off">Hiraya.Emitter</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-core_emitter.js.html#l47"><code>src&#x2F;hiraya-core&#x2F;emitter.js:47</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes a listener from the emitter object</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">topic</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_on" class="method item inherited">
+    <h3 class="name"><code>on</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>topic</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Emitter.html#method_on">Hiraya.Emitter</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-core_emitter.js.html#l34"><code>src&#x2F;hiraya-core&#x2F;emitter.js:34</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds a listener to the emitter object</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">topic</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_remove" class="method item">
+    <h3 class="name"><code>remove</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>obj</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-core_collection.js.html#l65"><code>src&#x2F;hiraya-core&#x2F;collection.js:65</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes an element from the list</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">obj</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
     
 
     
@@ -503,7 +917,6 @@
 
         
             <div id="properties" class="tab-pane">
-                <h2 class="off-left">Properties</h2>
 
                 
                     <div id="property__list" class="property item private">
@@ -531,7 +944,7 @@
             
         
         
-        <a href="../files/src_collection.js.html#l17"><code>src&#x2F;collection.js:17</code></a>
+        <a href="../files/src_hiraya-core_collection.js.html#l18"><code>src&#x2F;hiraya-core&#x2F;collection.js:18</code></a>
         
         </p>
 
@@ -544,6 +957,58 @@
         
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_length" class="property item">
+    <h3 class="name"><code>length</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-core_collection.js.html#l24"><code>src&#x2F;hiraya-core&#x2F;collection.js:24</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Total elements in the collection. This gets updated whenever a new child is added or removed</p>
+
+<pre class="code prettyprint"><code>var collection = Hiraya.Collection.create();
+collection.length; // -&gt; 0
+collection.add({ name: 'James' });
+collection.length; // -&gt; 1
+</code></pre>
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
     
 
     

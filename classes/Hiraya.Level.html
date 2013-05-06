@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Hiraya.Class - hiraya</title>
+    <title>Hiraya.Level - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -107,23 +107,27 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>Hiraya.Class <small>Class</small></h1>
+    <h1>Hiraya.Level <small>Class</small></h1>
 </div>
 
 <div class="well well-small">
     
 
     
+        <div class="extends">
+            Extends <a href="../classes/Hiraya.Class.html" class="crosslink">Hiraya.Class</a>
+        </div>
+    
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-core_class.js.html#l41"><code>src&#x2F;hiraya-core&#x2F;class.js:41</code></a>
+            Defined in: <a href="../files/src_hiraya-game_level.js.html#l10"><code>src&#x2F;hiraya-game&#x2F;level.js:10</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/hiraya-core.html">hiraya-core</a><br>
+            Module: <a href="../modules/hiraya-game.html">hiraya-game</a><br>
             Parent Module: <a href="../modules/hiraya.html">hiraya</a>
         
     
@@ -134,41 +138,7 @@
 
 
 <div class="well well-small">
-    <p><code>Hiraya.Class</code> can be used for prototypal inheritance.</p>
-
-<pre class="code prettyprint"><code>var Human = Hiraya.Class.extend({
-   baseHealth: 100,
-   baseAttack: 10,
-   health: null,
-   init: function() {
-     this.health = this.baseHealth;
-   },
-   attack: function(enemy) {
-     this.enemy.health -= this.baseAttack;
-   }
-});
-
-var Orc = Human.extend({
-   baseHealth: 200,
-   attack: function(enemy) {
-     // class methods have super methods
-     this.super(enemy);
-     this.shout('waaagh!');
-   },
-   shout: function(message) {
-     alert(message);
-   }
-});
-
-var human = Human.create();
-var Orc = Orc.create();
-
-// You can also override certain properties on instantiation
-var superman = Human.create({
-   baseHealth: 10000,
-   baseAttack: 10000
-});
-</code></pre>
+    <p><code>Hiraya.Level</code> manages the game logic and entity interaction.</p>
 </div>
 
 
@@ -178,8 +148,8 @@ var superman = Human.create({
         <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
 
         
-            <li><a data-toggle="tab" href="#methods">Methods</a></li>
         
+            <li><a data-toggle="tab" href="#properties">Properties</a></li>
         
         
         
@@ -189,25 +159,16 @@ var superman = Human.create({
         <div id="index" class="tab-pane active">
 
             
-                <div class="index-section methods">
-                    <h3>Methods</h3>
 
-                    <ul class="index-list methods">
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
                         
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_create" data-tablink="create">create</a>
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_entities" data-tablink="entities">entities</a>
 
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_extend" data-tablink="extend">extend</a>
-
-                                
-                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -219,45 +180,20 @@ var superman = Human.create({
             
 
             
-
-            
         </div>
 
         
-            <div id="methods" class="tab-pane">
+
+        
+            <div id="properties" class="tab-pane">
 
                 
-                    <div id="method_create" class="method item">
-    <h3 class="name"><code>create</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>attributes</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Class</span>
-        </span>
-    
+                    <div id="property_entities" class="property item">
+    <h3 class="name"><code>entities</code></h3>
+    <span class="type">Array</span>
 
     
 
-    
-
-    
-
-    
-        <span class="flag static">static</span>
     
 
     
@@ -275,10 +211,9 @@ var superman = Human.create({
             
         
         
-        <a href="../files/src_hiraya-core_class.js.html#l100"><code>src&#x2F;hiraya-core&#x2F;class.js:100</code></a>
+        <a href="../files/src_hiraya-game_level.js.html#l18"><code>src&#x2F;hiraya-game&#x2F;level.js:18</code></a>
         
         </p>
-
 
         
 
@@ -286,151 +221,11 @@ var superman = Human.create({
     </div>
 
     <div class="description">
-        <p>Instatiates the class</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">attributes</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Class</span>:
-                    
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_extend" class="method item">
-    <h3 class="name"><code>extend</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>attributes</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Class</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-core_class.js.html#l89"><code>src&#x2F;hiraya-core&#x2F;class.js:89</code></a>
-        
-        </p>
-
-
-        
-
         
     </div>
 
-    <div class="description">
-        <p>Extends the base class</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">attributes</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Class</span>:
-                    
-                
-            </div>
-        </div>
     
 
     
@@ -438,8 +233,6 @@ var superman = Human.create({
 
                 
             </div>
-        
-
         
 
         
