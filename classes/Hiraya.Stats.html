@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Hiraya.Class - hiraya</title>
+    <title>Hiraya.Stats - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,23 +115,27 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>Hiraya.Class <small>Class</small></h1>
+    <h1>Hiraya.Stats <small>Class</small></h1>
 </div>
 
 <div class="well well-small">
     
 
     
+        <div class="extends">
+            Extends <a href="../classes/Hiraya.Class.html" class="crosslink">Hiraya.Class</a>
+        </div>
+    
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-core_class.js.html#l41"><code>src&#x2F;hiraya-core&#x2F;class.js:41</code></a>
+            Defined in: <a href="../files/src_hiraya-game_stats.js.html#l9"><code>src&#x2F;hiraya-game&#x2F;stats.js:9</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/hiraya-core.html">hiraya-core</a><br>
+            Module: <a href="../modules/hiraya-game.html">hiraya-game</a><br>
             Parent Module: <a href="../modules/hiraya.html">hiraya</a>
         
     
@@ -142,40 +146,15 @@
 
 
 <div class="well well-small">
-    <p><code>Hiraya.Class</code> is the heart of all Hiraya objects. It can be used for prototypal inheritance.</p>
+    <p><code>Hiraya.Stats</code> handles all stat related object. This is quite useful as a container
+for all attributes for a character to prevent clutter in the attributes of a <code>Hiraya.Entity</code> instance.</p>
 
-<pre class="code prettyprint"><code>var Human = Hiraya.Class.extend({
-   baseHealth: 100,
-   baseAttack: 10,
-   health: null,
-   init: function() {
-     this.health = this.baseHealth;
-   },
-   attack: function(enemy) {
-     this.enemy.health -= this.baseAttack;
-   }
-});
+<p>Although it is used primarily for RPG stats, you are free to use it elsewhere.</p>
 
-var Orc = Human.extend({
-   baseHealth: 200,
-   attack: function(enemy) {
-     // class methods have super methods
-     this.super(enemy);
-     this.shout('waaagh!');
-   },
-   shout: function(message) {
-     alert(message);
-   }
-});
-
-var human = Human.create();
-var Orc = Orc.create();
-
-// You can also override certain properties on instantiation
-var superman = Human.create({
-   baseHealth: 10000,
-   baseAttack: 10000
-});
+<pre class="code prettyprint"><code>var stats = Hiraya.Stats.create();
+stats
+  .set('health', 100)
+  .set('mana', 100);
 </code></pre>
 </div>
 
@@ -189,6 +168,8 @@ var superman = Human.create({
             <li><a data-toggle="tab" href="#methods">Methods</a></li>
         
         
+            <li><a data-toggle="tab" href="#properties">Properties</a></li>
+        
         
         
     </ul>
@@ -200,22 +181,35 @@ var superman = Human.create({
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
-                    <ul class="index-list methods">
+                    <ul class="index-list methods extends">
                         
                             <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_create" data-tablink="create">create</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_get" data-tablink="get">get</a>
 
-                                
-                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_extend" data-tablink="extend">extend</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_set" data-tablink="set">set</a>
 
                                 
-                                    <span class="flag static">static</span>
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_none" data-tablink="none">none</a>
+
                                 
                                 
                             </li>
@@ -227,16 +221,14 @@ var superman = Human.create({
             
 
             
-
-            
         </div>
 
         
             <div id="methods" class="tab-pane">
 
                 
-                    <div id="method_create" class="method item">
-    <h3 class="name"><code>create</code></h3>
+                    <div id="method_get" class="method item">
+    <h3 class="name"><code>get</code></h3>
 
     
         <div class="args">
@@ -244,7 +236,7 @@ var superman = Human.create({
             
                 <li class="arg">
                     
-                        <code>attributes</code>
+                        <code>name</code>
                     
                 </li>
             
@@ -265,8 +257,6 @@ var superman = Human.create({
     
 
     
-        <span class="flag static">static</span>
-    
 
     
 
@@ -283,7 +273,7 @@ var superman = Human.create({
             
         
         
-        <a href="../files/src_hiraya-core_class.js.html#l110"><code>src&#x2F;hiraya-core&#x2F;class.js:110</code></a>
+        <a href="../files/src_hiraya-game_stats.js.html#l61"><code>src&#x2F;hiraya-game&#x2F;stats.js:61</code></a>
         
         </p>
 
@@ -294,20 +284,14 @@ var superman = Human.create({
     </div>
 
     <div class="description">
-        <p>Instatiates the class. You can optionally pass attributes to set as its default value.</p>
+        <p>Returns a stat attribute by name. Returns an empty stat object if the stat name doesn't exist.</p>
 
-<p>example:</p>
-
-<pre class="code prettyprint"><code>var Car = Class.extend({
-  accleration: 10,
-  accelerate: function() {
-    this.position += this.acceleration;
-  }
-});
-
-var Ferrari = Car.create({
-  acceleration: 100
-});
+<pre class="code prettyprint"><code>var stats = Hiraya.Stats.create();
+stats
+  .set('health', 100)
+  .set('mana', 100);
+stats.get('health').value; // -&gt; 100
+stats.get('noneExistingStatName').value; // -&gt; 0
 </code></pre>
     </div>
 
@@ -319,8 +303,8 @@ var Ferrari = Car.create({
             
                 <li class="param">
                     
-                        <code class="param-name">attributes</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">name</code>
+                        <span class="type">String</span>
                     
 
                     
@@ -343,7 +327,7 @@ var Ferrari = Car.create({
             <div class="returns-description">
                 
                     
-                    Class
+                    Hiraya.Stat
                 
             </div>
         </div>
@@ -353,8 +337,8 @@ var Ferrari = Car.create({
 </div>
 
                 
-                    <div id="method_extend" class="method item">
-    <h3 class="name"><code>extend</code></h3>
+                    <div id="method_set" class="method item">
+    <h3 class="name"><code>set</code></h3>
 
     
         <div class="args">
@@ -362,7 +346,19 @@ var Ferrari = Car.create({
             
                 <li class="arg">
                     
-                        <code>attributes</code>
+                        <code>name</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>value</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[max=value]</code>
                     
                 </li>
             
@@ -371,10 +367,6 @@ var Ferrari = Car.create({
     
 
     
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
-    
 
     
 
@@ -383,7 +375,113 @@ var Ferrari = Car.create({
     
 
     
-        <span class="flag static">static</span>
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-game_stats.js.html#l36"><code>src&#x2F;hiraya-game&#x2F;stats.js:36</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sets or creates the value of a stat attribute. You can optionally set the max value as well</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">name</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">value</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[max=value]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="tab-pane">
+
+                
+                    <div id="property_none" class="property item">
+    <h3 class="name"><code>none</code></h3>
+    <span class="type">Stat</span>
+
+    
+
     
 
     
@@ -401,10 +499,9 @@ var Ferrari = Car.create({
             
         
         
-        <a href="../files/src_hiraya-core_class.js.html#l89"><code>src&#x2F;hiraya-core&#x2F;class.js:89</code></a>
+        <a href="../files/src_hiraya-game_stats.js.html#l25"><code>src&#x2F;hiraya-game&#x2F;stats.js:25</code></a>
         
         </p>
-
 
         
 
@@ -412,47 +509,11 @@ var Ferrari = Car.create({
     </div>
 
     <div class="description">
-        <p>Extends the base class</p>
+        <p>Default stat object returned in the <code>.get</code> method. Has a value of 1 and max value of 1.</p>
     </div>
 
     
-        <div class="params">
-            <h4>Parameters:</h4>
 
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">attributes</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-                        <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                    Class
-                
-            </div>
-        </div>
     
 
     
@@ -460,8 +521,6 @@ var Ferrari = Car.create({
 
                 
             </div>
-        
-
         
 
         

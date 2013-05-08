@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.Level", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -57,7 +57,15 @@
                     
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
+                        <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
+                    
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
+                    
+                        <li><a href="../classes/Hiraya.LevelTurnBased.html">Hiraya.LevelTurnBased</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Stats.html">Hiraya.Stats</a></li>
                     
                 </ul>
             </div>
@@ -194,7 +202,21 @@ everytime a certain topic is called:</p>
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_offAll" data-tablink="offAll">offAll</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_on" data-tablink="on">on</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_once" data-tablink="once">once</a>
 
                                 
                                 
@@ -265,7 +287,7 @@ everytime a certain topic is called:</p>
             
         
         
-        <a href="../files/src_hiraya-core_emitter.js.html#l60"><code>src&#x2F;hiraya-core&#x2F;emitter.js:60</code></a>
+        <a href="../files/src_hiraya-core_emitter.js.html#l73"><code>src&#x2F;hiraya-core&#x2F;emitter.js:73</code></a>
         
         </p>
 
@@ -437,6 +459,96 @@ everytime a certain topic is called:</p>
 </div>
 
                 
+                    <div id="method_offAll" class="method item">
+    <h3 class="name"><code>offAll</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[topic]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-core_emitter.js.html#l61"><code>src&#x2F;hiraya-core&#x2F;emitter.js:61</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes all listeners or the topic specified</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[topic]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_on" class="method item">
     <h3 class="name"><code>on</code></h3>
 
@@ -526,6 +638,95 @@ everytime a certain topic is called:</p>
                     
                         <code class="param-name">callback</code>
                         <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_once" class="method item">
+    <h3 class="name"><code>once</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>topic</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-core_emitter.js.html#l86"><code>src&#x2F;hiraya-core&#x2F;emitter.js:86</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Subscribes to a topic only once</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">topic</code>
+                        <span class="type">String</span>
                     
 
                     

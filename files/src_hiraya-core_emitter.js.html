@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.Level", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -57,7 +57,15 @@
                     
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
+                        <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
+                    
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
+                    
+                        <li><a href="../classes/Hiraya.LevelTurnBased.html">Hiraya.LevelTurnBased</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Stats.html">Hiraya.Stats</a></li>
                     
                 </ul>
             </div>
@@ -166,8 +174,21 @@ var Emitter = Class.extend({
    * @param {Function} callback
    * @chainable
    */
-  off: function() {
+  off: function(topic, callback) {
     EventEmitter.prototype.removeListener.apply(this, arguments);
+    return this;
+  },
+
+
+  /**
+   * Removes all listeners or the topic specified
+   *
+   * @method offAll
+   * @param {String} [topic]
+   * @chainable
+   */
+  offAll: function() {
+    EventEmitter.prototype.removeAllListeners.apply(this, arguments);
     return this;
   },
 
@@ -181,6 +202,34 @@ var Emitter = Class.extend({
    */
   emit: function() {
     EventEmitter.prototype.emit.apply(this, arguments);
+    return this;
+  },
+
+  /**
+   * Subscribes to a topic only once
+   *
+   * @method once
+   * @param {String} topic
+   * @chainable
+   */
+  once: function() {
+    EventEmitter.prototype.once.apply(this, arguments);
+    return this;
+  },
+
+
+  /**
+   * Remove an event listener
+   *
+   * @methoda removeListener
+   * @param {String} topic
+   * @param {Function} callback
+   * @private
+   * @chainable
+   */
+  removeListener: function() {
+    EventEmitter.prototype.removeListener.apply(this, arguments);
+    return this;
   }
 });
 

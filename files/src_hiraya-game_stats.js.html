@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/index.js - hiraya</title>
+    <title>src/hiraya-game/stats.js - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,32 +115,92 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/index.js <small>File</small></h1>
+    <h1>src/hiraya-game/stats.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-var Hiraya = {
-  /** hiraya-core **/
-  Class: require(&#x27;./hiraya-core/class&#x27;),
-  Emitter: require(&#x27;./hiraya-core/emitter&#x27;),
-  Collection: require(&#x27;./hiraya-core/collection&#x27;),
-  Stat: require(&#x27;./hiraya-game/stat&#x27;),
-  Stats: require(&#x27;./hiraya-game/stats&#x27;),
-  EntityTurnBased: require(&#x27;./hiraya-game/entity-turnbased&#x27;),
-  Entity: require(&#x27;./hiraya-game/entity&#x27;),
-  /** hiraya-game **/
-  Game: require(&#x27;./hiraya-game/game&#x27;),
-  Level: require(&#x27;./hiraya-game/level&#x27;),
-  LevelTurnBased: require(&#x27;./hiraya-game/level-turnbased&#x27;)
-  /** hiraya-game/display **/
-};
+/**
+ * @module hiraya
+ * @submodule hiraya-game
+ */
 
-if (typeof window === &#x27;object&#x27;) {
-  window.Hiraya = Hiraya;
-}
+var Class = require(&#x27;../hiraya-core/class&#x27;);
+var Stat = require(&#x27;./stat&#x27;);
 
-module.exports = Hiraya;
+/**
+ * &#x60;Hiraya.Stats&#x60; handles all stat related object. This is quite useful as a container
+ * for all attributes for a character to prevent clutter in the attributes of a &#x60;Hiraya.Entity&#x60; instance.
+ *
+ * Although it is used primarily for RPG stats, you are free to use it elsewhere.
+ *
+ *     var stats = Hiraya.Stats.create();
+ *     stats
+ *       .set(&#x27;health&#x27;, 100)
+ *       .set(&#x27;mana&#x27;, 100);
+ *
+ * @class Stats
+ * @extends Hiraya.Class
+ * @namespace Hiraya
+ */
+var Stats = Class.extend({
+  /**
+   * Default stat object returned in the &#x60;.get&#x60; method. Has a value of 1 and max value of 1.
+   *
+   * @property none
+   * @type {Stat}
+   */
+  none: null,
+  init: function() {
+    this.set(&#x27;none&#x27;, 0, 0);
+  },
+
+  /**
+   * Sets or creates the value of a stat attribute. You can optionally set the max value as well
+   *
+   * @method set
+   * @param {String} name
+   * @param {Number} value
+   * @param {Number} [max=value]
+   * @chainable
+   */
+  set: function(name, value, max) {
+    var stat = this[name];
+    var maxValue = typeof max === &#x27;number&#x27; ? max : value;
+    if (stat) {
+      stat.setValue(value);
+      stat.setMax(maxValue);
+    } else {
+      this[name] = Stat.create({
+        name: name,
+        value: value,
+        max: maxValue
+      });
+    }
+    return this;
+  },
+
+  /**
+   * Returns a stat attribute by name. Returns an empty stat object if the stat name doesn&#x27;t exist.
+   *
+   *     var stats = Hiraya.Stats.create();
+   *     stats
+   *       .set(&#x27;health&#x27;, 100)
+   *       .set(&#x27;mana&#x27;, 100);
+   *     stats.get(&#x27;health&#x27;).value; // -&gt; 100
+   *     stats.get(&#x27;noneExistingStatName&#x27;).value; // -&gt; 0
+   *
+   *
+   * @method get
+   * @param {String} name
+   * @returns Hiraya.Stat
+   */
+  get: function(name) {
+    return this[name] ? this[name] : this[&#x27;none&#x27;];
+  }
+});
+
+module.exports = Stats;
 
     </pre>
 </div>

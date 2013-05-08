@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/index.js - hiraya</title>
+    <title>src/hiraya-game/stat.js - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -115,32 +115,136 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/index.js <small>File</small></h1>
+    <h1>src/hiraya-game/stat.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-var Hiraya = {
-  /** hiraya-core **/
-  Class: require(&#x27;./hiraya-core/class&#x27;),
-  Emitter: require(&#x27;./hiraya-core/emitter&#x27;),
-  Collection: require(&#x27;./hiraya-core/collection&#x27;),
-  Stat: require(&#x27;./hiraya-game/stat&#x27;),
-  Stats: require(&#x27;./hiraya-game/stats&#x27;),
-  EntityTurnBased: require(&#x27;./hiraya-game/entity-turnbased&#x27;),
-  Entity: require(&#x27;./hiraya-game/entity&#x27;),
-  /** hiraya-game **/
-  Game: require(&#x27;./hiraya-game/game&#x27;),
-  Level: require(&#x27;./hiraya-game/level&#x27;),
-  LevelTurnBased: require(&#x27;./hiraya-game/level-turnbased&#x27;)
-  /** hiraya-game/display **/
-};
+/**
+ * @module hiraya
+ * @submodule hiraya-game
+ */
 
-if (typeof window === &#x27;object&#x27;) {
-  window.Hiraya = Hiraya;
-}
+var Class = require(&#x27;../hiraya-core/class&#x27;);
 
-module.exports = Hiraya;
+/**
+ * &#x60;Hiraya.Stat&#x60; manages the values for an RPG attribute.
+ * It handles things like making sure the value doesn&#x27;t exceed its maximum capacity.
+ *
+ * It also provides some useful API for value manipulation.
+ *
+ * @class Stat
+ * @extends Hiraya.Class
+ * @namespace Hiraya
+ */
+var Stat = Class.extend({
+  /**
+   * The current value of the stat. To change this,
+   * use the &#x60;stat.setValue&#x60; command.
+   *
+   * @property value
+   * @type {Number}
+   * @default 0
+   */
+  value: null,
+  
+  /**
+   * The maximum value for the stat.
+   *
+   * @property max
+   * @type {Number}
+   * @default 0
+   */
+  max: null,
+
+  /**
+   * Name of the stat.
+   *
+   * @property name
+   * @type {String}
+   */
+  name: null,
+  init: function() {
+    this.reset(Math.max(this.value, this.max));
+  },
+
+  /**
+   * Sets the value of the stat. Ensures that it doesn&#x27;t go beyond zero.
+   *
+   * @method setValue
+   * @param {Number} value
+   * @chainable
+   */
+  setValue: function(value) {
+    this.value = Math.max(0, value);
+    return this;
+  },
+
+  /**
+   * Sets the value of the max value. Ensures that it doesn&#x27;t go beyond zero.
+   *
+   * @method setMax
+   * @param {Number} value
+   * @chainable
+   */
+  setMax: function(value) {
+    this.max = Math.max(0, value);
+    return this;
+  },
+
+  /**
+   * Empties the value of the stat.
+   *
+   * @method empty
+   * @chainable
+   */
+  empty: function() {
+    this.value = 0;
+    return this;
+  },
+
+  /**
+   * Increases the value of the stat. Increments the &#x60;.value&#x60; property by 1 if the value argument is undefined.
+   *
+   * @method add
+   * @param {Number} [value=1]
+   * @chainable
+   */
+  add: function(value) {
+    this.setValue(this.value + (typeof value === &#x27;number&#x27; ? value : 1));
+    return this;
+  },
+
+  /**
+   * Reduces the value by one. Decrements the &#x60;.value&#x60; property by 1 if the value argument is undefined.
+   *
+   * @method reduce
+   * @param {Number} [value=1]
+   * @chainable
+   */
+  reduce: function(value) {
+    this.setValue(this.value - (typeof value === &#x27;number&#x27; ? value : 1));
+    return this;
+  },
+
+  /**
+   * Resets the value according to its max value. Max value can be optionally
+   * set by providing a value argument.
+   *
+   * @method reset
+   * @param {Number} [value=null]
+   * @chainable
+   */
+  reset: function(value) {
+    if (typeof value === &#x27;number&#x27;) {
+      this.setMax(value);
+    }
+    this.value = this.max;
+    return this;
+  }
+});
+
+module.exports = Stat;
 
     </pre>
 </div>
