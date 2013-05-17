@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/hiraya-core/emitter.js - hiraya</title>
+    <title>src/hiraya-game/entity.js - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -121,126 +121,95 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/hiraya-core/emitter.js <small>File</small></h1>
+    <h1>src/hiraya-game/entity.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
 /**
  * @module hiraya
- * @submodule hiraya-core
+ * @submodule hiraya-game
  */
 
 
-var Class = require(&#x27;./class&#x27;);
-var EventEmitter = require(&#x27;events&#x27;).EventEmitter;
+var GetterSetter = require(&#x27;../hiraya-core/getter-setter&#x27;);
+var Stats = require(&#x27;./stats&#x27;);
 
 /**
- * &#x60;Hiraya.Emitter&#x60; handles event-based callbacks.
- * For example if you wish to create an event manager that dispatches data
- * everytime a certain topic is called:
+ * A basic game entity that has basic API like stats, attack and damage commands.
  *
- *      Game.topicEmitter = Hiraya.Emitter.create({
- *        newTopic: function(topic) {
- *          this.emit(&#x27;newTopic&#x27;, topic);
- *        }
- *      });
- *
- *      Game.topicEmitter.on(&#x27;newTopic&#x27;, function(topic) {
- *        console.log(&#x27;Got a new topic:&#x27;, topic);
- *      });
- *
- *      Game.topicEmitter.newTopic(&#x27;entityCreate&#x27;);
- *
- * @class Emitter
- * @extends Hiraya.Class
+ * @class Entity
+ * @extends Hiraya.GetterSetter
  * @namespace Hiraya
  */
-var Emitter = Class.extend({
+var Entity = GetterSetter.extend({
+  /**
+   * The id of the entity. Can be set uniquely or use the default Entity class ID
+   *
+   * @property id
+   * @type {Number}
+   */
+  id: null,
   init: function() {
+    if (this.id === undefined) {
+      this.id = Entity.id++;
+    }
+    this.stats = Stats.create();
+    this.stats
+      .set(&#x27;health&#x27;, 100)
+      .set(&#x27;attack&#x27;, 100);
+    this.parent();
   },
+
   /**
-   * Adds a listener to the emitter object
+   * Attacks an enemy based on its attack stat value
    *
-   * @method on
-   * @param {String} topic 
-   * @param {Function} callback 
+   * @method attack
+   * @param {Entity} enemyEntity
    * @chainable
    */
-  on: function() {
-    EventEmitter.prototype.on.apply(this, arguments);
+  attack: function(enemyEntity) {
+    enemyEntity.damage(this.stats.attack.value);
     return this;
   },
 
   /**
-   * Removes a listener from the emitter object
+   * Reduces health by 1
    *
-   * @method off
-   * @param {String} topic
-   * @param {Function} callback
+   * @method damage
+   * @param {Number} damage
    * @chainable
    */
-  off: function(topic, callback) {
-    EventEmitter.prototype.removeListener.apply(this, arguments);
-    return this;
-  },
-
-
-  /**
-   * Removes all listeners or the topic specified
-   *
-   * @method offAll
-   * @param {String} [topic]
-   * @chainable
-   */
-  offAll: function() {
-    EventEmitter.prototype.removeAllListeners.apply(this, arguments);
+  damage: function(damage) {
+    this.stats.health.reduce(damage);
     return this;
   },
 
   /**
-   * Emits a topic contained in the emitter object
+   * Set the entity&#x27;s attributes
    *
-   * @method emit
-   * @param {String} topic
-   * @param {Object|String} data*
-   * @chainable
+   * @method setStats
+   * @param {Object} attributes
    */
-  emit: function() {
-    EventEmitter.prototype.emit.apply(this, arguments);
-    return this;
-  },
-
-  /**
-   * Subscribes to a topic only once
-   *
-   * @method once
-   * @param {String} topic
-   * @chainable
-   */
-  once: function() {
-    EventEmitter.prototype.once.apply(this, arguments);
-    return this;
-  },
-
-
-  /**
-   * Remove an event listener
-   *
-   * @methoda removeListener
-   * @param {String} topic
-   * @param {Function} callback
-   * @private
-   * @chainable
-   */
-  removeListener: function() {
-    EventEmitter.prototype.removeListener.apply(this, arguments);
-    return this;
+  setStats: function(attributes) {
+    for(var key in attributes) {
+      if (attributes.hasOwnProperty(key)) {
+        this[key] = Stat.create({ max: attributes[key] });
+      }
+    }
   }
 });
 
+/**
+ * An id counter for the Entity class
+ *
+ * @property id
+ * @static
+ * @type {Number}
+ */
+Entity.id = 0;
 
-module.exports = Emitter;
+module.exports = Entity;
 
     </pre>
 </div>

@@ -52,11 +52,22 @@
                 "Hiraya": 1
             }
         },
-        "src/hiraya-game/game.js": {
-            "name": "src/hiraya-game/game.js",
+        "src/hiraya-game/entity.js": {
+            "name": "src/hiraya-game/entity.js",
             "modules": {
                 "hiraya-game": 1
             },
+            "classes": {
+                "Hiraya.Entity": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Hiraya": 1
+            }
+        },
+        "src/hiraya-game/game.js": {
+            "name": "src/hiraya-game/game.js",
+            "modules": {},
             "classes": {
                 "Hiraya.Game": 1
             },
@@ -109,6 +120,28 @@
                 "Hiraya": 1
             }
         },
+        "src/hiraya-game/tile.js": {
+            "name": "src/hiraya-game/tile.js",
+            "modules": {},
+            "classes": {
+                "Hiraya.Tile": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Hiraya": 1
+            }
+        },
+        "src/hiraya-game/tiles.js": {
+            "name": "src/hiraya-game/tiles.js",
+            "modules": {},
+            "classes": {
+                "Hiraya.Tiles": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Hiraya": 1
+            }
+        },
         "src/index.js": {
             "name": "src/index.js",
             "modules": {},
@@ -129,17 +162,20 @@
                 "Hiraya.Collection": 1,
                 "Hiraya.Emitter": 1,
                 "Hiraya.GetterSetter": 1,
+                "Hiraya.Entity": 1,
                 "Hiraya.Game": 1,
                 "Hiraya.LevelTurnBased": 1,
                 "Hiraya.Level": 1,
                 "Hiraya.Stat": 1,
-                "Hiraya.Stats": 1
+                "Hiraya.Stats": 1,
+                "Hiraya.Tile": 1,
+                "Hiraya.Tiles": 1
             },
             "fors": {},
             "namespaces": {
                 "Hiraya": 1
             },
-            "file": "src/hiraya-game/stats.js",
+            "file": "src/hiraya-game/tiles.js",
             "line": 9
         },
         "hiraya-core": {
@@ -166,11 +202,14 @@
             "name": "hiraya-game",
             "submodules": {},
             "classes": {
+                "Hiraya.Entity": 1,
                 "Hiraya.Game": 1,
                 "Hiraya.LevelTurnBased": 1,
                 "Hiraya.Level": 1,
                 "Hiraya.Stat": 1,
-                "Hiraya.Stats": 1
+                "Hiraya.Stats": 1,
+                "Hiraya.Tile": 1,
+                "Hiraya.Tiles": 1
             },
             "fors": {},
             "is_submodule": 1,
@@ -179,9 +218,9 @@
             },
             "module": "hiraya",
             "namespace": "",
-            "file": "src/hiraya-game/stats.js",
+            "file": "src/hiraya-game/tiles.js",
             "line": 9,
-            "description": "`Hiraya.Game` is the entry point of the framework. Instantiating this will serve as your namespace,\nas well as reference to instantiated objects that the Hiraya framework provides."
+            "description": "A basic game entity that has basic API like stats, attack and damage commands."
         }
     },
     "classes": {
@@ -197,7 +236,7 @@
             "submodule": "hiraya-core",
             "namespace": "Hiraya",
             "file": "src/hiraya-core/class.js",
-            "line": 41,
+            "line": 53,
             "description": "`Hiraya.Class` is the heart of all Hiraya objects. It can be used for prototypal inheritance.\n\n    var Human = Hiraya.Class.extend({\n       baseHealth: 100,\n       baseAttack: 10,\n       health: null,\n       init: function() {\n         this.health = this.baseHealth;\n       },\n       attack: function(enemy) {\n         this.enemy.health -= this.baseAttack;\n       }\n    });\n\n    var Orc = Human.extend({\n       baseHealth: 200,\n       attack: function(enemy) {\n         // class methods have super methods\n         this.super(enemy);\n         this.shout('waaagh!');\n       },\n       shout: function(message) {\n         alert(message);\n       }\n    });\n\n    var human = Human.create();\n    var Orc = Orc.create();\n\n    // You can also override certain properties on instantiation\n    var superman = Human.create({\n       baseHealth: 10000,\n       baseAttack: 10000\n    });"
         },
         "Hiraya.Collection": {
@@ -245,8 +284,24 @@
             "namespace": "Hiraya",
             "file": "src/hiraya-core/getter-setter.js",
             "line": 8,
-            "description": "`Hiraya.GetterSetter` enables a setter and getter API which also dispatches\nan event whenever a property has changed.\n\n    var cat = Hiraya.GetterSetter.create();\n    cat.on('health', function(hp) {\n      console.log('health has changed to',  hp);\n    };)\n    cat.set('hp', 10); // health has changed to 10",
+            "description": "`Hiraya.GetterSetter` enables a setter and getter API which also dispatches\nan event whenever a property has changed.\n\n    var cat = Hiraya.GetterSetter.create();\n    cat.on('health', function(hp) {\n      console.log('health has changed to',  hp);\n    };)\n    cat.set('health', 10); // health has changed to 10\n    cat.get('health') //-> 10",
             "extends": "Hiraya.Emitter"
+        },
+        "Hiraya.Entity": {
+            "name": "Hiraya.Entity",
+            "shortname": "Hiraya.Entity",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya",
+            "file": "src/hiraya-game/entity.js",
+            "line": 10,
+            "description": "A basic game entity that has basic API like stats, attack and damage commands.",
+            "extends": "Hiraya.GetterSetter"
         },
         "Hiraya.Game": {
             "name": "Hiraya.Game",
@@ -260,8 +315,8 @@
             "submodule": "hiraya-game",
             "namespace": "Hiraya",
             "file": "src/hiraya-game/game.js",
-            "line": 10,
-            "description": "`Hiraya.Game` is the entry point of the framework. Instantiating this will serve as your namespace,\nas well as reference to instantiated objects that the Hiraya framework provides.",
+            "line": 12,
+            "description": "`Hiraya.Game` is the entry point of the framework. Instantiating this will serve as your namespace,\nas well as reference to instantiated objects that the Hiraya framework provides.\n\n    Game = Hiraya.Game.create();\n    Game.start(); // Game does its work like preloading assets, initializing classes, etc.",
             "extends": "Hiraya.Class"
         },
         "Hiraya.LevelTurnBased": {
@@ -277,7 +332,7 @@
             "namespace": "Hiraya",
             "file": "src/hiraya-game/level-turnbased.js",
             "line": 10,
-            "description": "`Hiraya.LevelTurnBased` manages entities and game logic for turn-based games.",
+            "description": "`Hiraya.LevelTurnBased` manages entities and game logic for turn-based games.\n\n### Events\n\n- `getTurnTimedOut`\n- `gotTurn`\n- `hasNoWinnerYet`\n- `hasWinner`",
             "extends": "Hiraya.Level"
         },
         "Hiraya.Level": {
@@ -292,9 +347,9 @@
             "submodule": "hiraya-game",
             "namespace": "Hiraya",
             "file": "src/hiraya-game/level.js",
-            "line": 11,
+            "line": 12,
             "description": "`Hiraya.Level` manages the game logic and entity interaction.\n\n### Events\n\n- `addedEntity`",
-            "extends": "Hiraya.Class"
+            "extends": "Hiraya.GetterSetter"
         },
         "Hiraya.Stat": {
             "name": "Hiraya.Stat",
@@ -327,6 +382,38 @@
             "line": 9,
             "description": "`Hiraya.Stats` handles all stat related object. This is quite useful as a container\nfor all attributes for a character to prevent clutter in the attributes of a `Hiraya.Entity` instance.\n\nAlthough it is used primarily for RPG stats, you are free to use it elsewhere.\n\n    var stats = Hiraya.Stats.create();\n    stats\n      .set('health', 100)\n      .set('mana', 100);",
             "extends": "Hiraya.Class"
+        },
+        "Hiraya.Tile": {
+            "name": "Hiraya.Tile",
+            "shortname": "Hiraya.Tile",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya",
+            "file": "src/hiraya-game/tile.js",
+            "line": 9,
+            "description": "A tile for a level with tiles",
+            "extends": "Hiraya.Class"
+        },
+        "Hiraya.Tiles": {
+            "name": "Hiraya.Tiles",
+            "shortname": "Hiraya.Tiles",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya",
+            "file": "src/hiraya-game/tiles.js",
+            "line": 9,
+            "description": "`Hiraya.Tiles` manages `Hiraya.Tile` instances which includes selecting neighbors and path-finding.",
+            "extends": "Hiraya.Class"
         }
     },
     "classitems": [
@@ -348,7 +435,7 @@
         },
         {
             "file": "src/hiraya-core/class.js",
-            "line": 22,
+            "line": 30,
             "description": "Extends an object's properties and assign them as prototypes in a Function",
             "class": "Hiraya.Class",
             "module": "hiraya",
@@ -356,7 +443,7 @@
         },
         {
             "file": "src/hiraya-core/class.js",
-            "line": 89,
+            "line": 101,
             "description": "Extends the base class",
             "itemtype": "method",
             "name": "extend",
@@ -379,7 +466,7 @@
         },
         {
             "file": "src/hiraya-core/class.js",
-            "line": 110,
+            "line": 122,
             "description": "Instatiates the class. You can optionally pass attributes to set as its default value.\n\nexample:\n\n    var Car = Class.extend({\n      accleration: 10,\n      accelerate: function() {\n        this.position += this.acceleration;\n      }\n    });\n\n    var Ferrari = Car.create({\n      acceleration: 100\n    });",
             "itemtype": "method",
             "name": "create",
@@ -491,6 +578,39 @@
             ],
             "return": {
                 "description": "Object"
+            },
+            "class": "Hiraya.Collection",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/collection.js",
+            "line": 100,
+            "description": "Iterates to each element in the collection. If the callback parameter returns false, it will halt the looping operation.",
+            "itemtype": "method",
+            "name": "each",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "Hiraya.Collection",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/collection.js",
+            "line": 114,
+            "description": "Returns a clone of the collection which can be used for other purposes outside the normal\ncollection operation.",
+            "itemtype": "method",
+            "name": "list",
+            "return": {
+                "description": "",
+                "type": "Array"
             },
             "class": "Hiraya.Collection",
             "module": "hiraya",
@@ -635,8 +755,162 @@
             "namespace": "Hiraya"
         },
         {
+            "file": "src/hiraya-core/getter-setter.js",
+            "line": 25,
+            "description": "Sets a property which emits an event with a topic name of the property\nthat has been dispatched.",
+            "itemtype": "method",
+            "name": "set",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.GetterSetter",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-core/getter-setter.js",
+            "line": 40,
+            "description": "Gets the value of the property.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String|Object|Array|Number"
+            },
+            "class": "Hiraya.GetterSetter",
+            "module": "hiraya",
+            "submodule": "hiraya-core",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/entity.js",
+            "line": 18,
+            "description": "The id of the entity. Can be set uniquely or use the default Entity class ID",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{Number}",
+            "class": "Hiraya.Entity",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/entity.js",
+            "line": 36,
+            "description": "Attacks an enemy based on its attack stat value",
+            "itemtype": "method",
+            "name": "attack",
+            "params": [
+                {
+                    "name": "enemyEntity",
+                    "description": "",
+                    "type": "Entity"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Entity",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/entity.js",
+            "line": 48,
+            "description": "Reduces health by 1",
+            "itemtype": "method",
+            "name": "damage",
+            "params": [
+                {
+                    "name": "damage",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Entity",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/entity.js",
+            "line": 60,
+            "description": "Set the entity's attributes",
+            "itemtype": "method",
+            "name": "setStats",
+            "params": [
+                {
+                    "name": "attributes",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Hiraya.Entity",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/entity.js",
+            "line": 75,
+            "description": "An id counter for the Entity class",
+            "itemtype": "property",
+            "name": "id",
+            "static": 1,
+            "type": "{Number}",
+            "class": "Hiraya.Entity",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
             "file": "src/hiraya-game/game.js",
-            "line": 19,
+            "line": 24,
+            "description": "Path dictionary",
+            "itemtype": "property",
+            "name": "paths",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Game",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/game.js",
+            "line": 33,
+            "description": "The base level class of the game",
+            "itemtype": "property",
+            "name": "Level",
+            "type": "{Level}",
+            "default": "Hiraya.Level",
+            "class": "Hiraya.Game",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/game.js",
+            "line": 50,
             "description": "The `ready` event fires when the window is ready and all the assets are loaded",
             "itemtype": "event",
             "name": "ready",
@@ -647,17 +921,51 @@
         },
         {
             "file": "src/hiraya-game/level-turnbased.js",
-            "line": 18,
-            "description": "Creates a `Hiraya.EntityTurnBased` class. This overrides the original method in the `Hiraya.Level` class.",
+            "line": 27,
+            "description": "Determines how fast the tick for the turn calculation will be.",
+            "itemtype": "property",
+            "name": "tickSpeed",
+            "type": "{Number}",
+            "default": "1",
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 36,
+            "description": "Determines the number of tries the `.getTurn()` function can do before\ngiving up.",
+            "itemtype": "property",
+            "name": "_maxGetTurnAttempts",
+            "type": "{Number}",
+            "access": "private",
+            "tagname": "",
+            "default": "25",
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 47,
+            "description": "Finds the next entity to take its turn.",
             "itemtype": "method",
-            "name": "createEntity",
-            "params": [
-                {
-                    "name": "attributes",
-                    "description": "",
-                    "type": "Object"
-                }
-            ],
+            "name": "getTurn",
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 73,
+            "description": "Increases the entities' turn stat by 1 and returns an entity if it has reached its max turn stat value",
+            "itemtype": "method",
+            "name": "_getEntityTurn",
+            "access": "private",
+            "tagname": "",
             "return": {
                 "description": "Hiraya.EntityTurnBased"
             },
@@ -667,11 +975,112 @@
             "namespace": "Hiraya"
         },
         {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 95,
+            "description": "Checks to see if there is already a winning entity in the game.",
+            "itemtype": "method",
+            "name": "evaluateEntities",
+            "return": {
+                "description": "null"
+            },
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 118,
+            "description": "Finds the nearest entities based on closed proximity.",
+            "itemtype": "method",
+            "name": "promixity",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Hiraya.EntityTurnBased"
+                },
+                {
+                    "name": "by",
+                    "description": "",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "null"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 165,
+            "description": "Fired when an entity reaches its max `.stats.turnspeed` value.",
+            "itemtype": "event",
+            "name": "gotTurn",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Hiraya.EntityTurnBased"
+                }
+            ],
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 174,
+            "description": "Fired when a winner has been announced after performing a `.evaluateEntities()` function.",
+            "itemtype": "event",
+            "name": "hasWinner",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Hiraya.EntityTurnBased"
+                }
+            ],
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 183,
+            "description": "Fired when there is no winner yet after performing a `.evaluateEntities()` function.",
+            "itemtype": "event",
+            "name": "hasNoWinnerYet",
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 191,
+            "description": "Fired when attempts in finding an entity to take its turn has reached its maximum number of tries.",
+            "itemtype": "event",
+            "name": "getTurnTimedOut",
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
             "file": "src/hiraya-game/level.js",
-            "line": 23,
+            "line": 24,
             "itemtype": "property",
             "name": "entities",
-            "type": "{Array}",
+            "type": "{Hiraya.Collection}",
             "class": "Hiraya.Level",
             "module": "hiraya",
             "submodule": "hiraya-game",
@@ -679,7 +1088,18 @@
         },
         {
             "file": "src/hiraya-game/level.js",
-            "line": 34,
+            "line": 41,
+            "description": "Emitted after initialization",
+            "itemtype": "event",
+            "name": "ready",
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 49,
             "description": "Adds an entity into the collection based on attributes.\n\nFollowing is an example format:\n\n    level.addEntity({\n      name: 'Swordsman',\n      stats: {\n        health: [500, 1000] // value, max\n        attack: [100] // value, max\n      }\n    })",
             "itemtype": "method",
             "name": "addEntity",
@@ -698,7 +1118,7 @@
         },
         {
             "file": "src/hiraya-game/level.js",
-            "line": 66,
+            "line": 92,
             "description": "Creates a `Hiraya.Entity` from a class. Use this to override the classname you wish to use.",
             "itemtype": "method",
             "name": "createEntity",
@@ -719,7 +1139,7 @@
         },
         {
             "file": "src/hiraya-game/level.js",
-            "line": 77,
+            "line": 103,
             "description": "When an entity is added.",
             "itemtype": "event",
             "name": "addedEntity",
@@ -794,7 +1214,7 @@
         },
         {
             "file": "src/hiraya-game/stat.js",
-            "line": 61,
+            "line": 62,
             "description": "Sets the value of the max value. Ensures that it doesn't go beyond zero.",
             "itemtype": "method",
             "name": "setMax",
@@ -813,7 +1233,7 @@
         },
         {
             "file": "src/hiraya-game/stat.js",
-            "line": 73,
+            "line": 74,
             "description": "Empties the value of the stat.",
             "itemtype": "method",
             "name": "empty",
@@ -825,7 +1245,7 @@
         },
         {
             "file": "src/hiraya-game/stat.js",
-            "line": 84,
+            "line": 85,
             "description": "Increases the value of the stat. Increments the `.value` property by 1 if the value argument is undefined.",
             "itemtype": "method",
             "name": "add",
@@ -846,7 +1266,7 @@
         },
         {
             "file": "src/hiraya-game/stat.js",
-            "line": 96,
+            "line": 97,
             "description": "Reduces the value by one. Decrements the `.value` property by 1 if the value argument is undefined.",
             "itemtype": "method",
             "name": "reduce",
@@ -867,7 +1287,7 @@
         },
         {
             "file": "src/hiraya-game/stat.js",
-            "line": 108,
+            "line": 109,
             "description": "Resets the value according to its max value. Max value can be optionally\nset by providing a value argument.",
             "itemtype": "method",
             "name": "reset",
@@ -881,6 +1301,34 @@
                 }
             ],
             "chainable": 1,
+            "class": "Hiraya.Stat",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/stat.js",
+            "line": 125,
+            "description": "Checks if the stat is full",
+            "itemtype": "method",
+            "name": "isMax",
+            "return": {
+                "description": "Boolean"
+            },
+            "class": "Hiraya.Stat",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/stat.js",
+            "line": 135,
+            "description": "Tells if the stat value is 0.",
+            "itemtype": "method",
+            "name": "isEmpty",
+            "return": {
+                "description": "Boolean"
+            },
             "class": "Hiraya.Stat",
             "module": "hiraya",
             "submodule": "hiraya-game",
@@ -951,6 +1399,471 @@
             "namespace": "Hiraya"
         },
         {
+            "file": "src/hiraya-game/tile.js",
+            "line": 17,
+            "description": "x-axis coordinate",
+            "itemtype": "property",
+            "name": "x",
+            "type": "{Number}",
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 25,
+            "description": "y-axis coordinate",
+            "itemtype": "property",
+            "name": "y",
+            "type": "{Number}",
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 33,
+            "description": "The z-index of the tile which is assigned during tile population starting from top left to top bottom.",
+            "itemtype": "property",
+            "name": "z",
+            "type": "{Number}",
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 41,
+            "description": "Determining if the tile is passable. Used in the A-star algorithm.",
+            "itemtype": "property",
+            "name": "isWall",
+            "type": "{Boolean}",
+            "default": "false",
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 50,
+            "description": "List of tile coordinates that are not passable by this tile.\n\n    var tiles = Hiraya.Tiles.create();\n    tile = tiles.get(0, 0);\n    tile.set('walls', [\n      [1, 0],\n      [0, 1]\n    ]);\n    tile.blocked(tiles.get(1, 0)); //-> true\n    tile.blocked(tiles.get(0, 1)); //-> true\n    tile.blocked(tiles.get(1, 1)); //-> false",
+            "itemtype": "property",
+            "name": "walls",
+            "type": "{Array}",
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 68,
+            "description": "The value of the tile.",
+            "itemtype": "property",
+            "name": "cost",
+            "type": "{Number}",
+            "default": "-1",
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 77,
+            "description": "List of entities occupying this tile",
+            "itemtype": "property",
+            "name": "entities",
+            "type": "{Array}",
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 85,
+            "description": "Returns the score of the tile used in the a-star algorithm.",
+            "itemtype": "method",
+            "name": "val",
+            "return": {
+                "description": "score",
+                "type": "Number"
+            },
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 100,
+            "description": "Returns a simplified JSON format of this tile that returns the x, y and z property",
+            "itemtype": "method",
+            "name": "json",
+            "return": {
+                "description": "json",
+                "type": "Object"
+            },
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 114,
+            "description": "Instructs the tile to let the entity occupy it.",
+            "itemtype": "method",
+            "name": "occupy",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Entity"
+                }
+            ],
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 127,
+            "description": "Checks if the entitiy exists in this tile",
+            "itemtype": "method",
+            "name": "has",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Entity"
+                }
+            ],
+            "return": {
+                "description": "Boolean"
+            },
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 138,
+            "description": "Removes the entity from the tile",
+            "itemtype": "method",
+            "name": "vacate",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Entity"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 153,
+            "description": "Tells if the tile is occupied by entities.",
+            "itemtype": "method",
+            "name": "isOccupied",
+            "return": {
+                "description": "Boolean"
+            },
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tile.js",
+            "line": 163,
+            "description": "Checks if the target tile is an element of the `.walls` array.",
+            "itemtype": "method",
+            "name": "blocked",
+            "params": [
+                {
+                    "name": "tile",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Hiraya.Tile",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 17,
+            "description": "Total number of columns of the board.",
+            "itemtype": "property",
+            "name": "columns",
+            "type": "{Number}",
+            "default": "8",
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 26,
+            "description": "Total number of rows of the board.",
+            "itemtype": "property",
+            "name": "rows",
+            "type": "{Number}",
+            "default": "8",
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 35,
+            "description": "The matrix for the list of array for easy reference. Internal use only.",
+            "itemtype": "property",
+            "name": "_matrix",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 44,
+            "description": "The total number of tiles.",
+            "itemtype": "property",
+            "name": "_total",
+            "type": "{Number}",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 53,
+            "description": "The default Tile class to be instantiated when the board generates tiles.",
+            "itemtype": "property",
+            "name": "Tile",
+            "type": "{Hiraya.Tile}",
+            "default": "Hiraya.Tile",
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 65,
+            "description": "Generates the board with tiles",
+            "itemtype": "method",
+            "name": "_generate",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 87,
+            "description": "Retrieves a tile based on its x and y coordinates",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Tile"
+            },
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 105,
+            "description": "Retrieves the adjacent tiles of a tile.",
+            "itemtype": "method",
+            "name": "adjacent",
+            "params": [
+                {
+                    "name": "tile",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 142,
+            "description": "Find the movement cost between two tiles. Internal use only.",
+            "itemtype": "method",
+            "name": "_movementCost",
+            "params": [
+                {
+                    "name": "start",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                },
+                {
+                    "name": "end",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 156,
+            "description": "Retrives a list of tiles by radius",
+            "itemtype": "method",
+            "name": "range",
+            "params": [
+                {
+                    "name": "tile",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                },
+                {
+                    "name": "radius",
+                    "description": "",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "1"
+                },
+                {
+                    "name": "ignoreCost",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 212,
+            "description": "Performs an A-star pathfinding algorithm",
+            "itemtype": "method",
+            "name": "path",
+            "params": [
+                {
+                    "name": "start",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                },
+                {
+                    "name": "end",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/tiles.js",
+            "line": 289,
+            "description": "Used to calculate the heuristics for the path-finding algorithm",
+            "itemtype": "method",
+            "name": "heuristic",
+            "params": [
+                {
+                    "name": "start",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                },
+                {
+                    "name": "destination",
+                    "description": "",
+                    "type": "Hiraya.Tile"
+                },
+                {
+                    "name": "cost",
+                    "description": "",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "1"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Hiraya.Tiles",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
             "file": "src/index.js",
             "line": 2,
             "class": "",
@@ -966,7 +1879,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 14,
+            "line": 16,
             "class": "",
             "module": "hiraya",
             "namespace": "Hiraya"
@@ -978,20 +1891,88 @@
             "line": " src/hiraya-core/collection.js:78"
         },
         {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-core/collection.js:114"
+        },
+        {
             "message": "unknown tag: methoda",
             "line": " src/hiraya-core/emitter.js:99"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/hiraya-game/level-turnbased.js:18"
+            "line": " src/hiraya-core/getter-setter.js:40"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/hiraya-game/level.js:66"
+            "line": " src/hiraya-game/level-turnbased.js:73"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/level-turnbased.js:95"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/level-turnbased.js:118"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/level.js:92"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/stat.js:125"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/stat.js:135"
         },
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " src/hiraya-game/stats.js:61"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tile.js:85"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tile.js:100"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tile.js:127"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tile.js:153"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tile.js:163"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tiles.js:87"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tiles.js:105"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tiles.js:142"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tiles.js:156"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tiles.js:212"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/tiles.js:289"
         },
         {
             "message": "Missing item type\nFlag to prevent the Class.proto.init from being invoked during initialization",
@@ -1003,7 +1984,7 @@
         },
         {
             "message": "Missing item type\nExtends an object's properties and assign them as prototypes in a Function",
-            "line": " src/hiraya-core/class.js:22"
+            "line": " src/hiraya-core/class.js:30"
         },
         {
             "message": "Missing item type\nRemove an event listener",
@@ -1019,7 +2000,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " src/index.js:14"
+            "line": " src/index.js:16"
         }
     ]
 }

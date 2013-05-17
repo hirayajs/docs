@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
+                        <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
+                    
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
@@ -66,6 +68,10 @@
                         <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
                     
                         <li><a href="../classes/Hiraya.Stats.html">Hiraya.Stats</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tile.html">Hiraya.Tile</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
                 </ul>
             </div>
@@ -129,7 +135,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-game_game.js.html#l10"><code>src&#x2F;hiraya-game&#x2F;game.js:10</code></a>
+            Defined in: <a href="../files/src_hiraya-game_game.js.html#l12"><code>src&#x2F;hiraya-game&#x2F;game.js:12</code></a>
         </div>
     
 
@@ -148,6 +154,10 @@
 <div class="well well-small">
     <p><code>Hiraya.Game</code> is the entry point of the framework. Instantiating this will serve as your namespace,
 as well as reference to instantiated objects that the Hiraya framework provides.</p>
+
+<pre class="code prettyprint"><code>Game = Hiraya.Game.create();
+Game.start(); // Game does its work like preloading assets, initializing classes, etc.
+</code></pre>
 </div>
 
 
@@ -157,6 +167,8 @@ as well as reference to instantiated objects that the Hiraya framework provides.
         <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
 
         
+        
+            <li><a data-toggle="tab" href="#properties">Properties</a></li>
         
         
         
@@ -169,6 +181,28 @@ as well as reference to instantiated objects that the Hiraya framework provides.
 
             
 
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_Level" data-tablink="Level">Level</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_paths" data-tablink="paths">paths</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
             
 
             
@@ -193,6 +227,103 @@ as well as reference to instantiated objects that the Hiraya framework provides.
 
         
 
+        
+            <div id="properties" class="tab-pane">
+
+                
+                    <div id="property_Level" class="property item">
+    <h3 class="name"><code>Level</code></h3>
+    <span class="type">Level</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-game_game.js.html#l33"><code>src&#x2F;hiraya-game&#x2F;game.js:33</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The base level class of the game</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> Hiraya.Level</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_paths" class="property item private">
+    <h3 class="name"><code>paths</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-game_game.js.html#l24"><code>src&#x2F;hiraya-game&#x2F;game.js:24</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Path dictionary</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
         
 
         
@@ -225,7 +356,7 @@ as well as reference to instantiated objects that the Hiraya framework provides.
             
         
         
-        <a href="../files/src_hiraya-game_game.js.html#l19"><code>src&#x2F;hiraya-game&#x2F;game.js:19</code></a>
+        <a href="../files/src_hiraya-game_game.js.html#l50"><code>src&#x2F;hiraya-game&#x2F;game.js:50</code></a>
         
         </p>
 

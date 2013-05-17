@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
+                        <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
+                    
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
@@ -66,6 +68,10 @@
                         <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
                     
                         <li><a href="../classes/Hiraya.Stats.html">Hiraya.Stats</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tile.html">Hiraya.Tile</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
                 </ul>
             </div>
@@ -132,28 +138,190 @@ var EntityTurnBased = require(&#x27;./entity-turnbased&#x27;);
 /**
  * &#x60;Hiraya.LevelTurnBased&#x60; manages entities and game logic for turn-based games.
  *
+ * ### Events
+ *
+ * - &#x60;getTurnTimedOut&#x60;
+ * - &#x60;gotTurn&#x60;
+ * - &#x60;hasNoWinnerYet&#x60;
+ * - &#x60;hasWinner&#x60;
+ *
  * @class LevelTurnBased
  * @extends Hiraya.Level
  * @namespace Hiraya
  */
 var LevelTurnBased = Level.extend({
+  Entity: EntityTurnBased,
+
   /**
-   * Creates a &#x60;Hiraya.EntityTurnBased&#x60; class. This overrides the original method in the &#x60;Hiraya.Level&#x60; class.
+   * Determines how fast the tick for the turn calculation will be.
    *
-   * @method createEntity
-   * @param {Object} attributes
+   * @property tickSpeed
+   * @type {Number}
+   * @default 1
+   */
+  tickSpeed: 1,
+
+  /**
+   * Determines the number of tries the &#x60;.getTurn()&#x60; function can do before
+   * giving up.
+   *
+   * @property _maxGetTurnAttempts
+   * @type {Number}
+   * @private
+   * @default 25
+   */
+  _maxGetTurnAttempts: 25,
+
+  /**
+   * Finds the next entity to take its turn.
+   *
+   * @method getTurn
+   */
+  getTurn: function() {
+    var entity, _this = this;
+    var tries = 0;
+    var maxTries = this._maxGetTurnAttempts;
+    var tick = function() {
+      entity = _this._getEntityTurn();
+      tries++;
+      if (!entity) {
+        if (tries &lt; maxTries) {
+          setTimeout(tick, _this.tickSpeed);
+        } else {
+          _this.getTurnTimedOut();
+        }
+      } else {
+        entity.stats.turn.empty();
+        _this.gotTurn(entity);
+      }
+    };
+    tick();
+  },
+
+  /**
+   * Increases the entities&#x27; turn stat by 1 and returns an entity if it has reached its max turn stat value
+   *
+   * @method _getEntityTurn
+   * @private
    * @returns Hiraya.EntityTurnBased
    */
-  createEntity: function(attributes) {
-    return EntityTurnBased.create(attributes);
-  },
-  getTurn: function() {
+  _getEntityTurn: function() {
     var total = this.entities.length;
     var entity;
+    var result;
     for(var i=0; i&lt;total; i++) {
       entity = this.entities.at(i);
-      //entity.stats.turn.add(entity.stats.get(&#x27;turnspeed&#x27;).value);
+      entity.stats.turn.add(entity.stats.turnspeed.value);
+      if (entity.stats.turn.isMax()) {
+        result = entity;
+        break;
+      }
     }
+    return result;
+  },
+
+  /**
+   * Checks to see if there is already a winning entity in the game.
+   *
+   * @method evaluateEntities
+   * @returns null
+   */
+  evaluateEntities: function() {
+    var enabled = [];
+    var disabled = [];
+    this.entities.each(function(entity) {
+      if (entity.stats.health.isEmpty()) {
+        disabled.push(entity);
+      } else {
+        enabled.push(entity);
+      }
+    });
+    if (enabled.length &lt;= 1) {
+      this.hasWinner(enabled[0]);
+    } else {
+      this.hasNoWinnerYet();
+    }
+  },
+
+  /**
+   * Finds the nearest entities based on closed proximity.
+   *
+   * @method promixity
+   * @param {Hiraya.EntityTurnBased} entity
+   * @param {String} [by=null]
+   * @returns {Array}
+   */
+  proximity: function(entity, by) {
+    var distances = [],
+      entities = [],
+      tiles,
+      radius = Math.floor(this.tiles.columns * 0.5)
+    ;
+    if (by === &#x27;range&#x27;) {
+      radius = entity.stats.range.value;
+    }
+    tiles = this.tiles.range(entity.tile, radius, true);
+    for(var i=0,len=tiles.length; i&lt;len; i++) {
+      var tile = tiles[i];
+      var occupant = tile.entities[0];
+      if (occupant &amp;&amp; occupant !== entity) {
+        var distance = Math.abs(occupant.tile.x - entity.tile.x + occupant.tile.y - entity.tile.y);
+        var index = 0;
+        for(var ii=0, llen=distances.length; ii&lt;llen; ii++) {
+          if (distance &lt; distances[ii]) {
+            index = ii;
+            break;
+          }
+        }
+        distances.splice(index, 0, distance);
+        entities.splice(index, 0, occupant);
+      }
+    }
+    return entities;
+  },
+
+  nearestTileToEntity: function(entity) {
+    var proximity = this.proximity(entity);
+    var target = proximity[0];
+    var nearest;
+    if (target) {
+      nearest = entity.tile.nearest(this.tiles.adjacent(target.tile));
+    }
+    return nearest;
+  },
+
+  /**
+   * Fired when an entity reaches its max &#x60;.stats.turnspeed&#x60; value.
+   *
+   * @event gotTurn
+   * @param {Hiraya.EntityTurnBased} entity
+   */
+  gotTurn: function(entity) {
+  },
+
+  /**
+   * Fired when a winner has been announced after performing a &#x60;.evaluateEntities()&#x60; function.
+   *
+   * @event hasWinner
+   * @param {Hiraya.EntityTurnBased} entity
+   */
+  hasWinner: function(entity) {
+  },
+
+  /**
+   * Fired when there is no winner yet after performing a &#x60;.evaluateEntities()&#x60; function.
+   *
+   * @event hasNoWinnerYet
+   */
+  hasNoWinnerYet: function() {
+  },
+
+  /**
+   * Fired when attempts in finding an entity to take its turn has reached its maximum number of tries.
+   *
+   * @event getTurnTimedOut
+   */
+  getTurnTimedOut: function() {
   }
 });
 

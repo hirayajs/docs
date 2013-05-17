@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
+                        <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
+                    
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
@@ -66,6 +68,10 @@
                         <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
                     
                         <li><a href="../classes/Hiraya.Stats.html">Hiraya.Stats</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tile.html">Hiraya.Tile</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
                 </ul>
             </div>
@@ -126,9 +132,10 @@
  */
 
 
-var Emitter = require(&#x27;../hiraya-core/emitter&#x27;);
+var GetterSetter = require(&#x27;../hiraya-core/getter-setter&#x27;);
 var Collection = require(&#x27;../hiraya-core/collection&#x27;);
 var Entity = require(&#x27;./entity&#x27;);
+var Tiles = require(&#x27;./tiles&#x27;);
 
 /**
  * &#x60;Hiraya.Level&#x60; manages the game logic and entity interaction.
@@ -138,19 +145,33 @@ var Entity = require(&#x27;./entity&#x27;);
  * - &#x60;addedEntity&#x60;
  *
  * @class Level
- * @extends Hiraya.Class
+ * @extends Hiraya.GetterSetter
  * @namespace Hiraya
  */
-var Level = Emitter.extend({
+var Level = GetterSetter.extend({
   /**
    * @property entities
-   * @type {Array}
+   * @type {Hiraya.Collection}
    */
   entities: null,
 
+  Entity: Entity,
+
+  Tiles: Tiles,
+
   init: function() {
+    this.tiles = this.Tiles.create();
     this.entities = Collection.create();
     this.parent();
+    this.ready();
+  },
+
+  /**
+   * Emitted after initialization
+   *
+   * @event ready
+   */
+  ready: function() {
   },
 
   /**
@@ -172,14 +193,25 @@ var Level = Emitter.extend({
    */
   addEntity: function(attributes) {
     // attributes.stats gets overwritten in library
-    var entity = this.createEntity(attributes);
-    var stats = attributes.stats;
-    for (var key in stats) {
-      if (stats.hasOwnProperty(key)) {
-        var stat = stats[key];
-        entity.stats.set(key, stat[0], stat[1]);
+    var entity, stats, tile;
+    entity = this.createEntity(attributes);
+    stats = attributes.stats;
+    if (typeof stats === &#x27;object&#x27;) {
+      for (var key in stats) {
+        if (stats.hasOwnProperty(key)) {
+          var stat = stats[key];
+          entity.stats.set(key, stat[0], stat[1]);
+        }
       }
     }
+
+    if (typeof attributes.tile === &#x27;object&#x27;) {
+      tile = this.tiles.get(attributes.tile.x, attributes.tile.y);
+      if (tile) {
+        tile.occupy(entity);
+      }
+    }
+
     this.entities.add(entity);
     this.addedEntity(entity);
     return this;
@@ -193,7 +225,7 @@ var Level = Emitter.extend({
    * @returns Hiraya.Entity
    */
   createEntity: function(attributes) {
-    return Entity.create(attributes);
+    return this.Entity.create(attributes);
   },
 
   /**
@@ -204,6 +236,7 @@ var Level = Emitter.extend({
    */
   addedEntity: function(entity) {
   }
+
 
 });
 

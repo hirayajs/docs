@@ -4,12 +4,15 @@ YUI.add("yuidoc-meta", function(Y) {
         "Hiraya.Class",
         "Hiraya.Collection",
         "Hiraya.Emitter",
+        "Hiraya.Entity",
         "Hiraya.Game",
         "Hiraya.GetterSetter",
         "Hiraya.Level",
         "Hiraya.LevelTurnBased",
         "Hiraya.Stat",
-        "Hiraya.Stats"
+        "Hiraya.Stats",
+        "Hiraya.Tile",
+        "Hiraya.Tiles"
     ],
     "modules": [
         "hiraya",
@@ -29,7 +32,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "hiraya-game",
             "name": "hiraya-game",
-            "description": "`Hiraya.Game` is the entry point of the framework. Instantiating this will serve as your namespace,\nas well as reference to instantiated objects that the Hiraya framework provides."
+            "description": "A basic game entity that has basic API like stats, attack and damage commands."
         }
     ]
 } };

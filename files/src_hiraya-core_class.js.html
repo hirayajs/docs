@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
+                        <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
+                    
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
@@ -66,6 +68,10 @@
                         <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
                     
                         <li><a href="../classes/Hiraya.Stats.html">Hiraya.Stats</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tile.html">Hiraya.Tile</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
                 </ul>
             </div>
@@ -141,6 +147,14 @@ function protoParent(prototype, name, method) {
   };
 }
 
+function isClassObject(fn) {
+  var truth = false;
+  for (var key in fn.prototype) {
+    truth = true;
+  }
+  return truth;
+}
+
 /**
  * Extends an object&#x27;s properties and assign them as prototypes in a Function
  */
@@ -154,7 +168,11 @@ function extendClass(BaseClass, properties) {
   for(var name in properties) {
     if (properties.hasOwnProperty(name)) {
       attribute = properties[name];
-      prototype[name] = typeof parent[name] === &#x27;function&#x27; &amp;&amp; typeof properties[name] === &#x27;function&#x27; ?
+      prototype[name] = typeof parent[name] === &#x27;function&#x27; &amp;&amp;
+        typeof attribute === &#x27;function&#x27; &amp;&amp;
+        // check if it&#x27;s a Class by checking its list of prototype properties
+        // no super should be assigned if ever.
+        !isClassObject(attribute) ? // make sure we&#x27;re assigning a proto parent only for functions
         protoParent(parent, name, attribute) :
         attribute;
     }
@@ -225,7 +243,7 @@ function extendClass(BaseClass, properties) {
           attribs[key] = attrib[key];
         }
       }
-    };
+    }
     return extendClass(Class, attribs);
   };
 
@@ -251,8 +269,13 @@ function extendClass(BaseClass, properties) {
    * @return Class
    */
   Class.create = function(attributes) {
-    var ClassExtend = Class.extend(attributes);
-    return new ClassExtend();
+    var ClassExtend;
+    if (typeof attributes === &#x27;object&#x27;) {
+      ClassExtend = Class.extend(attributes);
+      return new ClassExtend();
+    } else {
+      return new Class();
+    }
   };
   return Class;
 }

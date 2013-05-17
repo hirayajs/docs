@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
+                        <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
+                    
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
@@ -66,6 +68,10 @@
                         <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
                     
                         <li><a href="../classes/Hiraya.Stats.html">Hiraya.Stats</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tile.html">Hiraya.Tile</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
                 </ul>
             </div>
@@ -177,6 +183,7 @@ var Stat = Class.extend({
    */
   setValue: function(value) {
     this.value = Math.max(0, value);
+    this.value = Math.min(this.value, this.max);
     return this;
   },
 
@@ -241,6 +248,26 @@ var Stat = Class.extend({
     }
     this.value = this.max;
     return this;
+  },
+
+  /**
+   * Checks if the stat is full
+   *
+   * @method isMax
+   * @returns Boolean
+   */
+  isMax: function() {
+    return this.value === this.max;
+  },
+
+  /**
+   * Tells if the stat value is 0.
+   *
+   * @method isEmpty 
+   * @returns Boolean
+   */
+  isEmpty: function() {
+    return this.value === 0;
   }
 });
 

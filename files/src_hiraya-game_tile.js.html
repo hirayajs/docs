@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/hiraya-core/emitter.js - hiraya</title>
+    <title>src/hiraya-game/tile.js - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -121,126 +121,217 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/hiraya-core/emitter.js <small>File</small></h1>
+    <h1>src/hiraya-game/tile.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
 /**
  * @module hiraya
- * @submodule hiraya-core
+ * @submodule hiraya-game
  */
 
 
-var Class = require(&#x27;./class&#x27;);
-var EventEmitter = require(&#x27;events&#x27;).EventEmitter;
+var Class = require(&#x27;../hiraya-core/class&#x27;);
 
 /**
- * &#x60;Hiraya.Emitter&#x60; handles event-based callbacks.
- * For example if you wish to create an event manager that dispatches data
- * everytime a certain topic is called:
+ * A tile for a level with tiles
  *
- *      Game.topicEmitter = Hiraya.Emitter.create({
- *        newTopic: function(topic) {
- *          this.emit(&#x27;newTopic&#x27;, topic);
- *        }
- *      });
- *
- *      Game.topicEmitter.on(&#x27;newTopic&#x27;, function(topic) {
- *        console.log(&#x27;Got a new topic:&#x27;, topic);
- *      });
- *
- *      Game.topicEmitter.newTopic(&#x27;entityCreate&#x27;);
- *
- * @class Emitter
+ * @class Tile
  * @extends Hiraya.Class
  * @namespace Hiraya
  */
-var Emitter = Class.extend({
+var Tile = Class.extend({
+  /**
+   * x-axis coordinate
+   *
+   * @property x
+   * @type {Number}
+   */
+  x: null,
+
+  /**
+   * y-axis coordinate
+   *
+   * @property y
+   * @type {Number}
+   */
+  y: null,
+
+  /**
+   * The z-index of the tile which is assigned during tile population starting from top left to top bottom.
+   *
+   * @property z
+   * @type {Number}
+   */
+  z: null,
+
+  /**
+   * Determining if the tile is passable. Used in the A-star algorithm.
+   *
+   * @property isWall
+   * @type {Boolean}
+   * @default false
+   */
+  isWall: null,
+
+  /**
+   * List of tile coordinates that are not passable by this tile.
+   *
+   *     var tiles = Hiraya.Tiles.create();
+   *     tile = tiles.get(0, 0);
+   *     tile.set(&#x27;walls&#x27;, [
+   *       [1, 0],
+   *       [0, 1]
+   *     ]);
+   *     tile.blocked(tiles.get(1, 0)); //-&gt; true
+   *     tile.blocked(tiles.get(0, 1)); //-&gt; true
+   *     tile.blocked(tiles.get(1, 1)); //-&gt; false
+   *
+   * @property walls
+   * @type {Array}
+   */
+  walls: null,
+
+  /**
+   * The value of the tile.
+   *
+   * @property cost
+   * @type {Number}
+   * @default -1
+   */
+  cost: null,
+
+  /**
+   * List of entities occupying this tile
+   *
+   * @property entities
+   * @type {Array}
+   */
+  entities: null,
+
+  /**
+   * Returns the score of the tile used in the a-star algorithm.
+   *
+   * @method val
+   * @returns {Number} score
+   */
+  val: function() {
+    return this.entities.length || this.isWall ? 1000 : 1;
+  },
+
   init: function() {
+    this.entities = [];
+    this.cost = -1;
   },
+
   /**
-   * Adds a listener to the emitter object
+   * Returns a simplified JSON format of this tile that returns the x, y and z property
    *
-   * @method on
-   * @param {String} topic 
-   * @param {Function} callback 
+   * @method json
+   * @returns {Object} json
+   */
+  json: function() {
+    return {
+      x: this.x,
+      y: this.y,
+      z: this.z
+    };
+  },
+
+  /**
+   * Instructs the tile to let the entity occupy it.
+   *
+   * @method occupy
+   * @param {Entity} entity
+   */
+  occupy: function(entity) {
+    if (!this.has(entity)) {
+      this.entities.push(entity);
+      entity.set(&#x27;tile&#x27;, this);
+    }
+  },
+
+  /**
+   * Checks if the entitiy exists in this tile
+   *
+   * @method has
+   * @param {Entity} entity
+   * @returns Boolean 
+   */
+  has: function(entity) {
+    return this.entities.indexOf(entity) &gt; -1;
+  },
+
+  /**
+   * Removes the entity from the tile
+   *
+   * @method vacate
+   * @param {Entity} entity
    * @chainable
    */
-  on: function() {
-    EventEmitter.prototype.on.apply(this, arguments);
+  vacate: function(entity) {
+    if (this.has(entity)) {
+      entity.set(&#x27;tile&#x27;, null);
+      this.entities.splice(this.entities.indexOf(entity), 1);
+    }
     return this;
   },
 
   /**
-   * Removes a listener from the emitter object
+   * Tells if the tile is occupied by entities.
    *
-   * @method off
-   * @param {String} topic
-   * @param {Function} callback
-   * @chainable
+   * @method isOccupied
+   * @returns Boolean
    */
-  off: function(topic, callback) {
-    EventEmitter.prototype.removeListener.apply(this, arguments);
-    return this;
-  },
-
-
-  /**
-   * Removes all listeners or the topic specified
-   *
-   * @method offAll
-   * @param {String} [topic]
-   * @chainable
-   */
-  offAll: function() {
-    EventEmitter.prototype.removeAllListeners.apply(this, arguments);
-    return this;
+  isOccupied: function() {
+    return this.entities.length &gt; 0;
   },
 
   /**
-   * Emits a topic contained in the emitter object
+   * Checks if the target tile is an element of the &#x60;.walls&#x60; array.
    *
-   * @method emit
-   * @param {String} topic
-   * @param {Object|String} data*
-   * @chainable
+   * @method blocked
+   * @param {Hiraya.Tile} tile
+   * @returns {Boolean}
    */
-  emit: function() {
-    EventEmitter.prototype.emit.apply(this, arguments);
-    return this;
+  blocked: function(tile) {
+    var x = tile.x,
+        y = tile.y,
+        wall, blocked;
+    if (this.walls &amp;&amp; this.walls.length) {
+      for (var i = this.walls.length - 1; i &gt;= 0; i--){
+        wall = this.walls[i];
+        if (wall[0] == x &amp;&amp; wall[1] === y) {
+          blocked = true;
+          break;
+        }
+      }
+    }
+    return blocked;
   },
 
-  /**
-   * Subscribes to a topic only once
-   *
-   * @method once
-   * @param {String} topic
-   * @chainable
-   */
-  once: function() {
-    EventEmitter.prototype.once.apply(this, arguments);
-    return this;
-  },
-
-
-  /**
-   * Remove an event listener
-   *
-   * @methoda removeListener
-   * @param {String} topic
-   * @param {Function} callback
-   * @private
-   * @chainable
-   */
-  removeListener: function() {
-    EventEmitter.prototype.removeListener.apply(this, arguments);
-    return this;
+  nearest: function(list) {
+    var distances = [];
+    var tiles = [];
+    for(var i=0,len=list.length; i&lt;len; i++) {
+      var tile = list[i];
+      var distance = Math.abs(tile.x + tile.y - this.x - this.y);
+      var index = 0;
+      for(var ii=0,llen=distances.length; ii&lt;llen; ii++) {
+        if (distance &lt; distances[ii]) {
+          index = ii;
+          break;
+        }
+      }
+      distances.splice(index, 0, distance);
+      tiles.splice(index, 0, tile);
+    }
+    return tiles[0];
   }
 });
 
-
-module.exports = Emitter;
+module.exports = Tile;
 
     </pre>
 </div>
