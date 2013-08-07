@@ -1,6 +1,7 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
+        "Hiraya.Canvas",
         "Hiraya.Class",
         "Hiraya.Collection",
         "Hiraya.Emitter",
@@ -9,6 +10,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Hiraya.GetterSetter",
         "Hiraya.Level",
         "Hiraya.LevelTurnBased",
+        "Hiraya.Sprite",
         "Hiraya.Stat",
         "Hiraya.Stats",
         "Hiraya.Tile",
@@ -17,7 +19,8 @@ YUI.add("yuidoc-meta", function(Y) {
     "modules": [
         "hiraya",
         "hiraya-core",
-        "hiraya-game"
+        "hiraya-game",
+        "hiraya-view"
     ],
     "allModules": [
         {
@@ -33,6 +36,11 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "hiraya-game",
             "name": "hiraya-game",
             "description": "A basic game entity that has basic API like stats, attack and damage commands."
+        },
+        {
+            "displayName": "hiraya-view",
+            "name": "hiraya-view",
+            "description": "Canvas manages the stage and all things happening in them."
         }
     ]
 } };

@@ -142,6 +142,30 @@
                 "Hiraya": 1
             }
         },
+        "src/hiraya-view/canvas.js": {
+            "name": "src/hiraya-view/canvas.js",
+            "modules": {
+                "hiraya-view": 1
+            },
+            "classes": {
+                "Hiraya.Canvas": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Hiraya": 1
+            }
+        },
+        "src/hiraya-view/sprite.js": {
+            "name": "src/hiraya-view/sprite.js",
+            "modules": {},
+            "classes": {
+                "Hiraya.Sprite": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Hiraya": 1
+            }
+        },
         "src/index.js": {
             "name": "src/index.js",
             "modules": {},
@@ -155,7 +179,8 @@
             "name": "hiraya",
             "submodules": {
                 "hiraya-core": 1,
-                "hiraya-game": 1
+                "hiraya-game": 1,
+                "hiraya-view": 1
             },
             "classes": {
                 "Hiraya.Class": 1,
@@ -169,14 +194,16 @@
                 "Hiraya.Stat": 1,
                 "Hiraya.Stats": 1,
                 "Hiraya.Tile": 1,
-                "Hiraya.Tiles": 1
+                "Hiraya.Tiles": 1,
+                "Hiraya.Canvas": 1,
+                "Hiraya.Sprite": 1
             },
             "fors": {},
             "namespaces": {
                 "Hiraya": 1
             },
-            "file": "src/hiraya-game/tiles.js",
-            "line": 9
+            "file": "src/hiraya-view/sprite.js",
+            "line": 6
         },
         "hiraya-core": {
             "name": "hiraya-core",
@@ -221,6 +248,24 @@
             "file": "src/hiraya-game/tiles.js",
             "line": 9,
             "description": "A basic game entity that has basic API like stats, attack and damage commands."
+        },
+        "hiraya-view": {
+            "name": "hiraya-view",
+            "submodules": {},
+            "classes": {
+                "Hiraya.Canvas": 1,
+                "Hiraya.Sprite": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Hiraya": 1
+            },
+            "module": "hiraya",
+            "namespace": "",
+            "file": "src/hiraya-view/sprite.js",
+            "line": 6,
+            "description": "Canvas manages the stage and all things happening in them."
         }
     },
     "classes": {
@@ -414,6 +459,38 @@
             "line": 9,
             "description": "`Hiraya.Tiles` manages `Hiraya.Tile` instances which includes selecting neighbors and path-finding.",
             "extends": "Hiraya.Class"
+        },
+        "Hiraya.Canvas": {
+            "name": "Hiraya.Canvas",
+            "shortname": "Hiraya.Canvas",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya",
+            "file": "src/hiraya-view/canvas.js",
+            "line": 9,
+            "description": "Canvas manages the stage and all things happening in them.",
+            "extends": "Hiraya.Emitter"
+        },
+        "Hiraya.Sprite": {
+            "name": "Hiraya.Sprite",
+            "shortname": "Hiraya.Sprite",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya",
+            "file": "src/hiraya-view/sprite.js",
+            "line": 6,
+            "description": "Canvas manages the stage and all things happening in them.",
+            "extends": "Hiraya.Emitter"
         }
     },
     "classitems": [
@@ -903,6 +980,9 @@
             "name": "Level",
             "type": "{Level}",
             "default": "Hiraya.Level",
+            "return": {
+                "description": "this"
+            },
             "class": "Hiraya.Game",
             "module": "hiraya",
             "submodule": "hiraya-game",
@@ -910,7 +990,7 @@
         },
         {
             "file": "src/hiraya-game/game.js",
-            "line": 50,
+            "line": 57,
             "description": "The `ready` event fires when the window is ready and all the assets are loaded",
             "itemtype": "event",
             "name": "ready",
@@ -1019,7 +1099,29 @@
         },
         {
             "file": "src/hiraya-game/level-turnbased.js",
-            "line": 165,
+            "line": 158,
+            "description": "Gets the nearest tile of an entity from a tile. Basic path finding helper in finding",
+            "itemtype": "method",
+            "name": "nearestEntityTileFrom",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Hiraya.Entity"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Hiraya.Tile"
+            },
+            "class": "Hiraya.LevelTurnBased",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level-turnbased.js",
+            "line": 175,
             "description": "Fired when an entity reaches its max `.stats.turnspeed` value.",
             "itemtype": "event",
             "name": "gotTurn",
@@ -1037,7 +1139,7 @@
         },
         {
             "file": "src/hiraya-game/level-turnbased.js",
-            "line": 174,
+            "line": 184,
             "description": "Fired when a winner has been announced after performing a `.evaluateEntities()` function.",
             "itemtype": "event",
             "name": "hasWinner",
@@ -1055,7 +1157,7 @@
         },
         {
             "file": "src/hiraya-game/level-turnbased.js",
-            "line": 183,
+            "line": 193,
             "description": "Fired when there is no winner yet after performing a `.evaluateEntities()` function.",
             "itemtype": "event",
             "name": "hasNoWinnerYet",
@@ -1066,7 +1168,7 @@
         },
         {
             "file": "src/hiraya-game/level-turnbased.js",
-            "line": 191,
+            "line": 201,
             "description": "Fired when attempts in finding an entity to take its turn has reached its maximum number of tries.",
             "itemtype": "event",
             "name": "getTurnTimedOut",
@@ -1088,7 +1190,56 @@
         },
         {
             "file": "src/hiraya-game/level.js",
-            "line": 41,
+            "line": 30,
+            "description": "The Entity class for this level",
+            "itemtype": "property",
+            "name": "Entity",
+            "type": "{Hiraya.Entity}",
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 37,
+            "description": "Dictionary of all the entities in this level",
+            "itemtype": "property",
+            "name": "_entityIDs",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 45,
+            "description": "The Tiles class for this level",
+            "itemtype": "property",
+            "name": "Tiles",
+            "type": "{Hiraya.Tiles}",
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 52,
+            "description": "Initialization",
+            "itemtype": "method",
+            "name": "init",
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 63,
             "description": "Emitted after initialization",
             "itemtype": "event",
             "name": "ready",
@@ -1099,15 +1250,15 @@
         },
         {
             "file": "src/hiraya-game/level.js",
-            "line": 49,
-            "description": "Adds an entity into the collection based on attributes.\n\nFollowing is an example format:\n\n    level.addEntity({\n      name: 'Swordsman',\n      stats: {\n        health: [500, 1000] // value, max\n        attack: [100] // value, max\n      }\n    })",
+            "line": 72,
+            "description": "Adds an entity into the collection.\n\nFollowing is an example format:\n\n    var entity = level.createEntity({\n      name: 'Swordsman',\n      stats: {\n        health: [500, 1000] // value, max\n        attack: [100] // value, max\n      }\n    });\n    level.addEntity(entity);",
             "itemtype": "method",
             "name": "addEntity",
             "params": [
                 {
-                    "name": "attributes",
+                    "name": "entity",
                     "description": "",
-                    "type": "Object"
+                    "type": "Hiraya.Entity"
                 }
             ],
             "chainable": 1,
@@ -1118,7 +1269,44 @@
         },
         {
             "file": "src/hiraya-game/level.js",
-            "line": 92,
+            "line": 101,
+            "description": "Removes an entity from the level.",
+            "itemtype": "method",
+            "name": "removeEntity",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "",
+                    "type": "Hiraya.Entity"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 118,
+            "description": "Retrieves an entity based on ID",
+            "itemtype": "method",
+            "name": "getEntity",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Hiraya.Level",
+            "module": "hiraya",
+            "submodule": "hiraya-game",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-game/level.js",
+            "line": 128,
             "description": "Creates a `Hiraya.Entity` from a class. Use this to override the classname you wish to use.",
             "itemtype": "method",
             "name": "createEntity",
@@ -1139,7 +1327,7 @@
         },
         {
             "file": "src/hiraya-game/level.js",
-            "line": 103,
+            "line": 168,
             "description": "When an entity is added.",
             "itemtype": "event",
             "name": "addedEntity",
@@ -1864,6 +2052,354 @@
             "namespace": "Hiraya"
         },
         {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 17,
+            "description": "The ID selector of the canvas container element.",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "default": "hg-canvas",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 26,
+            "description": "Width of the canvas",
+            "itemtype": "property",
+            "name": "width",
+            "type": "{Number}",
+            "default": "900",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 35,
+            "description": "Height of the canvas",
+            "itemtype": "property",
+            "name": "height",
+            "type": "{Number}",
+            "default": "500",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 44,
+            "description": "The `createjs.Stage` instance.",
+            "itemtype": "property",
+            "name": "_stage",
+            "type": "{createjs.Stage}",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 54,
+            "description": "The createjs.Ticker static class",
+            "itemtype": "property",
+            "name": "_ticker",
+            "type": "{createjs.Ticker}",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 63,
+            "description": "`Hiraya.Level` instance that is given by the Game object.",
+            "itemtype": "property",
+            "name": "level",
+            "type": "{Hiraya.Level}",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 71,
+            "description": "The layer structure of the canvas. Useful for separating tiles, sprites, foreground\nand background to name a few. Layer names listed in order will be generated accordingly.\n\n    Hiraya.Canvas.extend({\n     layers: [\n       'background',\n       'tiles',\n       'sprites',\n       'foreground'\n     ];\n    })",
+            "itemtype": "property",
+            "name": "layers",
+            "type": "{Array}",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 95,
+            "itemtype": "property",
+            "name": "sprites",
+            "type": "{Array}",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 127,
+            "description": "Renders the canvas operation.",
+            "itemtype": "method",
+            "name": "render",
+            "access": "private",
+            "tagname": "",
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 137,
+            "description": "Pause the render operation.",
+            "itemtype": "method",
+            "name": "pause",
+            "params": [
+                {
+                    "name": "shouldPause",
+                    "description": "if set to false, will reverse the pause command.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/canvas.js",
+            "line": 146,
+            "itemtype": "method",
+            "name": "addSprite",
+            "params": [
+                {
+                    "name": "sprite",
+                    "description": "",
+                    "type": "Hiraya.Sprite"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Canvas",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 16,
+            "description": "Sprite sheet frameData for the createjs.SpriteSheet class.",
+            "itemtype": "property",
+            "name": "sheetData",
+            "type": "{Object}",
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 24,
+            "description": "Image resource to be used for the sprite object.",
+            "itemtype": "property",
+            "name": "image",
+            "type": "{Image}",
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 32,
+            "description": "The display object container for the sprite sheet animation and image.",
+            "itemtype": "property",
+            "name": "view",
+            "type": "{createjs.BitmapAnimation}",
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 61,
+            "description": "Play the animation based on the key frame in the sprite's frame data.",
+            "itemtype": "method",
+            "name": "play",
+            "params": [
+                {
+                    "name": "frameLabel",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 74,
+            "description": "Set the x coordinate of this sprite",
+            "itemtype": "method",
+            "name": "x",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 86,
+            "description": "Set the y coordinate of this sprite",
+            "itemtype": "method",
+            "name": "y",
+            "params": [
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 98,
+            "description": "Sets the x and y coordinate of this sprite",
+            "itemtype": "method",
+            "name": "pos",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 112,
+            "description": "Seeks the frame animation label then stop.",
+            "itemtype": "method",
+            "name": "playStop",
+            "params": [
+                {
+                    "name": "frameLabel",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 125,
+            "description": "Stop any animation.",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 137,
+            "description": "An event hook that's fired when the sprite is added to the canvas.",
+            "itemtype": "event",
+            "name": "spawn",
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 146,
+            "description": "An event hook that's fired when the sprite starts moving.",
+            "itemtype": "event",
+            "name": "moveStart",
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 154,
+            "description": "An event hook that's fired when the sprite stops moving.",
+            "itemtype": "event",
+            "name": "moveEnd",
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
+            "file": "src/hiraya-view/sprite.js",
+            "line": 162,
+            "description": "An event hook that's fired when the sprite starts attacking.\nOptionally, the name of the attack can be passed here to\nlet the sprite know which animation to play.",
+            "itemtype": "event",
+            "name": "attackStart",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "optional": 1,
+            "class": "Hiraya.Sprite",
+            "module": "hiraya",
+            "submodule": "hiraya-view",
+            "namespace": "Hiraya"
+        },
+        {
             "file": "src/index.js",
             "line": 2,
             "class": "",
@@ -1916,7 +2452,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/hiraya-game/level.js:92"
+            "line": " src/hiraya-game/level-turnbased.js:158"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/hiraya-game/level.js:128"
         },
         {
             "message": "replacing incorrect tag: returns with return",

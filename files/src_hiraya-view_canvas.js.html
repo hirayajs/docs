@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>hiraya-game - hiraya</title>
+    <title>src/hiraya-view/canvas.js - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -127,93 +127,173 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>hiraya-game <small>Module</small></h1>
+    <h1>src/hiraya-view/canvas.js <small>File</small></h1>
 </div>
 
-<div class="clearfix well well-small">
-    
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * @module hiraya
+ * @submodule hiraya-view
+ */
 
-    
+var Emitter = require(&#x27;../hiraya-core/emitter&#x27;);
+var createjs = typeof window === &#x27;object&#x27; ? window.createjs : null;
 
-    
-        <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-game_tiles.js.html#l9"><code>src&#x2F;hiraya-game&#x2F;tiles.js:9</code></a>
-        </div>
-    
+/**
+ * Canvas manages the stage and all things happening in them.
+ *
+ * @class Canvas
+ * @extends Hiraya.Emitter
+ * @namespace Hiraya
+ */
+var Canvas = Emitter.extend({
+  /**
+   * The ID selector of the canvas container element.
+   *
+   * @property id
+   * @type {String}
+   * @default hg-canvas
+   */
+  id: &#x27;hg-canvas&#x27;,
 
-    
-</div>
+  /**
+   * Width of the canvas
+   *
+   * @property width
+   * @type {Number}
+   * @default 900
+   */
+  width: 900,
+
+  /**
+   * Height of the canvas
+   *
+   * @property height
+   * @type {Number}
+   * @default 500
+   */
+  height: 500,
+
+  /**
+   * The &#x60;createjs.Stage&#x60; instance.
+   *
+   * @property _stage
+   * @type {createjs.Stage}
+   * @private
+   */
+  _stage: null,
 
 
+  /**
+   * The createjs.Ticker static class
+   *
+   * @property _ticker
+   * @type {createjs.Ticker}
+   * @private
+   */
+  _ticker: null,
 
-<div class="moduledesc well well-small">
-    <p>A basic game entity that has basic API like stats, attack and damage commands.</p>
-</div>
+  /**
+   * &#x60;Hiraya.Level&#x60; instance that is given by the Game object.
+   *
+   * @property level
+   * @type {Hiraya.Level}
+   */
+  level: null,
 
+  /**
+   * The layer structure of the canvas. Useful for separating tiles, sprites, foreground
+   * and background to name a few. Layer names listed in order will be generated accordingly.
+   *
+   *     Hiraya.Canvas.extend({
+   *      layers: [
+   *        &#x27;background&#x27;,
+   *        &#x27;tiles&#x27;,
+   *        &#x27;sprites&#x27;,
+   *        &#x27;foreground&#x27;
+   *      ];
+   *     })
+   *
+   *
+   * @property layers
+   * @type {Array}
+   */
+  layers: [
+    &#x27;background&#x27;,
+    &#x27;tiles&#x27;,
+    &#x27;sprites&#x27;,
+    &#x27;foreground&#x27;
+  ],
 
+  /**
+   * 
+   *
+   * @property sprites
+   * @type {Array}
+   */
+  sprites: [],
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-            <p>This module provides the following classes:</p>
+  init: function() {
+    this.parent();
+    var canvas = document.createElement(&#x27;canvas&#x27;);
+    canvas.width = this.width;
+    canvas.height = this.height;
+    canvas.id = this.id;
+    document.body.appendChild(canvas);
+    this._stage = new createjs.Stage(canvas);
+    this._ticker = createjs.Ticker;
 
-            <ul class="module-classes">
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Entity.html">
-                        Hiraya.Entity
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Game.html">
-                        Hiraya.Game
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Level.html">
-                        Hiraya.Level
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.LevelTurnBased.html">
-                        Hiraya.LevelTurnBased
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Stat.html">
-                        Hiraya.Stat
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Stats.html">
-                        Hiraya.Stats
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Tile.html">
-                        Hiraya.Tile
-                    </a>
-                </li>
-            
-                <li class="module-class">
-                    <a href="../classes/Hiraya.Tiles.html">
-                        Hiraya.Tiles
-                    </a>
-                </li>
-            
-            </ul>
-        
-    </div>
+    var stage = this._stage;
+    var ticker = this._ticker;
 
-    <div class="yui3-u-1-2">
-        
-    </div>
+    if (this.layers &amp;&amp; typeof this.layers.forEach === &#x27;function&#x27;) {
+      this.layers.forEach(function(layerName, i) {
+        var layer = new createjs.Container();
+        layer.name = layerName;
+        stage.addChild(layer);
+      });
+    }
+
+    ticker.addEventListener(&#x27;tick&#x27;, this.render.bind(this));
+  },
+
+  /**
+   * Renders the canvas operation.
+   *
+   * @method render
+   * @private
+   */
+  render: function() {
+    this._stage.update();
+  },
+
+  /**
+   * Pause the render operation.
+   * @method pause 
+   * @param {Boolean} shouldPause if set to false, will reverse the pause command.
+   */
+  pause: function(shouldPause) {
+    this._ticker.setPaused(shouldPause);
+  },
+
+  /**
+   * @method addSprite
+   * @param {Hiraya.Sprite} sprite
+   * @chainable
+   */
+  addSprite: function(sprite) {
+    var layer = this._stage.getChildByName(&#x27;sprites&#x27;) || this._stage;
+    layer.addChild(sprite.view);
+    sprite.spawn();
+    return this;
+  }
+
+});
+
+module.exports = Canvas;
+
+    </pre>
 </div>
 
                     </div>

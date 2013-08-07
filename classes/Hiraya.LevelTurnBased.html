@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-view"]'>
         </form>
     </div>
 </div>
@@ -49,6 +49,8 @@
             <div class="tab-pane active" id="classes">
                 <ul id="api-classes" class="nav nav-list">
                     
+                        <li><a href="../classes/Hiraya.Canvas.html">Hiraya.Canvas</a></li>
+                    
                         <li><a href="../classes/Hiraya.Class.html">Hiraya.Class</a></li>
                     
                         <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
@@ -64,6 +66,8 @@
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
                     
                         <li><a href="../classes/Hiraya.LevelTurnBased.html">Hiraya.LevelTurnBased</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Sprite.html">Hiraya.Sprite</a></li>
                     
                         <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
                     
@@ -84,6 +88,8 @@
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
                     
                         <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
+                    
+                        <li><a href="../modules/hiraya-view.html">hiraya-view</a></li>
                     
                 </ul>
             </div>
@@ -233,8 +239,29 @@
                                 
                             </li>
                         
+                            <li class="index-item method inherited">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_getEntity" data-tablink="getEntity">getEntity</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_getTurn" data-tablink="getTurn">getTurn</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_init" data-tablink="init">init</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_nearestEntityTileFrom" data-tablink="nearestEntityTileFrom">nearestEntityTileFrom</a>
 
                                 
                                 
@@ -276,6 +303,13 @@
                             </li>
                         
                             <li class="index-item method inherited">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_removeEntity" data-tablink="removeEntity">removeEntity</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_set" data-tablink="set">set</a>
 
                                 
@@ -292,6 +326,13 @@
 
                     <ul class="index-list properties extends">
                         
+                            <li class="index-item property private inherited">
+                                <a href="#" data-tabid="#properties" data-anchor="#property__entityIDs" data-tablink="_entityIDs">_entityIDs</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property private">
                                 <a href="#" data-tabid="#properties" data-anchor="#property__maxGetTurnAttempts" data-tablink="_maxGetTurnAttempts">_maxGetTurnAttempts</a>
 
@@ -306,8 +347,22 @@
                                 
                             </li>
                         
+                            <li class="index-item property inherited">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_Entity" data-tablink="Entity">Entity</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property">
                                 <a href="#" data-tabid="#properties" data-anchor="#property_tickSpeed" data-tablink="tickSpeed">tickSpeed</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property inherited">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_Tiles" data-tablink="Tiles">Tiles</a>
 
                                 
                                 
@@ -456,7 +511,7 @@
             
                 <li class="arg">
                     
-                        <code>attributes</code>
+                        <code>entity</code>
                     
                 </li>
             
@@ -488,7 +543,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l49"><code>src&#x2F;hiraya-game&#x2F;level.js:49</code></a>
+        <a href="../files/src_hiraya-game_level.js.html#l72"><code>src&#x2F;hiraya-game&#x2F;level.js:72</code></a>
         
         </p>
 
@@ -499,17 +554,18 @@
     </div>
 
     <div class="description">
-        <p>Adds an entity into the collection based on attributes.</p>
+        <p>Adds an entity into the collection.</p>
 
 <p>Following is an example format:</p>
 
-<pre class="code prettyprint"><code>level.addEntity({
+<pre class="code prettyprint"><code>var entity = level.createEntity({
   name: 'Swordsman',
   stats: {
     health: [500, 1000] // value, max
     attack: [100] // value, max
   }
-})
+});
+level.addEntity(entity);
 </code></pre>
     </div>
 
@@ -521,8 +577,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">attributes</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">entity</code>
+                        <span class="type"><a href="../classes/Hiraya.Entity.html" class="crosslink">Hiraya.Entity</a></span>
                     
 
                     
@@ -587,7 +643,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l92"><code>src&#x2F;hiraya-game&#x2F;level.js:92</code></a>
+        <a href="../files/src_hiraya-game_level.js.html#l128"><code>src&#x2F;hiraya-game&#x2F;level.js:128</code></a>
         
         </p>
 
@@ -921,6 +977,90 @@
 </div>
 
                 
+                    <div id="method_getEntity" class="method item inherited">
+    <h3 class="name"><code>getEntity</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>id</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Level.html#method_getEntity">Hiraya.Level</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-game_level.js.html#l118"><code>src&#x2F;hiraya-game&#x2F;level.js:118</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Retrieves an entity based on ID</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">id</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_getTurn" class="method item">
     <h3 class="name"><code>getTurn</code></h3>
 
@@ -969,6 +1109,160 @@
 
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_init" class="method item inherited">
+    <h3 class="name"><code>init</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Level.html#method_init">Hiraya.Level</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-game_level.js.html#l52"><code>src&#x2F;hiraya-game&#x2F;level.js:52</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initialization</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_nearestEntityTileFrom" class="method item">
+    <h3 class="name"><code>nearestEntityTileFrom</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>entity</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Hiraya.Tile.html" class="crosslink">Hiraya.Tile</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-game_level-turnbased.js.html#l158"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:158</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the nearest tile of an entity from a tile. Basic path finding helper in finding</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">entity</code>
+                        <span class="type"><a href="../classes/Hiraya.Entity.html" class="crosslink">Hiraya.Entity</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/Hiraya.Tile.html" class="crosslink">Hiraya.Tile</a></span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -1487,6 +1781,92 @@
 </div>
 
                 
+                    <div id="method_removeEntity" class="method item inherited">
+    <h3 class="name"><code>removeEntity</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>entity</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Level.html#method_removeEntity">Hiraya.Level</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-game_level.js.html#l101"><code>src&#x2F;hiraya-game&#x2F;level.js:101</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes an entity from the level.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">entity</code>
+                        <span class="type"><a href="../classes/Hiraya.Entity.html" class="crosslink">Hiraya.Entity</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_set" class="method item inherited">
     <h3 class="name"><code>set</code></h3>
 
@@ -1602,6 +1982,49 @@ that has been dispatched.</p>
             <div id="properties" class="tab-pane">
 
                 
+                    <div id="property__entityIDs" class="property item private inherited">
+    <h3 class="name"><code>_entityIDs</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Level.html#property__entityIDs">Hiraya.Level</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-game_level.js.html#l37"><code>src&#x2F;hiraya-game&#x2F;level.js:37</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Dictionary of all the entities in this level</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property__maxGetTurnAttempts" class="property item private">
     <h3 class="name"><code>_maxGetTurnAttempts</code></h3>
     <span class="type">Number</span>
@@ -1692,6 +2115,47 @@ giving up.</p>
 </div>
 
                 
+                    <div id="property_Entity" class="property item inherited">
+    <h3 class="name"><code>Entity</code></h3>
+    <span class="type"><a href="../classes/Hiraya.Entity.html" class="crosslink">Hiraya.Entity</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Level.html#property_Entity">Hiraya.Level</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-game_level.js.html#l30"><code>src&#x2F;hiraya-game&#x2F;level.js:30</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The Entity class for this level</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property_tickSpeed" class="property item">
     <h3 class="name"><code>tickSpeed</code></h3>
     <span class="type">Number</span>
@@ -1738,6 +2202,47 @@ giving up.</p>
 </div>
 
                 
+                    <div id="property_Tiles" class="property item inherited">
+    <h3 class="name"><code>Tiles</code></h3>
+    <span class="type"><a href="../classes/Hiraya.Tiles.html" class="crosslink">Hiraya.Tiles</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/Hiraya.Level.html#property_Tiles">Hiraya.Level</a>:
+            
+        
+        
+        <a href="../files/src_hiraya-game_level.js.html#l45"><code>src&#x2F;hiraya-game&#x2F;level.js:45</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The Tiles class for this level</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
             </div>
         
 
@@ -1768,7 +2273,7 @@ giving up.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l103"><code>src&#x2F;hiraya-game&#x2F;level.js:103</code></a>
+        <a href="../files/src_hiraya-game_level.js.html#l168"><code>src&#x2F;hiraya-game&#x2F;level.js:168</code></a>
         
         </p>
 
@@ -1834,7 +2339,7 @@ giving up.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level-turnbased.js.html#l191"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:191</code></a>
+        <a href="../files/src_hiraya-game_level-turnbased.js.html#l201"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:201</code></a>
         
         </p>
 
@@ -1877,7 +2382,7 @@ giving up.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level-turnbased.js.html#l165"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:165</code></a>
+        <a href="../files/src_hiraya-game_level-turnbased.js.html#l175"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:175</code></a>
         
         </p>
 
@@ -1943,7 +2448,7 @@ giving up.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level-turnbased.js.html#l183"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:183</code></a>
+        <a href="../files/src_hiraya-game_level-turnbased.js.html#l193"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:193</code></a>
         
         </p>
 
@@ -1986,7 +2491,7 @@ giving up.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level-turnbased.js.html#l174"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:174</code></a>
+        <a href="../files/src_hiraya-game_level-turnbased.js.html#l184"><code>src&#x2F;hiraya-game&#x2F;level-turnbased.js:184</code></a>
         
         </p>
 
@@ -2049,7 +2554,7 @@ giving up.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l41"><code>src&#x2F;hiraya-game&#x2F;level.js:41</code></a>
+        <a href="../files/src_hiraya-game_level.js.html#l63"><code>src&#x2F;hiraya-game&#x2F;level.js:63</code></a>
         
         </p>
 

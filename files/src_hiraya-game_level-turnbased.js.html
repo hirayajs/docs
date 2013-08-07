@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-view"]'>
         </form>
     </div>
 </div>
@@ -49,6 +49,8 @@
             <div class="tab-pane active" id="classes">
                 <ul id="api-classes" class="nav nav-list">
                     
+                        <li><a href="../classes/Hiraya.Canvas.html">Hiraya.Canvas</a></li>
+                    
                         <li><a href="../classes/Hiraya.Class.html">Hiraya.Class</a></li>
                     
                         <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
@@ -64,6 +66,8 @@
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
                     
                         <li><a href="../classes/Hiraya.LevelTurnBased.html">Hiraya.LevelTurnBased</a></li>
+                    
+                        <li><a href="../classes/Hiraya.Sprite.html">Hiraya.Sprite</a></li>
                     
                         <li><a href="../classes/Hiraya.Stat.html">Hiraya.Stat</a></li>
                     
@@ -84,6 +88,8 @@
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
                     
                         <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
+                    
+                        <li><a href="../modules/hiraya-view.html">hiraya-view</a></li>
                     
                 </ul>
             </div>
@@ -265,6 +271,9 @@ var LevelTurnBased = Level.extend({
       var tile = tiles[i];
       var occupant = tile.entities[0];
       if (occupant &amp;&amp; occupant !== entity) {
+        if (occupant.stats.health.isEmpty()) {
+          continue;
+        }
         var distance = Math.abs(occupant.tile.x - entity.tile.x + occupant.tile.y - entity.tile.y);
         var index = 0;
         for(var ii=0, llen=distances.length; ii&lt;llen; ii++) {
@@ -280,7 +289,14 @@ var LevelTurnBased = Level.extend({
     return entities;
   },
 
-  nearestTileToEntity: function(entity) {
+  /**
+   * Gets the nearest tile of an entity from a tile. Basic path finding helper in finding
+   *
+   * @method nearestEntityTileFrom
+   * @param {Hiraya.Entity} entity
+   * @returns {Hiraya.Tile}
+   */
+  nearestEntityTileFrom: function(entity, tile) {
     var proximity = this.proximity(entity);
     var target = proximity[0];
     var nearest;

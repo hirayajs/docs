@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Hiraya.Level - hiraya</title>
+    <title>Hiraya.Canvas - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -127,7 +127,7 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>Hiraya.Level <small>Class</small></h1>
+    <h1>Hiraya.Canvas <small>Class</small></h1>
 </div>
 
 <div class="well well-small">
@@ -135,19 +135,19 @@
 
     
         <div class="extends">
-            Extends <a href="../classes/Hiraya.GetterSetter.html" class="crosslink">Hiraya.GetterSetter</a>
+            Extends <a href="../classes/Hiraya.Emitter.html" class="crosslink">Hiraya.Emitter</a>
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-game_level.js.html#l12"><code>src&#x2F;hiraya-game&#x2F;level.js:12</code></a>
+            Defined in: <a href="../files/src_hiraya-view_canvas.js.html#l9"><code>src&#x2F;hiraya-view&#x2F;canvas.js:9</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/hiraya-game.html">hiraya-game</a><br>
+            Module: <a href="../modules/hiraya-view.html">hiraya-view</a><br>
             Parent Module: <a href="../modules/hiraya.html">hiraya</a>
         
     
@@ -158,13 +158,7 @@
 
 
 <div class="well well-small">
-    <p><code>Hiraya.Level</code> manages the game logic and entity interaction.</p>
-
-<h3>Events</h3>
-
-<ul>
-<li><code>addedEntity</code></li>
-</ul>
+    <p>Canvas manages the stage and all things happening in them.</p>
 </div>
 
 
@@ -181,8 +175,6 @@
         
         
         
-            <li><a data-toggle="tab" href="#events">Events</a></li>
-        
     </ul>
 
     <div class="tab-content no-columns">
@@ -195,14 +187,7 @@
                     <ul class="index-list methods extends">
                         
                             <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_addEntity" data-tablink="addEntity">addEntity</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_createEntity" data-tablink="createEntity">createEntity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_addSprite" data-tablink="addSprite">addSprite</a>
 
                                 
                                 
@@ -210,27 +195,6 @@
                         
                             <li class="index-item method inherited">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_emit" data-tablink="emit">emit</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method inherited">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_get" data-tablink="get">get</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_getEntity" data-tablink="getEntity">getEntity</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_init" data-tablink="init">init</a>
 
                                 
                                 
@@ -265,14 +229,14 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_removeEntity" data-tablink="removeEntity">removeEntity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_pause" data-tablink="pause">pause</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method inherited">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_set" data-tablink="set">set</a>
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_render" data-tablink="render">render</a>
 
                                 
                                 
@@ -289,28 +253,56 @@
                     <ul class="index-list properties extends">
                         
                             <li class="index-item property private">
-                                <a href="#" data-tabid="#properties" data-anchor="#property__entityIDs" data-tablink="_entityIDs">_entityIDs</a>
+                                <a href="#" data-tabid="#properties" data-anchor="#property__stage" data-tablink="_stage">_stage</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#" data-tabid="#properties" data-anchor="#property__ticker" data-tablink="_ticker">_ticker</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#" data-tabid="#properties" data-anchor="#property_entities" data-tablink="entities">entities</a>
+                                <a href="#" data-tabid="#properties" data-anchor="#property_height" data-tablink="height">height</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#" data-tabid="#properties" data-anchor="#property_Entity" data-tablink="Entity">Entity</a>
+                                <a href="#" data-tabid="#properties" data-anchor="#property_id" data-tablink="id">id</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#" data-tabid="#properties" data-anchor="#property_Tiles" data-tablink="Tiles">Tiles</a>
+                                <a href="#" data-tabid="#properties" data-anchor="#property_layers" data-tablink="layers">layers</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_level" data-tablink="level">level</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_sprites" data-tablink="sprites">sprites</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_width" data-tablink="width">width</a>
 
                                 
                                 
@@ -322,28 +314,6 @@
 
             
 
-            
-                <div class="index-section events">
-                    <h3>Events</h3>
-
-                    <ul class="index-list events extends">
-                        
-                            <li class="index-item event">
-                                <a href="#" data-tabid="#events" data-anchor="#event_addedEntity" data-tablink="addedEntity">addedEntity</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item event">
-                                <a href="#" data-tabid="#events" data-anchor="#event_ready" data-tablink="ready">ready</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
             
         </div>
 
@@ -351,8 +321,8 @@
             <div id="methods" class="tab-pane">
 
                 
-                    <div id="method_addEntity" class="method item">
-    <h3 class="name"><code>addEntity</code></h3>
+                    <div id="method_addSprite" class="method item">
+    <h3 class="name"><code>addSprite</code></h3>
 
     
         <div class="args">
@@ -360,7 +330,7 @@
             
                 <li class="arg">
                     
-                        <code>entity</code>
+                        <code>sprite</code>
                     
                 </li>
             
@@ -395,7 +365,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l72"><code>src&#x2F;hiraya-game&#x2F;level.js:72</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l146"><code>src&#x2F;hiraya-view&#x2F;canvas.js:146</code></a>
         
         </p>
 
@@ -406,19 +376,7 @@
     </div>
 
     <div class="description">
-        <p>Adds an entity into the collection.</p>
-
-<p>Following is an example format:</p>
-
-<pre class="code prettyprint"><code>var entity = level.createEntity({
-  name: 'Swordsman',
-  stats: {
-    health: [500, 1000] // value, max
-    attack: [100] // value, max
-  }
-});
-level.addEntity(entity);
-</code></pre>
+        
     </div>
 
     
@@ -429,14 +387,14 @@ level.addEntity(entity);
             
                 <li class="param">
                     
-                        <code class="param-name">entity</code>
-                        <span class="type"><a href="../classes/Hiraya.Entity.html" class="crosslink">Hiraya.Entity</a></span>
+                        <code class="param-name">sprite</code>
+                        <span class="type"><a href="../classes/Hiraya.Sprite.html" class="crosslink">Hiraya.Sprite</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -446,108 +404,6 @@ level.addEntity(entity);
         </div>
     
 
-    
-
-    
-</div>
-
-                
-                    <div id="method_createEntity" class="method item">
-    <h3 class="name"><code>createEntity</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>attributes</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-game_level.js.html#l128"><code>src&#x2F;hiraya-game&#x2F;level.js:128</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Creates a <code>Hiraya.Entity</code> from a class. Use this to override the classname you wish to use.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">attributes</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                    Hiraya.Entity
-                
-            </div>
-        </div>
     
 
     
@@ -630,7 +486,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -647,7 +503,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -655,247 +511,6 @@ level.addEntity(entity);
             
             </ul>
         </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_get" class="method item inherited">
-    <h3 class="name"><code>get</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>key</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">String | Object | Array | Number</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/Hiraya.GetterSetter.html#method_get">Hiraya.GetterSetter</a>:
-            
-        
-        
-        <a href="../files/src_hiraya-core_getter-setter.js.html#l40"><code>src&#x2F;hiraya-core&#x2F;getter-setter.js:40</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets the value of the property.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">key</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">String | Object | Array | Number</span>:
-                    
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_getEntity" class="method item">
-    <h3 class="name"><code>getEntity</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>id</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-game_level.js.html#l118"><code>src&#x2F;hiraya-game&#x2F;level.js:118</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Retrieves an entity based on ID</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">id</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_init" class="method item">
-    <h3 class="name"><code>init</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-game_level.js.html#l52"><code>src&#x2F;hiraya-game&#x2F;level.js:52</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Initialization</p>
-    </div>
-
     
 
     
@@ -980,7 +595,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -995,7 +610,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -1082,7 +697,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -1174,7 +789,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -1189,7 +804,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -1275,7 +890,7 @@ level.addEntity(entity);
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -1291,8 +906,8 @@ level.addEntity(entity);
 </div>
 
                 
-                    <div id="method_removeEntity" class="method item">
-    <h3 class="name"><code>removeEntity</code></h3>
+                    <div id="method_pause" class="method item">
+    <h3 class="name"><code>pause</code></h3>
 
     
         <div class="args">
@@ -1300,7 +915,7 @@ level.addEntity(entity);
             
                 <li class="arg">
                     
-                        <code>entity</code>
+                        <code>shouldPause</code>
                     
                 </li>
             
@@ -1318,8 +933,6 @@ level.addEntity(entity);
 
     
 
-    
-        <span class="flag chainable">chainable</span>
     
 
     
@@ -1335,7 +948,7 @@ level.addEntity(entity);
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l101"><code>src&#x2F;hiraya-game&#x2F;level.js:101</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l137"><code>src&#x2F;hiraya-view&#x2F;canvas.js:137</code></a>
         
         </p>
 
@@ -1346,7 +959,7 @@ level.addEntity(entity);
     </div>
 
     <div class="description">
-        <p>Removes an entity from the level.</p>
+        <p>Pause the render operation.</p>
     </div>
 
     
@@ -1357,14 +970,14 @@ level.addEntity(entity);
             
                 <li class="param">
                     
-                        <code class="param-name">entity</code>
-                        <span class="type"><a href="../classes/Hiraya.Entity.html" class="crosslink">Hiraya.Entity</a></span>
+                        <code class="param-name">shouldPause</code>
+                        <span class="type">Boolean</span>
                     
 
                     
 
                     <div class="param-description">
-                        
+                        <p>if set to false, will reverse the pause command.</p>
                     </div>
 
                     
@@ -1380,27 +993,11 @@ level.addEntity(entity);
 </div>
 
                 
-                    <div id="method_set" class="method item inherited">
-    <h3 class="name"><code>set</code></h3>
+                    <div id="method_render" class="method item private">
+    <h3 class="name"><code>render</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>key</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>value</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
@@ -1408,13 +1005,13 @@ level.addEntity(entity);
     
 
     
-
+        <span class="flag private">private</span>
     
 
     
 
     
-        <span class="flag chainable">chainable</span>
+
     
 
     
@@ -1422,12 +1019,15 @@ level.addEntity(entity);
     <div class="meta">
         
             
-                <p>Inherited from
-                <a href="../classes/Hiraya.GetterSetter.html#method_set">Hiraya.GetterSetter</a>:
+                
+                <p>
+                
+                Defined in
+                
             
         
         
-        <a href="../files/src_hiraya-core_getter-setter.js.html#l25"><code>src&#x2F;hiraya-core&#x2F;getter-setter.js:25</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l127"><code>src&#x2F;hiraya-view&#x2F;canvas.js:127</code></a>
         
         </p>
 
@@ -1438,48 +1038,9 @@ level.addEntity(entity);
     </div>
 
     <div class="description">
-        <p>Sets a property which emits an event with a topic name of the property
-that has been dispatched.</p>
+        <p>Renders the canvas operation.</p>
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">key</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">value</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -1495,9 +1056,9 @@ that has been dispatched.</p>
             <div id="properties" class="tab-pane">
 
                 
-                    <div id="property__entityIDs" class="property item private">
-    <h3 class="name"><code>_entityIDs</code></h3>
-    <span class="type">Object</span>
+                    <div id="property__stage" class="property item private">
+    <h3 class="name"><code>_stage</code></h3>
+    <span class="type">createjs.Stage</span>
 
     
 
@@ -1520,7 +1081,7 @@ that has been dispatched.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l37"><code>src&#x2F;hiraya-game&#x2F;level.js:37</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l44"><code>src&#x2F;hiraya-view&#x2F;canvas.js:44</code></a>
         
         </p>
 
@@ -1530,7 +1091,7 @@ that has been dispatched.</p>
     </div>
 
     <div class="description">
-        <p>Dictionary of all the entities in this level</p>
+        <p>The <code>createjs.Stage</code> instance.</p>
     </div>
 
     
@@ -1541,9 +1102,55 @@ that has been dispatched.</p>
 </div>
 
                 
-                    <div id="property_entities" class="property item">
-    <h3 class="name"><code>entities</code></h3>
-    <span class="type"><a href="../classes/Hiraya.Collection.html" class="crosslink">Hiraya.Collection</a></span>
+                    <div id="property__ticker" class="property item private">
+    <h3 class="name"><code>_ticker</code></h3>
+    <span class="type">createjs.Ticker</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l54"><code>src&#x2F;hiraya-view&#x2F;canvas.js:54</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The createjs.Ticker static class</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_height" class="property item">
+    <h3 class="name"><code>height</code></h3>
+    <span class="type">Number</span>
 
     
 
@@ -1564,7 +1171,7 @@ that has been dispatched.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l24"><code>src&#x2F;hiraya-game&#x2F;level.js:24</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l35"><code>src&#x2F;hiraya-view&#x2F;canvas.js:35</code></a>
         
         </p>
 
@@ -1574,9 +1181,11 @@ that has been dispatched.</p>
     </div>
 
     <div class="description">
-        
+        <p>Height of the canvas</p>
     </div>
 
+    
+        <p><strong>Default:</strong> 500</p>
     
 
     
@@ -1585,9 +1194,9 @@ that has been dispatched.</p>
 </div>
 
                 
-                    <div id="property_Entity" class="property item">
-    <h3 class="name"><code>Entity</code></h3>
-    <span class="type"><a href="../classes/Hiraya.Entity.html" class="crosslink">Hiraya.Entity</a></span>
+                    <div id="property_id" class="property item">
+    <h3 class="name"><code>id</code></h3>
+    <span class="type">String</span>
 
     
 
@@ -1608,7 +1217,7 @@ that has been dispatched.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l30"><code>src&#x2F;hiraya-game&#x2F;level.js:30</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l17"><code>src&#x2F;hiraya-view&#x2F;canvas.js:17</code></a>
         
         </p>
 
@@ -1618,9 +1227,11 @@ that has been dispatched.</p>
     </div>
 
     <div class="description">
-        <p>The Entity class for this level</p>
+        <p>The ID selector of the canvas container element.</p>
     </div>
 
+    
+        <p><strong>Default:</strong> hg-canvas</p>
     
 
     
@@ -1629,9 +1240,9 @@ that has been dispatched.</p>
 </div>
 
                 
-                    <div id="property_Tiles" class="property item">
-    <h3 class="name"><code>Tiles</code></h3>
-    <span class="type"><a href="../classes/Hiraya.Tiles.html" class="crosslink">Hiraya.Tiles</a></span>
+                    <div id="property_layers" class="property item">
+    <h3 class="name"><code>layers</code></h3>
+    <span class="type">Array</span>
 
     
 
@@ -1652,7 +1263,7 @@ that has been dispatched.</p>
             
         
         
-        <a href="../files/src_hiraya-game_level.js.html#l45"><code>src&#x2F;hiraya-game&#x2F;level.js:45</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l71"><code>src&#x2F;hiraya-view&#x2F;canvas.js:71</code></a>
         
         </p>
 
@@ -1662,9 +1273,154 @@ that has been dispatched.</p>
     </div>
 
     <div class="description">
-        <p>The Tiles class for this level</p>
+        <p>The layer structure of the canvas. Useful for separating tiles, sprites, foreground
+and background to name a few. Layer names listed in order will be generated accordingly.</p>
+
+<pre class="code prettyprint"><code>Hiraya.Canvas.extend({
+ layers: [
+   'background',
+   'tiles',
+   'sprites',
+   'foreground'
+ ];
+})
+</code></pre>
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_level" class="property item">
+    <h3 class="name"><code>level</code></h3>
+    <span class="type"><a href="../classes/Hiraya.Level.html" class="crosslink">Hiraya.Level</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l63"><code>src&#x2F;hiraya-view&#x2F;canvas.js:63</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p><code>Hiraya.Level</code> instance that is given by the Game object.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_sprites" class="property item">
+    <h3 class="name"><code>sprites</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l95"><code>src&#x2F;hiraya-view&#x2F;canvas.js:95</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_width" class="property item">
+    <h3 class="name"><code>width</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l26"><code>src&#x2F;hiraya-view&#x2F;canvas.js:26</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Width of the canvas</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 900</p>
     
 
     
@@ -1678,121 +1434,6 @@ that has been dispatched.</p>
 
         
 
-        
-            <div id="events" class="tab-pane">
-                <h2 class="off-left">Events</h2>
-
-                
-                    <div id="event_addedEntity" class="events item">
-    <h3 class="name"><code>addedEntity</code></h3>
-    <span class="type"></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-game_level.js.html#l168"><code>src&#x2F;hiraya-game&#x2F;level.js:168</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>When an entity is added.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">entity</code>
-                        <span class="type">Entity</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-
-    
-</div>
-
-                
-                    <div id="event_ready" class="events item">
-    <h3 class="name"><code>ready</code></h3>
-    <span class="type"></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-game_level.js.html#l63"><code>src&#x2F;hiraya-game&#x2F;level.js:63</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Emitted after initialization</p>
-    </div>
-
-    
-
-
-    
-</div>
-
-                
-            </div>
         
     </div>
 </div>
