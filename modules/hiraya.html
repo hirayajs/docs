@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-view"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Command", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.HexagonUtil", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "classes/Hiraya.TilesHex", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-util", "modules/hiraya-view"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
                     
+                        <li><a href="../classes/Hiraya.Command.html">Hiraya.Command</a></li>
+                    
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
                         <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
@@ -62,6 +64,8 @@
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
+                    
+                        <li><a href="../classes/Hiraya.HexagonUtil.html">Hiraya.HexagonUtil</a></li>
                     
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
                     
@@ -77,6 +81,8 @@
                     
                         <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
+                        <li><a href="../classes/Hiraya.TilesHex.html">Hiraya.TilesHex</a></li>
+                    
                 </ul>
             </div>
 
@@ -88,6 +94,8 @@
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
                     
                         <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
+                    
+                        <li><a href="../modules/hiraya-util.html">hiraya-util</a></li>
                     
                         <li><a href="../modules/hiraya-view.html">hiraya-view</a></li>
                     
@@ -137,7 +145,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-view_sprite.js.html#l6"><code>src&#x2F;hiraya-view&#x2F;sprite.js:6</code></a>
+            Defined in: <a href="../files/src_hiraya-view_sprite.js.html#l7"><code>src&#x2F;hiraya-view&#x2F;sprite.js:7</code></a>
         </div>
     
 
@@ -178,6 +186,12 @@
                 </li>
             
                 <li class="module-class">
+                    <a href="../classes/Hiraya.Command.html">
+                        Hiraya.Command
+                    </a>
+                </li>
+            
+                <li class="module-class">
                     <a href="../classes/Hiraya.Emitter.html">
                         Hiraya.Emitter
                     </a>
@@ -198,6 +212,12 @@
                 <li class="module-class">
                     <a href="../classes/Hiraya.GetterSetter.html">
                         Hiraya.GetterSetter
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/Hiraya.HexagonUtil.html">
+                        Hiraya.HexagonUtil
                     </a>
                 </li>
             
@@ -243,6 +263,12 @@
                     </a>
                 </li>
             
+                <li class="module-class">
+                    <a href="../classes/Hiraya.TilesHex.html">
+                        Hiraya.TilesHex
+                    </a>
+                </li>
+            
             </ul>
         
     </div>
@@ -276,8 +302,8 @@
     var Orc = Human.extend({
        baseHealth: 200,
        attack: function(enemy) {
-         // class methods have super methods
-         this.super(enemy);
+         // class methods have _super methods
+         this._super(enemy);
          this.shout('waaagh!');
        },
        shout: function(message) {
@@ -302,7 +328,18 @@
                     </a>
 
                     <div class="module-submodule-description">
-                        A basic game entity that has basic API like stats, attack and damage commands.
+                        A class for creating commands for entities. Use this to construct
+skills, abilities, etc.
+                    </div>
+                </li>
+            
+                <li class="module-submodule">
+                    <a href="../modules/hiraya-util.html">
+                        hiraya-util
+                    </a>
+
+                    <div class="module-submodule-description">
+                        A static utility class for laying out hexagonal board games.
                     </div>
                 </li>
             

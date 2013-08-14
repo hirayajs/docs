@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Hiraya.Stats - hiraya</title>
+    <title>Hiraya.Command - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -135,7 +135,7 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>Hiraya.Stats <small>Class</small></h1>
+    <h1>Hiraya.Command <small>Class</small></h1>
 </div>
 
 <div class="well well-small">
@@ -149,7 +149,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_hiraya-game_stats.js.html#l9"><code>src&#x2F;hiraya-game&#x2F;stats.js:9</code></a>
+            Defined in: <a href="../files/src_hiraya-game_command.js.html#l8"><code>src&#x2F;hiraya-game&#x2F;command.js:8</code></a>
         </div>
     
 
@@ -166,16 +166,8 @@
 
 
 <div class="well well-small">
-    <p><code>Hiraya.Stats</code> handles all stat related object. This is quite useful as a container
-for all attributes for a character to prevent clutter in the attributes of a <code>Hiraya.Entity</code> instance.</p>
-
-<p>Although it is used primarily for RPG stats, you are free to use it elsewhere.</p>
-
-<pre class="code prettyprint"><code>var stats = Hiraya.Stats.create();
-stats
-  .set('health', 100)
-  .set('mana', 100);
-</code></pre>
+    <p>A class for creating commands for entities. Use this to construct
+skills, abilities, etc.</p>
 </div>
 
 
@@ -184,8 +176,6 @@ stats
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
 
-        
-            <li><a data-toggle="tab" href="#methods">Methods</a></li>
         
         
             <li><a data-toggle="tab" href="#properties">Properties</a></li>
@@ -198,28 +188,6 @@ stats
         <div id="index" class="tab-pane active">
 
             
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods extends">
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_get" data-tablink="get">get</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_set" data-tablink="set">set</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
 
             
                 <div class="index-section properties">
@@ -228,7 +196,14 @@ stats
                     <ul class="index-list properties extends">
                         
                             <li class="index-item property">
-                                <a href="#" data-tabid="#properties" data-anchor="#property_none" data-tablink="none">none</a>
+                                <a href="#" data-tabid="#properties" data-anchor="#property_damage" data-tablink="damage">damage</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_name" data-tablink="name">name</a>
 
                                 
                                 
@@ -244,261 +219,14 @@ stats
         </div>
 
         
-            <div id="methods" class="tab-pane">
-
-                
-                    <div id="method_get" class="method item">
-    <h3 class="name"><code>get</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>name</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-game_stats.js.html#l61"><code>src&#x2F;hiraya-game&#x2F;stats.js:61</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Returns a stat attribute by name. Returns an empty stat object if the stat name doesn't exist.</p>
-
-<pre class="code prettyprint"><code>var stats = Hiraya.Stats.create();
-stats
-  .set('health', 100)
-  .set('mana', 100);
-stats.get('health').value; // -&gt; 100
-stats.get('noneExistingStatName').value; // -&gt; 0
-</code></pre>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">name</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                    Hiraya.Stat
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_set" class="method item">
-    <h3 class="name"><code>set</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>name</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>value</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[max=value]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag chainable">chainable</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_hiraya-game_stats.js.html#l36"><code>src&#x2F;hiraya-game&#x2F;stats.js:36</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Sets or creates the value of a stat attribute. You can optionally set the max value as well</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">name</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">value</code>
-                        <span class="type">Number</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[max=value]</code>
-                        <span class="type">Number</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-            </div>
-        
 
         
             <div id="properties" class="tab-pane">
 
                 
-                    <div id="property_none" class="property item">
-    <h3 class="name"><code>none</code></h3>
-    <span class="type">Stat</span>
+                    <div id="property_damage" class="property item">
+    <h3 class="name"><code>damage</code></h3>
+    <span class="type">Number</span>
 
     
 
@@ -519,7 +247,7 @@ stats.get('noneExistingStatName').value; // -&gt; 0
             
         
         
-        <a href="../files/src_hiraya-game_stats.js.html#l25"><code>src&#x2F;hiraya-game&#x2F;stats.js:25</code></a>
+        <a href="../files/src_hiraya-game_command.js.html#l25"><code>src&#x2F;hiraya-game&#x2F;command.js:25</code></a>
         
         </p>
 
@@ -529,7 +257,53 @@ stats.get('noneExistingStatName').value; // -&gt; 0
     </div>
 
     <div class="description">
-        <p>Default stat object returned in the <code>.get</code> method. Has a value of 1 and max value of 1.</p>
+        <p>Base damage of this command</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_name" class="property item">
+    <h3 class="name"><code>name</code></h3>
+    <span class="type">String</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-game_command.js.html#l17"><code>src&#x2F;hiraya-game&#x2F;command.js:17</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Name of the command</p>
     </div>
 
     

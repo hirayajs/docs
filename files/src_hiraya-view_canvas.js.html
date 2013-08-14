@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-view"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Command", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.HexagonUtil", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "classes/Hiraya.TilesHex", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-util", "modules/hiraya-view"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
                     
+                        <li><a href="../classes/Hiraya.Command.html">Hiraya.Command</a></li>
+                    
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
                         <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
@@ -62,6 +64,8 @@
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
+                    
+                        <li><a href="../classes/Hiraya.HexagonUtil.html">Hiraya.HexagonUtil</a></li>
                     
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
                     
@@ -77,6 +81,8 @@
                     
                         <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
+                        <li><a href="../classes/Hiraya.TilesHex.html">Hiraya.TilesHex</a></li>
+                    
                 </ul>
             </div>
 
@@ -88,6 +94,8 @@
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
                     
                         <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
+                    
+                        <li><a href="../modules/hiraya-util.html">hiraya-util</a></li>
                     
                         <li><a href="../modules/hiraya-view.html">hiraya-view</a></li>
                     
@@ -138,7 +146,7 @@
  */
 
 var Emitter = require(&#x27;../hiraya-core/emitter&#x27;);
-var createjs = typeof window === &#x27;object&#x27; ? window.createjs : null;
+var createjs = typeof window === &#x27;object&#x27; ? window.createjs : {};
 
 /**
  * Canvas manages the stage and all things happening in them.
@@ -176,6 +184,15 @@ var Canvas = Emitter.extend({
   height: 500,
 
   /**
+   * Frame rate setting for this canvas.
+   *
+   * @property fps
+   * @type {Number}
+   * @default 30
+   */
+  fps: 30,
+
+  /**
    * The &#x60;createjs.Stage&#x60; instance.
    *
    * @property _stage
@@ -203,6 +220,23 @@ var Canvas = Emitter.extend({
   level: null,
 
   /**
+   * A bridge between the canvas and &#x60;createjs.Tween&#x60;
+   *
+   * @property Tween
+   * @type {createjs.Tween}
+   */
+  Tween: null,
+
+  /**
+   * A bridge between the canvas and &#x60;createjs.Ease&#x60;
+   *
+   * @property Ease
+   * @type {createjs.Ease}
+   */
+  Ease: null,
+
+
+  /**
    * The layer structure of the canvas. Useful for separating tiles, sprites, foreground
    * and background to name a few. Layer names listed in order will be generated accordingly.
    *
@@ -220,22 +254,29 @@ var Canvas = Emitter.extend({
    * @type {Array}
    */
   layers: [
-    &#x27;background&#x27;,
+    &#x27;ground&#x27;,
     &#x27;tiles&#x27;,
     &#x27;sprites&#x27;,
     &#x27;foreground&#x27;
   ],
 
   /**
-   * 
-   *
    * @property sprites
    * @type {Array}
    */
   sprites: [],
 
+
+  /**
+   * Asset manifest for things to preload before starting the canvas rendering.
+   *
+   * @property assetManifest
+   * @type {Array}
+   */
+  assetManifest: [],
+
   init: function() {
-    this.parent();
+    // add the canvas element to the DOM tree
     var canvas = document.createElement(&#x27;canvas&#x27;);
     canvas.width = this.width;
     canvas.height = this.height;
@@ -243,10 +284,13 @@ var Canvas = Emitter.extend({
     document.body.appendChild(canvas);
     this._stage = new createjs.Stage(canvas);
     this._ticker = createjs.Ticker;
+    this.Tween = createjs.Tween;
+    this.Ease = createjs.Ease;
 
     var stage = this._stage;
     var ticker = this._ticker;
 
+    // generate the layers
     if (this.layers &amp;&amp; typeof this.layers.forEach === &#x27;function&#x27;) {
       this.layers.forEach(function(layerName, i) {
         var layer = new createjs.Container();
@@ -255,7 +299,101 @@ var Canvas = Emitter.extend({
       });
     }
 
+    // setup event listeners
     ticker.addEventListener(&#x27;tick&#x27;, this.render.bind(this));
+    stage.addEventListener(&#x27;stagemousedown&#x27;, this.mouseDown.bind(this));
+    stage.addEventListener(&#x27;stagemouseup&#x27;, this.mouseUp.bind(this));
+    stage.addEventListener(&#x27;stagemousemove&#x27;, this.mouseMove.bind(this));
+
+    // set the frame rate
+    ticker.setFPS(this.fps);
+    this.preload();
+  },
+
+  /**
+   * createjs.LoadQueue object.
+   *
+   * @property _loader
+   * @type {createjs.LoadQueue}
+   * @private
+   */
+  _loader: null,
+
+  /**
+   * Starts preloading the asset manifest.
+   *
+   * @method preload
+   */
+  preload: function() {
+    if (!this.assetManifest) return this.ready();
+    this._loader = new createjs.LoadQueue();
+    this._loader.addEventListener(&#x27;complete&#x27;, this.preloadComplete.bind(this));
+    this._loader.loadManifest(this.assetManifest);
+  },
+
+  /**
+   * Get the preloaded asset by id
+   *
+   * @method getAsset
+   * @param {String} id
+   * @returns {*} resource
+   */
+  getAsset: function(id) {
+    return this._loader.getResult(id);
+  },
+
+  /**
+   * @event preloadComplete
+   */
+  preloadComplete: function() {
+    this.ready();
+  },
+
+  /**
+   * eauses the canvas rendering
+   *
+   * @method pause
+   * @chainable
+   */
+  pause: function() {
+    this._ticker.setPaused(true);
+  },
+
+  /**
+   * Resumes the canvas rendering
+   *
+   * @method resume
+   * @chainable
+   */
+  resume: function() {
+    this._ticker.setPaused(false);
+  },
+
+  /**
+   * @event mouseUp
+   */
+  mouseUp: function(event) {
+  },
+
+  /**
+   * @event mouseDown
+   */
+  mouseDown: function(event) {
+  },
+
+  /**
+   * @event mouseMove
+   */
+  mouseMove: function(event) {
+  },
+
+
+  /**
+   * When the canvas is ready for action.
+   * @event ready
+   */
+  ready: function() {
+    this.emit(&#x27;ready&#x27;);
   },
 
   /**
@@ -264,29 +402,261 @@ var Canvas = Emitter.extend({
    * @method render
    * @private
    */
-  render: function() {
+  render: function(event) {
+    if (event &amp;&amp; event.paused) return;
     this._stage.update();
+    this.update();
   },
 
   /**
-   * Pause the render operation.
-   * @method pause 
-   * @param {Boolean} shouldPause if set to false, will reverse the pause command.
+   * Event hook for subscribing to a tick event.
+   * @event update
    */
-  pause: function(shouldPause) {
-    this._ticker.setPaused(shouldPause);
+  update: function() {
   },
 
   /**
-   * @method addSprite
-   * @param {Hiraya.Sprite} sprite
+   * Adds a createjs.BitmapAnimation object to a layer.
+   *
+   * @param {String} layerName
+   * @param {createjs.BitmapAnimation} animation
    * @chainable
    */
-  addSprite: function(sprite) {
-    var layer = this._stage.getChildByName(&#x27;sprites&#x27;) || this._stage;
-    layer.addChild(sprite.view);
-    sprite.spawn();
+  addToLayer: function(layerName, animation) {
+    var layer = this.getLayer(layerName);
+    if (layer) {
+      layer.addChild(animation);
+    }
     return this;
+  },
+
+  /**
+   * Caches the graphical state of the layer to improve performance.
+   * Note: You will need to uncache the layer to be able to see
+   * the graphical updates of the children within it.
+   *
+   * @method cacheLayer
+   * @param {String} layerName 
+   * @param {Number} width
+   * @param {Number} height
+   * @chainable
+   */
+  cacheLayer: function(layerName, width, height) {
+    var layer = this.getLayer(layerName);
+    if (layer) {
+      layer.cache(0, 0, width, height);
+    }
+    return this;
+  },
+
+  /**
+   * Uncaches the graphical state of the layer made via the &#x60;cacheLayer&#x60; method.
+   *
+   * @method uncacheLayer 
+   * @param {String} layerName 
+   * @chainable
+   */
+  uncacheLayer: function(layerName) {
+    var layer = this.getLayer(layerName);
+    if (layer) {
+      layer.uncache();
+    }
+    return this;
+  },
+
+
+  /**
+   * An event hook when the level is object is ready.
+   *
+   * @param {Hiraya.Level} level
+   * @event levelReady
+   */
+  levelReady: function(level) {
+    level.on(&#x27;event&#x27;, this._levelEvent.bind(this));
+    if (this.levelEvents.ready) {
+      this.levelEvents.ready.call(this, level);
+    }
+  },
+
+  /**
+   * A dictionary of event hooks
+   *
+   * @property levelEvents
+   * @type {Object}
+   */
+  levelEvents: {},
+
+  /**
+   * Callback for the level events
+   *
+   * @method _levelEvent
+   * @param {String} type
+   * @private
+   */
+  _levelEvent: function(type) {
+    var event = this.levelEvents[type];
+    if (event) {
+      event.apply(this, Array.prototype.slice.call(arguments, 1)); // cut out the type argument
+    }
+  },
+
+  /**
+   * Gets the layer from the stage.
+   *
+   * @param {String} layername
+   * @return createjs.Container
+   */
+  getLayer: function(layerName) {
+    return this._stage.getChildByName(layerName);
+  },
+
+  /**
+   * Creates a static image derived from a sprite sheet.
+   *
+   * @method createStaticBitmapAnimation
+   * @param {Object} frameData
+   * @param {String} targetFrameLabel
+   * @return createjs.BitmapAnimation
+   */
+  createStaticBitmapAnimation: function(frameData, targetFrameLabel) {
+    var spriteSheet = new createjs.SpriteSheet(frameData);
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndStop(targetFrameLabel);
+    return animation;
+  },
+
+  /**
+   * Current panned x value of the canvas
+   *
+   * @property _x
+   * @type {Number}
+   * @default 0
+   * @private
+   */
+  _x: 0,
+
+  /**
+   * Current panned y value of the canvas
+   *
+   * @property _y
+   * @type {Number}
+   * @default 0
+   * @private
+   */
+  _y: 0,
+
+  /**
+   * Pans the entire layer tree.
+   *
+   * @method pan
+   * @param {Number} x
+   * @param {Number} y
+   * @chainable
+   */
+  pan: function(x, y) {
+    var layers = this.layers;
+    this._x = x;
+    this._y = y;
+    for(var i=0; i&lt;layers.length; i++) {
+      var layer = this.getLayer(layers[i]);
+      if (layer) {
+        if (typeof x === &#x27;number&#x27;) layer.x = x;
+        if (typeof y === &#x27;number&#x27;) layer.y = y;
+      }
+    }
+  },
+
+  /**
+   * Pans the x axis of the layers in the canvas.
+   *
+   * @method panX
+   * @param {Number} x
+   * @chainable
+   */
+  panX: function(x) {
+    var layers = this.layers;
+    this._x = x;
+    for(var i=0; i&lt;layers.length; i++) {
+      var layer = this.getLayer(layers[i]);
+      if (layer) {
+        layer.x = x;
+      }
+    }
+  },
+
+  /**
+   * Pans the y axis of the layers in the canvas
+   *
+   * @method panY
+   * @param {Number} y
+   * @chainable
+   */
+  panY: function(y) {
+    var layers = this.layers;
+    this._y = y;
+    for(var i=0; i&lt;layers.length; i++) {
+      var layer = this.getLayer(layers[i]);
+      if (layer) {
+        layer.y = y;
+      }
+    }
+  },
+
+  /**
+   * Returns the current x value of the canvas pan
+   *
+   * @method x
+   * @returns {Number}
+   */
+  x: function() {
+    return this._x;
+  },
+
+  /**
+   * Returns the current y value of the canvas pan
+   *
+   * @method y
+   * @returns {Number}
+   */
+  y: function() {
+    return this._y;
+  },
+
+
+  /**
+   * Centers the board
+   *
+   * @method centerBoard
+   */
+  centerBoard: function() {
+    var columns = this.level.tiles.columns;
+    var rows = this.level.tiles.rows;
+    var dimensions = Hiraya.HexagonUtil.dimensions(columns, rows);
+    this.pan(this.width * 0.5 - dimensions.width * 0.5, this.height * 0.5 - dimensions.height * 0.5 + 50);
+  },
+
+  /**
+   * Sorts the depth for the sprite with its associated tile as the argument.
+   *
+   * @method sortSpriteDepth
+   * @param {Hiraya.Sprite} sprite
+   * @param {Hiraya.Tile} tile
+   */
+  sortSpriteDepth: function(sprite, tile) {
+    var layer = this.getLayer(&#x27;sprites&#x27;);
+    if (!layer) return;
+    if (!sprite) return;
+    if (!tile || isNaN(tile.z)) return;
+    layer.removeChild(sprite.view);
+    sprite.view.z = tile.z;
+    var length = layer.getNumChildren();
+    for(var i=0; i&lt;length; i++) {
+      var child = layer.getChildAt(i);
+      if (child.z &gt;= sprite.view.z) {
+        break;
+      }
+    }
+    layer.addChildAt(sprite.view, i);
   }
 
 });

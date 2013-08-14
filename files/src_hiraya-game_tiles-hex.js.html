@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/hiraya-view/sprite.js - hiraya</title>
+    <title>src/hiraya-game/tiles-hex.js - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -135,323 +135,225 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/hiraya-view/sprite.js <small>File</small></h1>
+    <h1>src/hiraya-game/tiles-hex.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-var createjs = typeof window === &#x27;object&#x27; ? window.createjs : {};
 /**
  * @module hiraya
- * @submodule hiraya-view
+ * @submodule hiraya-game
  */
+
+var Tiles = require(&#x27;./tiles&#x27;);
 
 /**
- * Canvas manages the stage and all things happening in them.
+ * &#x60;Hiraya.TilesHex&#x60; is the hex-version of &#x60;Hiraya.Tile&#x60;. It contains a different method of finding neighbors.
  *
- * @class Sprite
- * @extends Hiraya.Emitter
+ * @class TilesHex
+ * @extends Hiraya.Tiles
  * @namespace Hiraya
  */
-var Emitter = require(&#x27;../hiraya-core/emitter&#x27;);
-var Sprite = Emitter.extend({
+var TilesHex = Tiles.extend({
   /**
-   * The createjs.Tween bridge
-   *
-   * @property Tween
-   * @type {createjs.Tween}
+   * @property EAST
+   * @type {String}
+   * @static
    */
-  Tween: createjs.Tween,
+  EAST: &#x27;east&#x27;,
 
   /**
-   * The createjs.Ease bridge
-   *
-   * @property Ease
-   * @type {createjs.Ease}
+   * @property WEST
+   * @type {String}
+   * @static
    */
-  Ease: createjs.Ease,
+  WEST: &#x27;west&#x27;,
 
   /**
-   * Sprite sheet frameData for the createjs.SpriteSheet class.
-   *
-   * @property sheetData
-   * @type {Object}
+   * @property SOUTHEAST
+   * @type {String}
+   * @static
    */
-  sheetData: null,
+  SOUTHEAST: &#x27;southEast&#x27;,
 
   /**
-   * Sprite sheet image. Useful for using a preloaded image instead
-   * of doing another http request.
-   *
-   * @property sheetImage
-   * @type {Image}
-   * @default null
+   * @property NORTHEAST
+   * @type {String}
+   * @static
    */
-  sheetImage: null,
+  NORTHEAST: &#x27;northEast&#x27;,
 
   /**
-   * Image resource to be used for the sprite object.
-   *
-   * @property image
-   * @type {Image}
+   * @property SOUTHWEST
+   * @type {String}
+   * @static
    */
-  image: null,
+  SOUTHWEST: &#x27;southWest&#x27;,
 
   /**
-   * The display object container for the sprite sheet animation and image.
-   *
-   * @property view
-   * @type {createjs.BitmapAnimation} 
+   * @property NORTHWEST
+   * @type {String}
+   * @static
    */
-  view: null,
+  NORTHWEST: &#x27;northWest&#x27;,
 
   /**
-   * Walk speed animation of the sprite.
-   *
-   * @property walkSpeed
-   * @type {Nimber}
-   * @default 500
+   * Calculates the adjacent x coordinate based on index and radius
+   * @param {string} direction
+   * @param {boolean} isOddRow
+   * @param {number} index
+   * @param {number} i
+   * @return {Number}
    */
-  walkSpeed: 500,
-
-  init: function() {
-    this.view = new createjs.Container();
-    if (this.name) {
-      this.view.name = this.name;
+  deltaX: function(direction, isOddRow, index, i) {
+    var result;
+    if (index === null) {
+      index = 1;
     }
-
-    if (typeof this.frameData === &#x27;object&#x27;) {
-      var frameData = JSON.parse(JSON.stringify(this.frameData));
-      if (this.sheetImage) {
-        frameData.images = [this.sheetImage];
+    if (i === null) {
+      i = 0;
+    }
+    result = 0;
+    switch (direction) {
+      case this.EAST:
+        result += (isOddRow ? Math.floor(i * 0.5) * -1 : Math.ceil(i * 0.5) * -1) + index;
+      break;
+      case this.WEST:
+        result += (isOddRow ? Math.ceil(i * 0.5) : Math.floor(i * 0.5)) - index;
+      break;
+      case this.SOUTHEAST:
+        result += (isOddRow ? Math.ceil(index * 0.5) : Math.floor(index * 0.5)) - i;
+      break;
+      case this.NORTHEAST:
+        result += Math.floor(index * 0.5) + i - Math.floor(i * 0.5);
+      if (isOddRow) {
+        if (index % 2 &amp;&amp; (index + i) % 2) {
+          result++;
+        }
+      } else {
+        if (index % 2 === 0 &amp;&amp; (index + i) % 2) {
+          result--;
+        }
       }
-      var animation = new createjs.BitmapAnimation(new createjs.SpriteSheet(frameData));
-      animation.name = &#x27;animation&#x27;;
-      this.view.addChild(animation);
+      break;
+      case this.SOUTHWEST:
+        result -= Math.ceil(index * 0.5) + i - Math.ceil(i * 0.5);
+      if (isOddRow) {
+        if (index % 2 &amp;&amp; (index + i) % 2) {
+          result++;
+        }
+      } else {
+        if (index % 2 === 0 &amp;&amp; (index + i) % 2) {
+          result--;
+        }
+      }
+      break;
+      case this.NORTHWEST:
+        result += (isOddRow ? Math.ceil(index * -0.5) : Math.floor(index * -0.5)) + i;
     }
-
-    if (this.image instanceof Image) {
-      var bitmap = new createjs.Bitmap(image);
-      bitmap.name = &#x27;image&#x27;;
-      this.view.addChild(bitmap);
-    }
-
+    return result;
   },
 
   /**
-   * Play the animation based on the key frame in the sprite&#x27;s frame data.
-   *
-   * @method play
-   * @param {String} frameLabel
-   */
-  play: function(frameLabel) {
-    var animation = this.view.getChildByName(&#x27;animation&#x27;);
-    if (animation) {
-      animation.gotoAndPlay(frameLabel);
-    }
-  },
-
-  /**
-   * x position of this sprite
-   *
-   * @property _x
-   * @type {Number}
-   * @default 0
-   * @private
-   */
-  _x: 0,
-
-  /**
-   * y position of this sprite
-   *
-   * @property _y
-   * @type {Number}
-   * @default 0
-   */
-  _y: 0,
-
-  /**
-   * Set the x coordinate of this sprite
-   *
-   * @method x
-   * @param {Number} x
+   * Calculates the adjacent y coordinate based on index and radius
+   * @param {string} direction
+   * @param {boolean} isOddRow
+   * @param {number} index
+   * @param {number} i
    * @return {Number}
    */
-  x: function(x) {
-    if (isNaN(x)) return this._x;
-    this._x = this.view.x = x;
-    return this._x;
-  },
-
-  /**
-   * Set the y coordinate of this sprite
-   *
-   * @method y
-   * @param {Number} y
-   * @return {Number}
-   */
-  y: function(y) {
-    if (isNaN(y)) return this._y;
-    this._y = this.view.y = y;
-    return this._y;
-  },
-
-  /**
-   * Sets the x and y coordinate of this sprite.
-   * You can optionally pass an object with the x and y values.
-   *
-   *    var sprite = Hiraya.Sprite.create();
-   *    sprite.pos({ x: 100, y: 100 });
-   *
-   *    // using it in conjunction with the hexagon util class
-   *    sprite.pos(Hiraya.HexagonUtil.coordinates({ x: 100, y: 200 }));
-   *
-   * @method pos
-   * @param {Number} x
-   * @param {Number} y
-   * @chainable
-   */
-  pos: function(x, y) {
-    if (typeof x === &#x27;object&#x27;) { // argument is being passed as an object coordinate
-      this.x(x.x);
-      this.y(x.y);
-    } else {
-      this.x(x);
-      this.y(y);
+  deltaY: function(direction, isOddRow, index, i) {
+    var result;
+    if (index === null) {
+      index = 1;
     }
-    return this;
-  },
-
-  /**
-   * Direction to which the sprite is facing. 1 for right, -1 for left.
-   *
-   * @property vector
-   * @type {Number}
-   * @default 1
-   */
-  vector: 1,
-
-  /**
-   * Flips the sprite to the left side
-   *
-   * @method faceLeft
-   */
-  faceLeft: function() {
-    this.vector = -1;
-    this.view.scaleX = Math.abs(this.view.scaleX) * this.vector;
-  },
-
-  /**
-   * Flips the sprite to the right side
-   *
-   * @method faceRight
-   */
-  faceRight: function() {
-    this.vector = 1;
-    this.view.scaleX = Math.abs(this.view.scaleX) * this.vector;
-  },
-
-  /**
-   * Seeks the frame animation label then stop.
-   *
-   * @method playStop
-   * @param {String} frameLabel
-   */
-  playStop: function(frameLabel) {
-    var animation = this.view.getChildByName(&#x27;animation&#x27;);
-    if (animation) {
-      animation.gotoAndStop(frameName);
+    if (i === null) {
+      i = 0;
     }
-  },
-
-  /**
-   * Stop any animation.
-   *
-   * @method stop
-   */
-  stop: function() {
-    var animation = this.view.getChildByName(&#x27;animation&#x27;);
-    if (animation) {
-      animation.stop();
+    result = 0;
+    switch (direction) {
+      case this.EAST:
+        result += i;
+      break;
+      case this.WEST:
+        result += i * -1;
+      break;
+      case this.SOUTHEAST:
+        result += index;
+      break;
+      case this.SOUTHWEST:
+        result += index - i;
+      break;
+      case this.NORTHEAST:
+        result += (index * -1) + i;
+      break;
+      case this.NORTHWEST:
+        result += index * -1;
     }
+    return result;
   },
 
   /**
-   * An event hook that&#x27;s fired when the sprite is added to the canvas.
-   *
-   * @event spawn
-   *
+   * Returns the delta of a coordinate based on the direction
+   * @param {number} centerX
+   * @param {number} centerY
+   * @param {string} direction
+   * @param {boolean} isOddRow
+   * @param {number} index
+   * @return {Array}
    */
-  spawn: function() {
+  delta: function(centerX, centerY, direction, isOddRow, index) {
+    var i, result, tile, dx, dy;
+    result = [];
+    for (i = 1; 1 &lt;= index ? i &lt;= index : i &gt;= index; 1 &lt;= index ? i++ : i--) {
+        dx = centerX + this.deltaX(direction, isOddRow, index, i - 1);
+        dy = centerY + this.deltaY(direction, isOddRow, index, i - 1);
+        tile = this.get(dx, dy);
+        if (tile) {
+            result.push(tile);
+        }
+    }
+    return result;
   },
 
   /**
-   * An event hook that&#x27;s fired when the sprite starts moving.
-   *
-   * @event moveStart
+   * Gets the adjacent neighbors in a hex-like environment
+   * @param {object} tile
+   * @param {number} [radius=1]
+   * @return {Array}
    */
-  moveStart: function() {
-  },
+  adjacent: function(tile, radius) {
+    var centerX, centerY, east, i, isOddRow, result, northEast, northWest, southEast, southWest, west;
+    if (typeof radius !== &#x27;number&#x27;) {
+      radius = 1;
+    }
+    centerX = tile.x;
+    centerY = tile.y;
+    result = [];
+    isOddRow = centerY % 2 &gt; 0;
+    if (radius &gt; 0) {
+      for (i = 1; 1 &lt;= radius ? i &lt;= radius : i &gt;= radius; 1 &lt;= radius ? i++ : i--) {
+        east = this.delta(centerX, centerY, this.EAST, isOddRow, i);
+        result = result.concat(east);
+        west = this.delta(centerX, centerY, this.WEST, isOddRow, i);
+        result = result.concat(west);
+        southEast = this.delta(centerX, centerY, this.SOUTHEAST, isOddRow, i);
+        result = result.concat(southEast);
+        northEast = this.delta(centerX, centerY, this.NORTHEAST, isOddRow, i);
+        result = result.concat(northEast);
+        southWest = this.delta(centerX, centerY, this.SOUTHWEST, isOddRow, i);
+        result = result.concat(southWest);
+        northWest = this.delta(centerX, centerY, this.NORTHWEST, isOddRow, i);
+        result = result.concat(northWest);
+      }
 
-  /**
-   * An event hook that&#x27;s fired when the sprite stops moving.
-   *
-   * @event moveEnd
-   */
-  moveEnd: function() {
-  },
+    }
 
-  /**
-   * An event hook that&#x27;s fired when the sprite starts attacking.
-   * Optionally, the name of the attack can be passed here to
-   * let the sprite know which animation to play.
-   *
-   * @event attackStart
-   * @param {String} name
-   */
-  attackStart: function(name) {
-  },
-
-  /**
-   * An event hook that&#x27;s fired when this sprite is being targetted.
-   * The command of the action is passed to let the sprite know if it should
-   * perform certain animations based on the command attributes.
-   *
-   * For example, if the sprite is receiving a command that involves stealth, it
-   * can optionally not perform a defend stance animation.
-   *
-   * @event defendStart
-   * @param {Hiraya.Sprite} sprite the sprite performing an action on this unit.
-   * @param {Hiraya.Command} command the command
-   */
-  defendStart: function(sprite, command) {
-  },
-
-  /**
-   * An event hook that&#x27;s fired when the sprite is done defending itself. The command
-   * used for the attack is passed to let the sprite know if it should perform certain
-   * animations based on command attributes.
-   *
-   * For example, if the sprite gets a command with stun attribute, the sprite
-   * can optionally perform a &quot;freezing&quot; animation.
-   *
-   * @event defendEnd
-   * @param {Hiraya.Sprite} sprite the sprite performing an action on this unit.
-   * @param {Hiraya.Command} command the command
-   */
-  defendEnd: function(sprite, command) {
-  },
-
-  /**
-   * When the sprite is damaged or being hit.
-   * @event hit
-   */
-  hit: function() {
+    return result;
   }
 });
 
-
-module.exports = Sprite;
+module.exports = TilesHex;
 
     </pre>
 </div>

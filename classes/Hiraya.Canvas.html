@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-view"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Command", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.HexagonUtil", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "classes/Hiraya.TilesHex", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-util", "modules/hiraya-view"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
                     
+                        <li><a href="../classes/Hiraya.Command.html">Hiraya.Command</a></li>
+                    
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
                         <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
@@ -62,6 +64,8 @@
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
+                    
+                        <li><a href="../classes/Hiraya.HexagonUtil.html">Hiraya.HexagonUtil</a></li>
                     
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
                     
@@ -77,6 +81,8 @@
                     
                         <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
+                        <li><a href="../classes/Hiraya.TilesHex.html">Hiraya.TilesHex</a></li>
+                    
                 </ul>
             </div>
 
@@ -88,6 +94,8 @@
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
                     
                         <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
+                    
+                        <li><a href="../modules/hiraya-util.html">hiraya-util</a></li>
                     
                         <li><a href="../modules/hiraya-view.html">hiraya-view</a></li>
                     
@@ -175,6 +183,8 @@
         
         
         
+            <li><a data-toggle="tab" href="#events">Events</a></li>
+        
     </ul>
 
     <div class="tab-content no-columns">
@@ -186,8 +196,29 @@
 
                     <ul class="index-list methods extends">
                         
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method__levelEvent" data-tablink="_levelEvent">_levelEvent</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_addSprite" data-tablink="addSprite">addSprite</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_cacheLayer" data-tablink="cacheLayer">cacheLayer</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_centerBoard" data-tablink="centerBoard">centerBoard</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_createStaticBitmapAnimation" data-tablink="createStaticBitmapAnimation">createStaticBitmapAnimation</a>
 
                                 
                                 
@@ -195,6 +226,13 @@
                         
                             <li class="index-item method inherited">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_emit" data-tablink="emit">emit</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_getAsset" data-tablink="getAsset">getAsset</a>
 
                                 
                                 
@@ -229,7 +267,35 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_pan" data-tablink="pan">pan</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_panX" data-tablink="panX">panX</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_panY" data-tablink="panY">panY</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_pause" data-tablink="pause">pause</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_preload" data-tablink="preload">preload</a>
 
                                 
                                 
@@ -237,6 +303,41 @@
                         
                             <li class="index-item method private">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_render" data-tablink="render">render</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_resume" data-tablink="resume">resume</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_sortSpriteDepth" data-tablink="sortSpriteDepth">sortSpriteDepth</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_uncacheLayer" data-tablink="uncacheLayer">uncacheLayer</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_x" data-tablink="x">x</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_y" data-tablink="y">y</a>
 
                                 
                                 
@@ -253,6 +354,13 @@
                     <ul class="index-list properties extends">
                         
                             <li class="index-item property private">
+                                <a href="#" data-tabid="#properties" data-anchor="#property__loader" data-tablink="_loader">_loader</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
                                 <a href="#" data-tabid="#properties" data-anchor="#property__stage" data-tablink="_stage">_stage</a>
 
                                 
@@ -261,6 +369,41 @@
                         
                             <li class="index-item property private">
                                 <a href="#" data-tabid="#properties" data-anchor="#property__ticker" data-tablink="_ticker">_ticker</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#" data-tabid="#properties" data-anchor="#property__x" data-tablink="_x">_x</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#" data-tabid="#properties" data-anchor="#property__y" data-tablink="_y">_y</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_assetManifest" data-tablink="assetManifest">assetManifest</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_Ease" data-tablink="Ease">Ease</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_fps" data-tablink="fps">fps</a>
 
                                 
                                 
@@ -295,7 +438,21 @@
                             </li>
                         
                             <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_levelEvents" data-tablink="levelEvents">levelEvents</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
                                 <a href="#" data-tabid="#properties" data-anchor="#property_sprites" data-tablink="sprites">sprites</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#" data-tabid="#properties" data-anchor="#property_Tween" data-tablink="Tween">Tween</a>
 
                                 
                                 
@@ -315,14 +472,71 @@
             
 
             
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events extends">
+                        
+                            <li class="index-item event">
+                                <a href="#" data-tabid="#events" data-anchor="#event_levelReady" data-tablink="levelReady">levelReady</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#" data-tabid="#events" data-anchor="#event_mouseDown" data-tablink="mouseDown">mouseDown</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#" data-tabid="#events" data-anchor="#event_mouseMove" data-tablink="mouseMove">mouseMove</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#" data-tabid="#events" data-anchor="#event_mouseUp" data-tablink="mouseUp">mouseUp</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#" data-tabid="#events" data-anchor="#event_preloadComplete" data-tablink="preloadComplete">preloadComplete</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#" data-tabid="#events" data-anchor="#event_ready" data-tablink="ready">ready</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#" data-tabid="#events" data-anchor="#event_update" data-tablink="update">update</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
         </div>
 
         
             <div id="methods" class="tab-pane">
 
                 
-                    <div id="method_addSprite" class="method item">
-    <h3 class="name"><code>addSprite</code></h3>
+                    <div id="method__levelEvent" class="method item private">
+    <h3 class="name"><code>_levelEvent</code></h3>
 
     
         <div class="args">
@@ -330,7 +544,108 @@
             
                 <li class="arg">
                     
-                        <code>sprite</code>
+                        <code>type</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l347"><code>src&#x2F;hiraya-view&#x2F;canvas.js:347</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Callback for the level events</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">type</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_cacheLayer" class="method item">
+    <h3 class="name"><code>cacheLayer</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>layerName</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>width</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>height</code>
                     
                 </li>
             
@@ -365,7 +680,7 @@
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l146"><code>src&#x2F;hiraya-view&#x2F;canvas.js:146</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l291"><code>src&#x2F;hiraya-view&#x2F;canvas.js:291</code></a>
         
         </p>
 
@@ -376,7 +691,9 @@
     </div>
 
     <div class="description">
-        
+        <p>Caches the graphical state of the layer to improve performance.
+Note: You will need to uncache the layer to be able to see
+the graphical updates of the children within it.</p>
     </div>
 
     
@@ -387,8 +704,38 @@
             
                 <li class="param">
                     
-                        <code class="param-name">sprite</code>
-                        <span class="type"><a href="../classes/Hiraya.Sprite.html" class="crosslink">Hiraya.Sprite</a></span>
+                        <code class="param-name">layerName</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">width</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">height</code>
+                        <span class="type">Number</span>
                     
 
                     
@@ -404,6 +751,183 @@
         </div>
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_centerBoard" class="method item">
+    <h3 class="name"><code>centerBoard</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l484"><code>src&#x2F;hiraya-view&#x2F;canvas.js:484</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Centers the board</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_createStaticBitmapAnimation" class="method item">
+    <h3 class="name"><code>createStaticBitmapAnimation</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>frameData</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>targetFrameLabel</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l371"><code>src&#x2F;hiraya-view&#x2F;canvas.js:371</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates a static image derived from a sprite sheet.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">frameData</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">targetFrameLabel</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    createjs.BitmapAnimation
+                
+            </div>
+        </div>
     
 
     
@@ -457,7 +981,7 @@
             
         
         
-        <a href="../files/src_hiraya-core_emitter.js.html#l73"><code>src&#x2F;hiraya-core&#x2F;emitter.js:73</code></a>
+        <a href="../files/src_hiraya-core_emitter.js.html#l77"><code>src&#x2F;hiraya-core&#x2F;emitter.js:77</code></a>
         
         </p>
 
@@ -513,6 +1037,110 @@
         </div>
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_getAsset" class="method item">
+    <h3 class="name"><code>getAsset</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>id</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l192"><code>src&#x2F;hiraya-view&#x2F;canvas.js:192</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Get the preloaded asset by id</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">id</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"></span>:
+                    
+                    resource
+                
+            </div>
+        </div>
     
 
     
@@ -667,7 +1295,7 @@
             
         
         
-        <a href="../files/src_hiraya-core_emitter.js.html#l61"><code>src&#x2F;hiraya-core&#x2F;emitter.js:61</code></a>
+        <a href="../files/src_hiraya-core_emitter.js.html#l65"><code>src&#x2F;hiraya-core&#x2F;emitter.js:65</code></a>
         
         </p>
 
@@ -861,7 +1489,7 @@
             
         
         
-        <a href="../files/src_hiraya-core_emitter.js.html#l86"><code>src&#x2F;hiraya-core&#x2F;emitter.js:86</code></a>
+        <a href="../files/src_hiraya-core_emitter.js.html#l90"><code>src&#x2F;hiraya-core&#x2F;emitter.js:90</code></a>
         
         </p>
 
@@ -906,8 +1534,8 @@
 </div>
 
                 
-                    <div id="method_pause" class="method item">
-    <h3 class="name"><code>pause</code></h3>
+                    <div id="method_pan" class="method item">
+    <h3 class="name"><code>pan</code></h3>
 
     
         <div class="args">
@@ -915,12 +1543,346 @@
             
                 <li class="arg">
                     
-                        <code>shouldPause</code>
+                        <code>x</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>y</code>
                     
                 </li>
             
             </ul><span class="paren">)</span>
         </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l406"><code>src&#x2F;hiraya-view&#x2F;canvas.js:406</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Pans the entire layer tree.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">x</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">y</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_panX" class="method item">
+    <h3 class="name"><code>panX</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>x</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l427"><code>src&#x2F;hiraya-view&#x2F;canvas.js:427</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Pans the x axis of the layers in the canvas.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">x</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_panY" class="method item">
+    <h3 class="name"><code>panY</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>y</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l445"><code>src&#x2F;hiraya-view&#x2F;canvas.js:445</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Pans the y axis of the layers in the canvas</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">y</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_pause" class="method item">
+    <h3 class="name"><code>pause</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l210"><code>src&#x2F;hiraya-view&#x2F;canvas.js:210</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>eauses the canvas rendering</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_preload" class="method item">
+    <h3 class="name"><code>preload</code></h3>
+
+    
+        <span class="paren">()</span>
     
 
     
@@ -948,7 +1910,7 @@
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l137"><code>src&#x2F;hiraya-view&#x2F;canvas.js:137</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l180"><code>src&#x2F;hiraya-view&#x2F;canvas.js:180</code></a>
         
         </p>
 
@@ -959,32 +1921,9 @@
     </div>
 
     <div class="description">
-        <p>Pause the render operation.</p>
+        <p>Starts preloading the asset manifest.</p>
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">shouldPause</code>
-                        <span class="type">Boolean</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>if set to false, will reverse the pause command.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -1027,7 +1966,7 @@
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l127"><code>src&#x2F;hiraya-view&#x2F;canvas.js:127</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l257"><code>src&#x2F;hiraya-view&#x2F;canvas.js:257</code></a>
         
         </p>
 
@@ -1049,11 +1988,450 @@
 </div>
 
                 
+                    <div id="method_resume" class="method item">
+    <h3 class="name"><code>resume</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l220"><code>src&#x2F;hiraya-view&#x2F;canvas.js:220</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Resumes the canvas rendering</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_sortSpriteDepth" class="method item">
+    <h3 class="name"><code>sortSpriteDepth</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>sprite</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>tile</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l496"><code>src&#x2F;hiraya-view&#x2F;canvas.js:496</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sorts the depth for the sprite with its associated tile as the argument.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">sprite</code>
+                        <span class="type"><a href="../classes/Hiraya.Sprite.html" class="crosslink">Hiraya.Sprite</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">tile</code>
+                        <span class="type"><a href="../classes/Hiraya.Tile.html" class="crosslink">Hiraya.Tile</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_uncacheLayer" class="method item">
+    <h3 class="name"><code>uncacheLayer</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>layerName</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l310"><code>src&#x2F;hiraya-view&#x2F;canvas.js:310</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Uncaches the graphical state of the layer made via the <code>cacheLayer</code> method.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">layerName</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_x" class="method item">
+    <h3 class="name"><code>x</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l463"><code>src&#x2F;hiraya-view&#x2F;canvas.js:463</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the current x value of the canvas pan</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_y" class="method item">
+    <h3 class="name"><code>y</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l473"><code>src&#x2F;hiraya-view&#x2F;canvas.js:473</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the current y value of the canvas pan</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
             </div>
         
 
         
             <div id="properties" class="tab-pane">
+
+                
+                    <div id="property__loader" class="property item private">
+    <h3 class="name"><code>_loader</code></h3>
+    <span class="type">createjs.LoadQueue</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l171"><code>src&#x2F;hiraya-view&#x2F;canvas.js:171</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>createjs.LoadQueue object.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
 
                 
                     <div id="property__stage" class="property item private">
@@ -1081,7 +2459,7 @@
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l44"><code>src&#x2F;hiraya-view&#x2F;canvas.js:44</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l53"><code>src&#x2F;hiraya-view&#x2F;canvas.js:53</code></a>
         
         </p>
 
@@ -1127,7 +2505,7 @@
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l54"><code>src&#x2F;hiraya-view&#x2F;canvas.js:54</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l63"><code>src&#x2F;hiraya-view&#x2F;canvas.js:63</code></a>
         
         </p>
 
@@ -1140,6 +2518,236 @@
         <p>The createjs.Ticker static class</p>
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__x" class="property item private">
+    <h3 class="name"><code>_x</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l386"><code>src&#x2F;hiraya-view&#x2F;canvas.js:386</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Current panned x value of the canvas</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__y" class="property item private">
+    <h3 class="name"><code>_y</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l396"><code>src&#x2F;hiraya-view&#x2F;canvas.js:396</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Current panned y value of the canvas</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_assetManifest" class="property item">
+    <h3 class="name"><code>assetManifest</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l128"><code>src&#x2F;hiraya-view&#x2F;canvas.js:128</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Asset manifest for things to preload before starting the canvas rendering.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_Ease" class="property item">
+    <h3 class="name"><code>Ease</code></h3>
+    <span class="type">createjs.Ease</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l88"><code>src&#x2F;hiraya-view&#x2F;canvas.js:88</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A bridge between the canvas and <code>createjs.Ease</code></p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_fps" class="property item">
+    <h3 class="name"><code>fps</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l44"><code>src&#x2F;hiraya-view&#x2F;canvas.js:44</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Frame rate setting for this canvas.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 30</p>
     
 
     
@@ -1263,7 +2871,7 @@
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l71"><code>src&#x2F;hiraya-view&#x2F;canvas.js:71</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l97"><code>src&#x2F;hiraya-view&#x2F;canvas.js:97</code></a>
         
         </p>
 
@@ -1318,7 +2926,7 @@ and background to name a few. Layer names listed in order will be generated acco
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l63"><code>src&#x2F;hiraya-view&#x2F;canvas.js:63</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l72"><code>src&#x2F;hiraya-view&#x2F;canvas.js:72</code></a>
         
         </p>
 
@@ -1329,6 +2937,50 @@ and background to name a few. Layer names listed in order will be generated acco
 
     <div class="description">
         <p><code>Hiraya.Level</code> instance that is given by the Game object.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_levelEvents" class="property item">
+    <h3 class="name"><code>levelEvents</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l339"><code>src&#x2F;hiraya-view&#x2F;canvas.js:339</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A dictionary of event hooks</p>
     </div>
 
     
@@ -1362,7 +3014,7 @@ and background to name a few. Layer names listed in order will be generated acco
             
         
         
-        <a href="../files/src_hiraya-view_canvas.js.html#l95"><code>src&#x2F;hiraya-view&#x2F;canvas.js:95</code></a>
+        <a href="../files/src_hiraya-view_canvas.js.html#l121"><code>src&#x2F;hiraya-view&#x2F;canvas.js:121</code></a>
         
         </p>
 
@@ -1373,6 +3025,50 @@ and background to name a few. Layer names listed in order will be generated acco
 
     <div class="description">
         
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_Tween" class="property item">
+    <h3 class="name"><code>Tween</code></h3>
+    <span class="type">createjs.Tween</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l80"><code>src&#x2F;hiraya-view&#x2F;canvas.js:80</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A bridge between the canvas and <code>createjs.Tween</code></p>
     </div>
 
     
@@ -1434,6 +3130,336 @@ and background to name a few. Layer names listed in order will be generated acco
 
         
 
+        
+            <div id="events" class="tab-pane">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_levelReady" class="events item">
+    <h3 class="name"><code>levelReady</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l326"><code>src&#x2F;hiraya-view&#x2F;canvas.js:326</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>An event hook when the level is object is ready.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">level</code>
+                        <span class="type"><a href="../classes/Hiraya.Level.html" class="crosslink">Hiraya.Level</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_mouseDown" class="events item">
+    <h3 class="name"><code>mouseDown</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l236"><code>src&#x2F;hiraya-view&#x2F;canvas.js:236</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_mouseMove" class="events item">
+    <h3 class="name"><code>mouseMove</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l242"><code>src&#x2F;hiraya-view&#x2F;canvas.js:242</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_mouseUp" class="events item">
+    <h3 class="name"><code>mouseUp</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l230"><code>src&#x2F;hiraya-view&#x2F;canvas.js:230</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_preloadComplete" class="events item">
+    <h3 class="name"><code>preloadComplete</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l203"><code>src&#x2F;hiraya-view&#x2F;canvas.js:203</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_ready" class="events item">
+    <h3 class="name"><code>ready</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l249"><code>src&#x2F;hiraya-view&#x2F;canvas.js:249</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>When the canvas is ready for action.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_update" class="events item">
+    <h3 class="name"><code>update</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-view_canvas.js.html#l269"><code>src&#x2F;hiraya-view&#x2F;canvas.js:269</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Event hook for subscribing to a tick event.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+            </div>
         
     </div>
 </div>

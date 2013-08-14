@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-view"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Command", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.HexagonUtil", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "classes/Hiraya.TilesHex", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-util", "modules/hiraya-view"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
                     
+                        <li><a href="../classes/Hiraya.Command.html">Hiraya.Command</a></li>
+                    
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
                         <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
@@ -62,6 +64,8 @@
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
+                    
+                        <li><a href="../classes/Hiraya.HexagonUtil.html">Hiraya.HexagonUtil</a></li>
                     
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
                     
@@ -77,6 +81,8 @@
                     
                         <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
+                        <li><a href="../classes/Hiraya.TilesHex.html">Hiraya.TilesHex</a></li>
+                    
                 </ul>
             </div>
 
@@ -88,6 +94,8 @@
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
                     
                         <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
+                    
+                        <li><a href="../modules/hiraya-util.html">hiraya-util</a></li>
                     
                         <li><a href="../modules/hiraya-view.html">hiraya-view</a></li>
                     
@@ -142,6 +150,7 @@ var GetterSetter = require(&#x27;../hiraya-core/getter-setter&#x27;);
 var Collection = require(&#x27;../hiraya-core/collection&#x27;);
 var Entity = require(&#x27;./entity&#x27;);
 var Tiles = require(&#x27;./tiles&#x27;);
+var Command = require(&#x27;./command&#x27;);
 
 /**
  * &#x60;Hiraya.Level&#x60; manages the game logic and entity interaction.
@@ -190,7 +199,7 @@ var Level = GetterSetter.extend({
   init: function() {
     this.tiles = this.Tiles.create();
     this.entities = Collection.create();
-    this.parent();
+    this._super();
     this.ready();
   },
 
@@ -200,7 +209,7 @@ var Level = GetterSetter.extend({
    * @event ready
    */
   ready: function() {
-    this.emit(&#x27;ready&#x27;);
+    this.emit(&#x27;event&#x27;, &#x27;ready&#x27;);
   },
 
   /**
@@ -225,10 +234,10 @@ var Level = GetterSetter.extend({
     // attributes.stats gets overwritten in library
     this.entities.add(entity);
     this.addedEntity(entity);
+    this.emit(&#x27;event&#x27;, &#x27;addedEntity&#x27;, entity);
     if (entity.id) {
       this._entityIDs[entity.id] = entity;
     }
-    //this.emit(&#x27;entity:add&#x27;, entity);
     return this;
   },
 
@@ -300,12 +309,131 @@ var Level = GetterSetter.extend({
   },
 
   /**
+   * Moves an entity to a tile in the level.
+   *
+   * @method moveEntity
+   * @param {Hiraya.Entity} entity
+   * @param {Object} position
+   */
+  moveEntity: function(entity, position) {
+    var tile = this.tiles.get(position.x, position.y);
+    if (!tile) return;
+    // emit a movingEntity event hook
+    this.movingEntity(entity, entity.tile, tile);
+    // make sure to vacate the entity from the tile first
+    var prevTile = entity.tile;
+    if (prevTile) prevTile.vacate(entity);
+    // occupy the tile
+    tile.occupy(entity);
+    this.movedEntity(entity, tile, prevTile);
+  },
+
+  /**
+   * Instructs the entity to make an action to another entity.
+   *
+   * @method actEntity
+   * @param {Hiraya.Entity} entity
+   */
+  actEntity: function(entity, targetEntity) {
+    var command = Command.create({
+      damage: entity.stats.attack.value,
+      name: &#x27;attack&#x27;,
+      splash: 1
+    });
+    // get affected entities
+    // and filter out the unneeded entities
+    var targetEntities = this.getAffectedEntities(targetEntity, command).filter(function(targetEntity) {
+      var truthy = true;
+      if (targetEntity === entity) truthy = false;
+      return truthy;
+    });
+
+    this.actingEntity(entity, command, targetEntities);
+    targetEntities.forEach(function(targetEntity) {
+      entity.attack(targetEntity, command);
+    });
+
+    this.actedEntity(entity, command, targetEntities);
+  },
+
+  /**
+   * Gets the list of affected units using a command. Useful for
+   * showing the player the effects of one action command.
+   *
+   * @method getAffectedEntities
+   * @param {Hiraya.Entity} targetEntity
+   * @param {Hiraya.Command} command
+   * @param {Function} callback
+   * @return {Array}
+   */
+  getAffectedEntities: function(targetEntity, command, callback) {
+    var targetEntities = [];
+    var targetTile = targetEntity.tile;
+    var affectedTiles = [targetTile].concat(this.tiles.adjacent(targetTile));
+    affectedTiles.forEach(function(tile) {
+      tile.entities.forEach(function(entity) {
+        if (entity.stats &amp;&amp; entity.stats.health) {
+          targetEntities.push(entity);
+          if (typeof callback === &#x27;function&#x27;) {
+            callback(entity);
+          }
+        }
+      });
+    });
+    return targetEntities;
+  },
+
+  /**
    * When an entity is added.
    *
    * @event addedEntity
-   * @param {Entity} entity
+   * @param {Hiraya.Entity} entity
    */
   addedEntity: function(entity) {
+  },
+
+  /**
+   * When an entity has moved
+   *
+   * @event movedEntity
+   * @param {Hiraya.Entity} entity The entity in question
+   * @param {Hiraya.Tile} tile tile that the entity has moved
+   * @param {Hiraya.Tile} prevTile previous tile before it was moved
+   */
+  movedEntity: function(entity, tile, prevTile) {
+    this.emit(&#x27;event&#x27;, &#x27;movedEntity&#x27;, entity, tile, prevTile);
+  },
+
+  /**
+   * When an entity is beginning to move
+   *
+   * @event movingEntity
+   * @param {Hiraya.Entity} entity The entity in question
+   * @param {Hiraya.Tile} startTile tile that the entity will start from
+   * @param {Hiraya.Tile} endTile tile that the entity will go to
+   */
+  movingEntity: function(entity, startTile, endTile) {
+    this.emit(&#x27;event&#x27;, &#x27;movingEntity&#x27;, entity, startTile, endTile);
+  },
+
+  /**
+   * @event actingEntity
+   * @param {Hiraya.Entity} entity
+   * @param {Hiraya.Command} command
+   * @param {Array} targetEntities
+   */
+  actingEntity: function(entity, command, targetEntities) {
+    this.emit(&#x27;event&#x27;, &#x27;actingEntity&#x27;, entity, command, targetEntities);
+  },
+
+  /**
+   * @event actedEntity
+   * @param {Hiraya.Entity} entity
+   * @param {Hiraya.Command} command
+   * @param {Array} targetEntities
+   */
+  actedEntity: function(entity, command, targetEntities) {
+    this.emit(&#x27;event&#x27;, &#x27;actedEntity&#x27;, entity, command, targetEntities);
   }
 
 

@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-view"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Hiraya.Canvas", "classes/Hiraya.Class", "classes/Hiraya.Collection", "classes/Hiraya.Command", "classes/Hiraya.Emitter", "classes/Hiraya.Entity", "classes/Hiraya.Game", "classes/Hiraya.GetterSetter", "classes/Hiraya.HexagonUtil", "classes/Hiraya.Level", "classes/Hiraya.LevelTurnBased", "classes/Hiraya.Sprite", "classes/Hiraya.Stat", "classes/Hiraya.Stats", "classes/Hiraya.Tile", "classes/Hiraya.Tiles", "classes/Hiraya.TilesHex", "modules/hiraya", "modules/hiraya-core", "modules/hiraya-game", "modules/hiraya-util", "modules/hiraya-view"]'>
         </form>
     </div>
 </div>
@@ -55,6 +55,8 @@
                     
                         <li><a href="../classes/Hiraya.Collection.html">Hiraya.Collection</a></li>
                     
+                        <li><a href="../classes/Hiraya.Command.html">Hiraya.Command</a></li>
+                    
                         <li><a href="../classes/Hiraya.Emitter.html">Hiraya.Emitter</a></li>
                     
                         <li><a href="../classes/Hiraya.Entity.html">Hiraya.Entity</a></li>
@@ -62,6 +64,8 @@
                         <li><a href="../classes/Hiraya.Game.html">Hiraya.Game</a></li>
                     
                         <li><a href="../classes/Hiraya.GetterSetter.html">Hiraya.GetterSetter</a></li>
+                    
+                        <li><a href="../classes/Hiraya.HexagonUtil.html">Hiraya.HexagonUtil</a></li>
                     
                         <li><a href="../classes/Hiraya.Level.html">Hiraya.Level</a></li>
                     
@@ -77,6 +81,8 @@
                     
                         <li><a href="../classes/Hiraya.Tiles.html">Hiraya.Tiles</a></li>
                     
+                        <li><a href="../classes/Hiraya.TilesHex.html">Hiraya.TilesHex</a></li>
+                    
                 </ul>
             </div>
 
@@ -88,6 +94,8 @@
                         <li><a href="../modules/hiraya-core.html">hiraya-core</a></li>
                     
                         <li><a href="../modules/hiraya-game.html">hiraya-game</a></li>
+                    
+                        <li><a href="../modules/hiraya-util.html">hiraya-util</a></li>
                     
                         <li><a href="../modules/hiraya-view.html">hiraya-view</a></li>
                     
@@ -195,6 +203,13 @@
                         
                             <li class="index-item method">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_has" data-tablink="has">has</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_isEmpty" data-tablink="isEmpty">isEmpty</a>
 
                                 
                                 
@@ -353,7 +368,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_tile.js.html#l163"><code>src&#x2F;hiraya-game&#x2F;tile.js:163</code></a>
+        <a href="../files/src_hiraya-game_tile.js.html#l178"><code>src&#x2F;hiraya-game&#x2F;tile.js:178</code></a>
         
         </p>
 
@@ -456,7 +471,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_tile.js.html#l127"><code>src&#x2F;hiraya-game&#x2F;tile.js:127</code></a>
+        <a href="../files/src_hiraya-game_tile.js.html#l132"><code>src&#x2F;hiraya-game&#x2F;tile.js:132</code></a>
         
         </p>
 
@@ -512,6 +527,75 @@
 </div>
 
                 
+                    <div id="method_isEmpty" class="method item">
+    <h3 class="name"><code>isEmpty</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_hiraya-game_tile.js.html#l168"><code>src&#x2F;hiraya-game&#x2F;tile.js:168</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Tells if the tile has no occupants in it</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    Boolean
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method_isOccupied" class="method item">
     <h3 class="name"><code>isOccupied</code></h3>
 
@@ -548,7 +632,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_tile.js.html#l153"><code>src&#x2F;hiraya-game&#x2F;tile.js:153</code></a>
+        <a href="../files/src_hiraya-game_tile.js.html#l158"><code>src&#x2F;hiraya-game&#x2F;tile.js:158</code></a>
         
         </p>
 
@@ -617,7 +701,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_tile.js.html#l100"><code>src&#x2F;hiraya-game&#x2F;tile.js:100</code></a>
+        <a href="../files/src_hiraya-game_tile.js.html#l105"><code>src&#x2F;hiraya-game&#x2F;tile.js:105</code></a>
         
         </p>
 
@@ -694,7 +778,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_tile.js.html#l114"><code>src&#x2F;hiraya-game&#x2F;tile.js:114</code></a>
+        <a href="../files/src_hiraya-game_tile.js.html#l119"><code>src&#x2F;hiraya-game&#x2F;tile.js:119</code></a>
         
         </p>
 
@@ -783,7 +867,7 @@
             
         
         
-        <a href="../files/src_hiraya-game_tile.js.html#l138"><code>src&#x2F;hiraya-game&#x2F;tile.js:138</code></a>
+        <a href="../files/src_hiraya-game_tile.js.html#l143"><code>src&#x2F;hiraya-game&#x2F;tile.js:143</code></a>
         
         </p>
 

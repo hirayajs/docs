@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/hiraya-core/class.js - hiraya</title>
+    <title>hiraya-util - hiraya</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.7.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -135,170 +135,51 @@
                 <div id="docs-main">
                     <div class="content">
                         <div class="page-header">
-    <h1>src/hiraya-core/class.js <small>File</small></h1>
+    <h1>hiraya-util <small>Module</small></h1>
 </div>
 
-<div class="file">
-    <pre class="prettyprint linenums">
-/**
- * @module hiraya
- * @submodule hiraya-core
- */
+<div class="clearfix well well-small">
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_hiraya-util_hexagon-util.js.html#l7"><code>src&#x2F;hiraya-util&#x2F;hexagon-util.js:7</code></a>
+        </div>
+    
+
+    
+</div>
 
 
-/**
- * Flag to prevent the Class.proto.init from being invoked during initialization
- */
-var start = true;
 
-/**
- * Creates a shim for invoking a this._super() command by wrapping it inside a closure
- */
-function protoSuper(prototype, name, method) {
-  return function() {
-    this._super = prototype[name];
-    return method.apply(this, arguments);
-  };
-}
+<div class="moduledesc well well-small">
+    <p>A static utility class for laying out hexagonal board games.</p>
+</div>
 
-function isClassObject(fn) {
-  var truth = false;
-  for (var key in fn.prototype) {
-    truth = true;
-  }
-  return truth;
-}
 
-/**
- * Extends an object&#x27;s properties and assign them as prototypes in a Function
- */
-function extendClass(BaseClass, properties) {
-  var _super = BaseClass.prototype;
-  start = false;
-  var prototype = new BaseClass();
-  start = true;
-  var attribute;
-  // iterate over the properties and copy them.
-  for(var name in properties) {
-    if (properties.hasOwnProperty(name)) {
-      attribute = properties[name];
-      prototype[name] = typeof _super[name] === &#x27;function&#x27; &amp;&amp;
-        typeof attribute === &#x27;function&#x27; &amp;&amp;
-        // check if it&#x27;s a Class by checking its list of prototype properties
-        // no _super should be assigned if ever.
-        !isClassObject(attribute) ? // make sure we&#x27;re assigning a proto _super only for functions
-        protoSuper(_super, name, attribute) :
-        attribute;
-    }
-  }
 
-  /**
-   * &#x60;Hiraya.Class&#x60; is the heart of all Hiraya objects. It can be used for prototypal inheritance.
-   *
-   *     var Human = Hiraya.Class.extend({
-   *        baseHealth: 100,
-   *        baseAttack: 10,
-   *        health: null,
-   *        init: function() {
-   *          this.health = this.baseHealth;
-   *        },
-   *        attack: function(enemy) {
-   *          this.enemy.health -= this.baseAttack;
-   *        }
-   *     });
-   *
-   *     var Orc = Human.extend({
-   *        baseHealth: 200,
-   *        attack: function(enemy) {
-   *          // class methods have _super methods
-   *          this._super(enemy);
-   *          this.shout(&#x27;waaagh!&#x27;);
-   *        },
-   *        shout: function(message) {
-   *          alert(message);
-   *        }
-   *     });
-   *
-   *     var human = Human.create();
-   *     var Orc = Orc.create();
-   *
-   *     // You can also override certain properties on instantiation
-   *     var superman = Human.create({
-   *        baseHealth: 10000,
-   *        baseAttack: 10000
-   *     });
-   * 
-   * @class Class
-   * @namespace Hiraya
-   */
-  function Class() {
-    // use the init method to define your constructor&#x27;s content.
-    if (start &amp;&amp; this.init &amp;&amp; this.init.apply) {
-      this.init.apply(this, arguments);
-    }
-  }
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        
+            <p>This module provides the following classes:</p>
 
-  Class.prototype = prototype;
-  Class.prototype.constructor = Class;
-  /**
-   * Extends the base class
-   * @method extend
-   * @param {Object} attributes*
-   * @static
-   * @return Class
-   */
-  Class.extend = function(attributes) {
-    var attributesArray = Array.prototype.slice.apply(arguments, arguments, 0);
-    var attribs = {};
-    for (var i=0; i &lt; attributesArray.length; i++) {
-      var attrib = attributesArray[i];
-      for(var key in attrib) {
-        if (attrib.hasOwnProperty(key)) {
-          attribs[key] = attrib[key];
-        }
-      }
-    }
-    return extendClass(Class, attribs);
-  };
+            <ul class="module-classes">
+            
+                <li class="module-class">
+                    <a href="../classes/Hiraya.HexagonUtil.html">
+                        Hiraya.HexagonUtil
+                    </a>
+                </li>
+            
+            </ul>
+        
+    </div>
 
-  /**
-   * Instatiates the class. You can optionally pass attributes to set as its default value.
-   *
-   * example:
-   *
-   *     var Car = Class.extend({
-   *       accleration: 10,
-   *       accelerate: function() {
-   *         this.position += this.acceleration;
-   *       }
-   *     });
-   *
-   *     var Ferrari = Car.create({
-   *       acceleration: 100
-   *     });
-   *
-   * @method create
-   * @param {Object} attributes
-   * @static
-   * @return Class
-   */
-  Class.create = function(attributes) {
-    var ClassExtend;
-    if (typeof attributes === &#x27;object&#x27;) {
-      ClassExtend = Class.extend(attributes);
-      return new ClassExtend();
-    } else {
-      return new Class();
-    }
-  };
-  return Class;
-}
-
-var Class = extendClass(function(){}, {});
-
-module.exports = Class;
-
-    </pre>
+    <div class="yui3-u-1-2">
+        
+    </div>
 </div>
 
                     </div>
